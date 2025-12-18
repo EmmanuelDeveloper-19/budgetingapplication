@@ -1,0 +1,18 @@
+#Producción
+#Options -MultiViews
+#RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+#RewriteBase /gestion/public
+#RewriteRule ^(.*)$ https://optimizacion-online.net/$1 [R,L]
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^(.+)$ index.php?url=$1
+
+#Local
+Options -MultiViews
+RewriteEngine On
+#Revisar en que dirección o carpeta esta
+RewriteBase /budgetingapp/aplicacion/public
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)$ index.php?url=$1

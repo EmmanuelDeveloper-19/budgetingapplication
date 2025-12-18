@@ -1,0 +1,57 @@
+:root {
+    --bg: #f0f0f0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    background: var(--bg);
+}
+
+.container {
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.card {
+    width: 500px;
+}
+
+.password {
+    position: relative;
+    width: 100%;
+}
+
+.password .form-control {
+    /* El input ya tiene estilos de Bootstrap, generalmente block, solo aseguramos que tenga padding a la derecha */
+    padding-right: 40px; /* Espacio extra para que el botón no tape el texto */
+}
+
+.password .eye-button {
+    /* 2. Posicionamiento absoluto */
+    position: absolute; 
+    top: 50%; /* Centrar verticalmente */
+    right: 5px; /* Separación desde el borde derecho */
+    
+    /* 3. Estilos visuales */
+    transform: translateY(-50%); /* Ajuste fino para centrado vertical perfecto */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 5px; /* Ajusta el padding para el área de clic */
+    height: 100%; /* Hace que el área de clic sea más alta (opcional) */
+}
+
+.disabled{
+    display: none!important;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
