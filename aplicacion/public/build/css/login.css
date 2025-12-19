@@ -1,57 +1,183 @@
 :root {
-    --bg: #f0f0f0;
+    --bg: #f8f1f8;
+    --radius: 12px;
+    --radius-full: 99em;
+    --shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+    --text-dark: #333;
+    --text-medium: #555;
+    --text-light: #777;
+    --primary: #d87fd1;
+    --primary-hover: #c76ac0;
+    --border: #e1e1e1;
+    --error: #dc3545;
+    --success: #28a745;
 }
 
-body {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    width: 100%;
-    background: var(--bg);
 }
 
-.container {
-    height: 100vh;
-    width: 100%;
-    justify-content: center;
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
-.card {
-    width: 500px;
-}
-
-.password {
-    position: relative;
+.login-container {
     width: 100%;
+    max-width: 400px;
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2.5rem 2rem;
 }
 
-.password .form-control {
-    /* El input ya tiene estilos de Bootstrap, generalmente block, solo aseguramos que tenga padding a la derecha */
-    padding-right: 40px; /* Espacio extra para que el botón no tape el texto */
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
-.password .eye-button {
-    /* 2. Posicionamiento absoluto */
-    position: absolute; 
-    top: 50%; /* Centrar verticalmente */
-    right: 5px; /* Separación desde el borde derecho */
-    
-    /* 3. Estilos visuales */
-    transform: translateY(-50%); /* Ajuste fino para centrado vertical perfecto */
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0 5px; /* Ajusta el padding para el área de clic */
-    height: 100%; /* Hace que el área de clic sea más alta (opcional) */
+.login-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
 }
 
-.disabled{
-    display: none!important;
+.login-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-light);
 }
 
-.column {
+.alert {
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid transparent;
+}
+
+.alert-danger {
+    background: rgba(220, 53, 69, 0.1);
+    border-color: rgba(220, 53, 69, 0.2);
+    color: var(--error);
+}
+
+.login-form {
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-medium);
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.password-group {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 4px;
+    font-size: 1rem;
+}
+
+.btn {
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.login-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.login-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.login-link:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 2rem 1.5rem;
+        margin: 0;
+    }
+    
+    .login-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Animación para el botón del ojo */
+.toggle-password i {
+    transition: transform 0.2s;
+}
+
+.toggle-password:hover i {
+    transform: scale(1.1);
 }

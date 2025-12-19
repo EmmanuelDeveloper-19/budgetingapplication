@@ -1,0 +1,235 @@
+:root {
+    --bg: #f8f1f8;
+    --radius: 12px;
+    --radius-full: 99em;
+    --shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+    --text-dark: #333;
+    --text-medium: #555;
+    --text-light: #777;
+    --primary: #d87fd1;
+    --primary-light: #f3b0ed;
+
+    --primary-hover: #c76ac0;
+    --border: #e1e1e1;
+    --error: #dc3545;
+    --success: #28a745;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+}
+
+/*=== SISTEMA DE COLUMNAS Y ELEMENTOS VARIOS === */
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+.col-md-3 {
+    width: 25%;
+}
+.col-md-6 {
+    width: 50%;
+}
+.col-md-9 {
+    width: 75%;
+}
+.col-md-12 {
+    width: 100%;
+}
+
+.mt-1 {
+    margin-top: 1rem;
+}
+
+
+/* === SISTEMA DE BOTONES == */
+.texto-resaltado {
+    background: var(--primary-light);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    width: fit-content;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    color: var(--text-dark);
+    border: 1px solid var(--text-dark);
+}
+
+.btn-secondary:hover {
+    background: var(--primary);
+}
+
+.link_add {
+    margin: 0 1rem ;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.link_add:hover {
+    color:var(--primary-hover);
+}
+
+/*=== ESTILOS PARA FORMULARIOS === */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+
+}
+
+.form-label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-medium);
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* === ESTILOS PARA EL NAVBAR === */
+.navbar {
+    width: 100%;
+    height: 70px;
+    border-bottom: 2px solid var(--text-dark);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+}
+
+.navbar .logo a{
+    color: var(--primary);
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+.navbar .nav-elements ul{
+    display: flex;
+    flex-direction: row;
+        gap: 1.5rem;
+
+}
+
+.navbar .nav-elements ul li {
+    list-style: none;
+}
+
+.navbar .nav-elements ul li a {
+    text-decoration: none;
+    font-size: 1rem;
+    color: var(--text-dark);
+    font-weight: bold;
+}
+
+.navbar .nav-elements ul li a:hover{
+    color: var(--primary);
+}
+
+.navbar .nav-account a {
+        color: var(--text-dark);
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.25rem;
+}
+
+.navbar .nav-account a:hover{
+    color: var(--primary);
+}
+
+
+/*=== HOME === */
+.content {
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Espacio entre múltiples tarjetas si las hay */
+}
+
+.lista-elementos {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Centra verticalmente imagen y textos */
+    padding: 1rem;
+    gap: 15px;
+}
+
+.lista-elementos img {
+    width: 24px; /* Un poco más grande para mejor visibilidad */
+    height: 24px;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.lista-elementos .info {
+    display: flex;
+    flex-grow: 1; /* ¡IMPORTANTE! Esto hace que el div ocupe todo el ancho disponible */
+    justify-content: space-between; /* Separa el nombre del precio */
+    align-items: center;
+}
+
+.lista-elementos .info strong {
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+}
+
+/* Estilo específico para el precio para que resalte */
+.lista-elementos .info strong:last-child {
+    color: #dc42d7; /* Usando tu color de marca */
+    font-weight: 800;
+}
+

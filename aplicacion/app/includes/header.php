@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App prestamos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>BudgetingApp</title>
+    <link rel="stylesheet" href="<?= PATH . 'build/css/custom.css?v=' . rand(0, 999999) ?>">
+
 </head>
+
 <body>
-    
+<?php require_once("components/navbar.php");?>
+<div class="container">
