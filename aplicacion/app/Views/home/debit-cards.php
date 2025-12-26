@@ -1,13 +1,34 @@
 <div class="content">
     <div class="texto-resaltado">
-        <p>Tarjetas de debito</p>
+        <p>Tarjetas de débito</p>
     </div>
-    <div class="lista-elementos">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Roblox_%282025%29_%28App_Icon%29.svg/500px-Roblox_%282025%29_%28App_Icon%29.svg.png"
-            alt="">
-        <div class="info">
-            <strong>Roblox</strong>
-            <strong>$1000</strong>
+
+    <?php if (empty($data['debitCards'])): ?>
+        <div class="empty-state">
+            <p>No hay tarjetas de debito agregadas</p>
         </div>
-    </div>
+    <?php else: ?>
+        <?php foreach ($data['debitCards'] as $d): ?>
+            <div class="lista-elementos">
+
+                <img src="<?= PATH . 'assets/' . $d['banco'] . '.png'; ?>" alt="">
+
+                <div class="info">
+                    <strong><?= ucfirst($d['banco']); ?></strong>
+                    <strong>$<?= number_format($d['balance'], 2); ?></strong>
+                </div>
+
+                <!-- Menú de opciones -->
+                <div class="menu-opciones">
+                    <button class="menu-btn">⋮</button>
+                    <div class="menu-dropdown">
+                        <a href="<?= PATH . 'debitCardController/editar/' . $d['id']; ?>">Editar</a>
+                        <a href="<?= PATH . 'debitCardController/delete/' . $d['id']; ?>" class="danger">Eliminar</a>
+                    </div>
+                </div>
+
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+    <a href="<?= PATH . 'debitCardController/nuevo'; ?>" class="link_add">Añadir tarjeta de débito</a>
 </div>

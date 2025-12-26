@@ -1,12 +1,11 @@
 
-
 <div class="row">
     <div class="col-md-3">
         <div class="content">
             <div class="texto-resaltado">
                 <p>Patrimonio neto</p>
             </div>
-            <h1>$ <?= $data['user']['balance'];?></h1>
+            <h1>$ <?= $data['user']['balance']; ?></h1>
         </div>
 
         <?php require_once("accounts.php"); ?>
@@ -23,8 +22,8 @@
                     Agregar transacción
                 </a>
             </div>
-            <?php 
-            include("transaction-list.php");?>
+            <?php
+            include("transaction-list.php"); ?>
         </div>
     </div>
 </div>

@@ -138,6 +138,19 @@ class Db
         $connection = $this->connect();
         return $connection->real_escape_string($value);
     }
+
+    /* === NUEVOS MÉTODOS PARA TRANSACCIONES === */
+    public function beginTransaction() {
+        $this->connect()->begin_transaction();
+    }
+
+    public function commit() {
+        $this->connect()->commit();
+    }
+
+    public function rollback() {
+        $this->connect()->rollback();
+    }
 }
 
 ?>

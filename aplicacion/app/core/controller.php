@@ -17,14 +17,10 @@
 		}
 
 		public function view($view, $data = []){
-			//$tmp = $this->model('ticket');
-
-			//$data['tmp'] 	= $tmp->get_estadisticas();
-			//$data['user'] 	=  $_SESSION['op_user_session'][0];
-			//$data['sidebar'] = $this->get_sidebar( $data['user']['id_rol'] );
 
 			require_once INCLUDES . 'header.php';
-			//require_once INCLUDES . "response.php"; 
+			require_once INCLUDES . "response.php"; 
+			require_once INCLUDES . "alerts.php";
 			require_once VIEWS . $view . ".php";
 			require_once INCLUDES . 'footer.php';
 		}	
