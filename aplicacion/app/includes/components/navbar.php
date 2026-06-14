@@ -11,7 +11,7 @@
                 <a href="">Transacciones</a>
             </li>
             <li>
-                <a href="">Balanace Mensual</a>
+                <a href="">Balance Mensual</a>
             </li>
             <li>
                 <a href="<?= PATH . ''?>">Lista de deseos</a>
@@ -19,6 +19,6 @@
         </ul>
     </div>
     <div class="nav-account">
-        <a href="<?= PATH . 'userprofilecontroller/index'?>">Cuenta</a>
+        <a href="<?= PATH . 'userprofilecontroller/index'?>" class="btn-account">Cuenta</a>
     </div>
 </div>

@@ -207,29 +207,33 @@ strong {
 }
 
 /* === ESTILOS PARA EL NAVBAR === */
+/* === ESTILOS PARA EL NAVBAR === */
 .navbar {
     width: 100%;
-    height: 70px;
-    border-bottom: 2px solid var(--text-dark);
-    padding: 1.5rem 2rem;
+    height: 75px;
+    background-color: #ffffff; /* Fondo limpio */
+    box-shadow: var(--shadow); /* Usamos tu sombra sutil en lugar de la línea negra */
+    padding: 0 3rem; /* Espaciado lateral */
     display: flex;
-    justify-content: center;
+    justify-content: space-between; /* 💡 Logo a la izq, Links al centro, Cuenta a la der */
     align-items: center;
-    gap: 5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100; /* Se queda fija arriba si haces scroll */
 }
 
-.navbar .logo a{
+.navbar .logo a {
     color: var(--primary);
-    font-weight: bold;
+    font-weight: 800; /* Un poco más grueso para que resalte el logo */
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
 }
 
-.navbar .nav-elements ul{
+.navbar .nav-elements ul {
     display: flex;
     flex-direction: row;
-        gap: 1.5rem;
-
+    gap: 2.5rem; /* Separación balanceada entre links */
 }
 
 .navbar .nav-elements ul li {
@@ -238,26 +242,56 @@ strong {
 
 .navbar .nav-elements ul li a {
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    color: var(--text-medium); /* Un tono más suave que el negro puro */
+    font-weight: 600;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: color 0.2s ease;
+}
+
+/* Microanimación de línea inferior al pasar el mouse por los links */
+.navbar .nav-elements ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.navbar .nav-elements ul li a:hover {
+    color: var(--primary);
+}
+
+.navbar .nav-elements ul li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* Estilización del Botón "Cuenta" */
+.navbar .nav-account .btn-account {
     color: var(--text-dark);
     font-weight: bold;
-}
-
-.navbar .nav-elements ul li a:hover{
-    color: var(--primary);
-}
-
-.navbar .nav-account a {
-        color: var(--text-dark);
-    font-weight: bold;
     text-decoration: none;
-    font-size: 1.25rem;
+    font-size: 0.95rem;
+    background: var(--primary-light); /* Fondo lila suave */
+    padding: 0.6rem 1.4rem;
+    border-radius: var(--radius-full); /* Forma de píldora redondeada */
+    transition: all 0.2s ease;
+    display: inline-block;
 }
 
-.navbar .nav-account a:hover{
-    color: var(--primary);
+.navbar .nav-account .btn-account:hover {
+    background: var(--primary); /* Cambia al lila fuerte */
+    color: #ffffff; /* Letras blancas al hacer hover */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(216, 127, 209, 0.3); /* Brillo sutil de su propio color */
 }
-
 
 /*=== HOME === */
 .content {

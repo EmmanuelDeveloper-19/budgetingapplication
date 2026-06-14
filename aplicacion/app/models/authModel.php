@@ -11,19 +11,13 @@ class AuthModel extends Db
     {
         parent::__construct();
     }
+    => === /=
 
     /**
      * Registrar un nuevo usuario
      */
     public function register(array $data)
     {
-        error_log("=== REGISTER MODEL ===");
-        error_log("Datos: " . print_r($data, true));
-        
-        if (empty($data['username']) || empty($data['password'])) {
-            error_log("Error: Datos incompletos");
-            return false;
-        }
 
         $username = trim($data['username']);
         $password = $data['password'];
@@ -37,6 +31,8 @@ class AuthModel extends Db
             return false;
         }
 
+
+        
         // Crear hash de la contraseña
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         error_log("Password original: " . $password);
