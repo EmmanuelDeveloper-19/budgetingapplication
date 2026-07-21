@@ -11,7 +11,6 @@ class AuthModel extends Db
     {
         parent::__construct();
     }
-    => === /=
 
     /**
      * Registrar un nuevo usuario
