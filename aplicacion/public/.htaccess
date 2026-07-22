@@ -12,7 +12,7 @@ RewriteCond %{SERVER_PORT} 80
 Options -MultiViews
 RewriteEngine On
 #Revisar en que dirección o carpeta esta
-RewriteBase /budgetingapplication/aplicacion/public
+RewriteBase /budgetingapp/aplicacion/public
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.+)$ index.php?url=$1

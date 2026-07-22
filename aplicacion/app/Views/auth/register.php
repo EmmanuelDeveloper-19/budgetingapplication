@@ -23,7 +23,7 @@
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="<?= PATH ?>login/register" id="registerForm" class="login-form">
+        <form method="POST" action="<?= PATH ?>register" id="registerForm" class="login-form">
             <input type="hidden" name="type" value="register">
 
             <div class="form-group">
