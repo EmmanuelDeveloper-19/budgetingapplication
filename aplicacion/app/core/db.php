@@ -7,7 +7,6 @@ class Db
 
     public function __construct() {
         self::$connection = null;
-        $this->id = 0;
         $this->response = null;
     }
 
@@ -28,8 +27,9 @@ class Db
             $prefix = "";
             $config = parse_ini_file(MAIN_ROOT . '/configuration.ini');
 
-            if ($_SERVER['HTTP_HOST'] == 'localhost')
+            if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] == 'localhost') {
                 $prefix = "dev_";
+            }
 
             self::$connection = new mysqli(
                 $config[$prefix . 'hosting'],
@@ -72,23 +72,42 @@ class Db
 
         if ($stmt->execute()) {
             if ($get_last_id) {
-                return $stmt->insert_id;
+                $last_id = $stmt->insert_id;
+                $stmt->close();
+                return $last_id;
             } else {
-                return $stmt->affected_rows;
+                $affected = $stmt->affected_rows;
+                $stmt->close();
+                return $affected;
             }
         }
 
+        $stmt->close();
         return false;
     }
 
-    public function preparedSelect($query, $types, $data) {
+    public function preparedSelect($query, $types = "", $data = []) {
         $stmt = $this->get_prepared_statement($query, $types, $data);
 
         if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            
+            // Si el driver nativo retorna un resultado MySQLi directo
+            if ($result !== false) {
+                $rows = $result->fetch_all(MYSQLI_ASSOC);
+                $stmt->close();
+                return $rows;
+            }
+            
+            // Fallback en caso de no contar con mysqlnd habilitado
             $meta = $stmt->result_metadata();
+            if (!$meta) {
+                $stmt->close();
+                return [];
+            }
+
             $params = [];
             $row = [];
-            
             while ($field = $meta->fetch_field()) {
                 $params[] = &$row[$field->name];
             }
@@ -104,6 +123,7 @@ class Db
                 $rows[] = $tmp;
             }
 
+            $stmt->close();
             return $rows;
         }
 
@@ -112,20 +132,23 @@ class Db
     }
 
     private function get_prepared_statement($query, $types, $data) {
-        $params = [];
-        $params[] = $types;
-        
-        foreach ($data as $index => $value) {
-            $params[] = &$data[$index];
-        }
-
         $stmt = $this->connect()->prepare($query);
 
         if ($stmt === false) {
             throw new Exception('Failed to prepare statement: ' . $this->connect()->error);
         }
 
-        call_user_func_array([$stmt, 'bind_param'], $params);
+        // CORRECCIÓN: Solo hace bind_param si realmente hay tipos y parámetros
+        if (!empty($types) && !empty($data)) {
+            $params = [];
+            $params[] = $types;
+            
+            foreach ($data as $index => $value) {
+                $params[] = &$data[$index];
+            }
+
+            call_user_func_array([$stmt, 'bind_param'], $params);
+        }
 
         return $stmt;
     }
@@ -139,7 +162,7 @@ class Db
         return $connection->real_escape_string($value);
     }
 
-    /* === NUEVOS MÉTODOS PARA TRANSACCIONES === */
+    /* === MÉTODOS PARA TRANSACCIONES === */
     public function beginTransaction() {
         $this->connect()->begin_transaction();
     }
@@ -152,5 +175,4 @@ class Db
         $this->connect()->rollback();
     }
 }
-
 ?>

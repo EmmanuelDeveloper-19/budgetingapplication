@@ -10,80 +10,79 @@ class Login extends Controller
         $redirect = PATH;
         $error = null;
 
-        // DEBUG: Verificar si ya está logueado
-        error_log("=== LOGIN CONTROLLER ===");
-        error_log("Acción solicitada: " . $action);
-        error_log("¿Usuario logueado? " . ($this->is_user_logged() ? "SÍ" : "NO"));
-
         if ($this->is_user_logged()) {
-            error_log("Usuario ya logueado, redirigiendo a home");
             header('Location: ' . PATH);
             exit();
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            error_log("POST recibido: " . print_r($_POST, true));
             
             $type = $_POST['type'] ?? 'login';
             $username = trim($_POST['username'] ?? '');
             $password = $_POST['password'] ?? '';
 
-            // Validación básica
-            if (empty($username) || empty($password)) {
-                $error = "Por favor, completa todos los campos";
-                error_log("Validación fallida: campos vacíos");
-            } else {
-                switch ($type) {
-                    case "register":
-                        error_log("=== PROCESANDO REGISTRO ===");
-                        error_log("Username: " . $username);
-                        error_log("Password length: " . strlen($password));
+            if ($type === "register") {
+                // Captura de los nuevos campos para el registro
+                $name = trim($_POST['name'] ?? '');
+                $last_name = trim($_POST['last_name'] ?? '');
 
-                        if ($authenticacion->register(['username' => $username, 'password' => $password])) {
-                            error_log("Registro exitoso, procediendo a auto-login");
-                            
-                            // Auto-login después del registro
-                            $jwt_token = $authenticacion->login([
-                                'username' => $username, 
-                                'password' => $password
-                            ]);
-                            
-                            if ($jwt_token) {
-                                error_log("Auto-login exitoso");
-                                $this->setAuthCookie($jwt_token);
-                                header('Location: ' . PATH);
-                                exit();
-                            } else {
-                                error_log("Auto-login falló, redirigiendo a login manual");
-                                $error = "Registro exitoso. Por favor, inicia sesión.";
-                            }
-                        } else {
-                            error_log("Registro fallido");
-                            $error = "Error al registrar. El usuario ya puede existir.";
-                        }
-                        break;
+                // Validación de campos vacíos para registro
+                if (empty($username) || empty($password) || empty($name) || empty($last_name)) {
+                    $error = "Por favor, completa todos los campos requeridos.";
+                } else {
 
-                    default: // LOGIN
-                        error_log("=== PROCESANDO LOGIN ===");
-                        error_log("Username: " . $username);
+                    $register_data = [
+                        'name'      => $name,
+                        'last_name' => $last_name,
+                        'username'  => $username,
+                        'password'  => $password
+                    ];
+
+                    if ($authenticacion->register($register_data)) {
+                        error_log("Registro exitoso, procediendo a auto-login");
                         
-                        $login_data = [
-                            'username' => $username,
+                        // Auto-login después del registro
+                        $jwt_token = $authenticacion->login([
+                            'username' => $username, 
                             'password' => $password
-                        ];
-
-                        $jwt_token = $authenticacion->login($login_data);
+                        ]);
                         
                         if ($jwt_token) {
-                            error_log("Login exitoso, generando cookie");
+                            error_log("Auto-login exitoso");
                             $this->setAuthCookie($jwt_token);
-                            header('Location: ' . $redirect);
+                            header('Location: ' . PATH);
                             exit();
                         } else {
-                            error_log("Login fallido - credenciales incorrectas");
-                            $error = "Usuario o contraseña incorrectos.";
+                            error_log("Auto-login falló, redirigiendo a login manual");
+                            $error = "Registro exitoso. Por favor, inicia sesión.";
                         }
-                        break;
+                    } else {
+                        error_log("Registro fallido en el modelo");
+                        $error = "Error al registrar. El usuario o correo ya puede existir.";
+                    }
+                }
+            } else {
+                // LOGIN POR DEFECTO
+                if (empty($username) || empty($password)) {
+                    $error = "Por favor, ingresa tu usuario y contraseña.";
+                } else {
+                    
+                    $login_data = [
+                        'username' => $username,
+                        'password' => $password
+                    ];
+
+                    $jwt_token = $authenticacion->login($login_data);
+                    
+                    if ($jwt_token) {
+                        error_log("Login exitoso, generando cookie");
+                        $this->setAuthCookie($jwt_token);
+                        header('Location: ' . $redirect);
+                        exit();
+                    } else {
+                        error_log("Login fallido - credenciales incorrectas");
+                        $error = "Usuario o contraseña incorrectos.";
+                    }
                 }
             }
         }
@@ -91,6 +90,7 @@ class Login extends Controller
         // Determinar qué vista mostrar
         switch ($action) {
             case 'register':
+            case 'reset':
                 $view = "auth/register";
                 break;
             default:
@@ -104,24 +104,17 @@ class Login extends Controller
 
     private function setAuthCookie($jwt_token)
     {
-        error_log("=== ESTABLECIENDO COOKIE JWT ===");
-        error_log("Token (inicio): " . substr($jwt_token, 0, 50) . "...");
         
-        // Eliminar cookie existente primero
         setcookie('jwt_token', '', time() - 3600, '/');
         
-        // Establecer nueva cookie
         $result = setcookie('jwt_token', $jwt_token, [
-            'expires' => time() + (3600 * 24), // 1 día
-            'path' => '/',
+            'expires'  => time() + (3600 * 24), // 1 día
+            'path'     => '/',
             'httponly' => true,
-            'secure' => false, // Cambiar a true en producción con HTTPS
+            'secure'   => false, // Cambiar a true en producción con HTTPS
             'samesite' => 'Lax'
         ]);
         
-        error_log("Cookie establecida: " . ($result ? "ÉXITO" : "FALLÓ"));
-        
-        // También establecer en $_COOKIE para acceso inmediato
         if ($result) {
             $_COOKIE['jwt_token'] = $jwt_token;
         }
@@ -140,7 +133,6 @@ class Login extends Controller
             return true;
         } catch (Exception $e) {
             error_log("Error validando JWT: " . $e->getMessage());
-            // Limpiar cookie inválida
             setcookie('jwt_token', '', time() - 3600, '/');
             unset($_COOKIE['jwt_token']);
             return false;

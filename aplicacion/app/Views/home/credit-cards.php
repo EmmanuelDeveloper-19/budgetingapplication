@@ -9,9 +9,9 @@
     <?php else: ?>
         <?php foreach ($data['creditCards'] as $c): ?>
             <div class="lista-elementos">
-                <img src="<?= PATH . 'assets/' . $c['banco'] . '.png'; ?>" alt="">
+                <img src="<?= PATH . 'assets/' . $c['bank'] . '.png'; ?>" alt="">
                 <div class="info">
-                    <strong><?= $c['banco']; ?></strong>
+                    <strong><?= $c['bank']; ?></strong>
                     <strong>$<?= $c['balance_total']; ?></strong>
                 </div>
                 <!-- Menú de opciones -->

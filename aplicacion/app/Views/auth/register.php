@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - Prestamos App</title>
     <link href="<?= PATH . 'build/css/login.css?v=' . rand(0, 999999) ?>" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -16,6 +14,7 @@
         <div class="login-header">
             <h1 class="login-title">Registro de Usuario</h1>
         </div>
+        
         <?php if (isset($data['error']) && $data['error']): ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <?= htmlspecialchars($data['error']) ?>
@@ -23,13 +22,25 @@
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="<?= PATH ?>register" id="registerForm" class="login-form">
+        <form method="POST" action="<?= PATH . 'login/register' ?>" id="registerForm" class="login-form">
             <input type="hidden" name="type" value="register">
 
             <div class="form-group">
-                <label for="username" class="form-label">Usuario:</label>
+                <label for="name" class="form-label">Nombre:</label>
+                <input type="text" id="name" name="name" class="form-control"
+                    placeholder="Ingresa tu nombre" required autocomplete="given-name">
+            </div>
+
+            <div class="form-group">
+                <label for="last_name" class="form-label">Apellido:</label>
+                <input type="text" id="last_name" name="last_name" class="form-control"
+                    placeholder="Ingresa tu apellido" required autocomplete="family-name">
+            </div>
+
+            <div class="form-group">
+                <label for="username" class="form-label">Usuario / Correo:</label>
                 <input type="text" id="username" name="username" class="form-control"
-                    placeholder="Ingresa tu nombre de usuario" required minlength="3" autocomplete="username">
+                    placeholder="Ingresa tu usuario o email" required minlength="3" autocomplete="username">
                 <small class="form-text text-muted">Mínimo 3 caracteres</small>
             </div>
 
@@ -37,12 +48,13 @@
                 <label for="password" class="form-label">Contraseña</label>
                 <div class="password-group">
                     <input type="password" id="password" name="password" class="form-control" placeholder="••••••••"
-                        required autocomplete="current-password">
+                        required autocomplete="new-password">
                     <button type="button" class="toggle-password" onclick="togglePassword()">
                         <i class="fas fa-eye"></i>
                     </button>
                 </div>
             </div>
+            
             <button type="submit" class="btn btn-primary">Registrarse</button>
 
             <div class="login-links">
@@ -51,11 +63,8 @@
         </form>
 
     </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Ohx3xPnY4n4x9C8qd57U48xOjz4M1pR+TIhVzI6vZj1w0KN/TfgCQjpKlRqTw2kS"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         function togglePassword() {
@@ -71,9 +80,9 @@
             }
         }
 
-        // Enfocar automáticamente el primer input
+        // Enfocar automáticamente el primer input (Nombre)
         document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('username').focus();
+            document.getElementById('name').focus();
         });
     </script>
 </body>

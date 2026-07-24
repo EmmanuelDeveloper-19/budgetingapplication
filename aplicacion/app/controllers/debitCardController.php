@@ -15,13 +15,13 @@ class DebitCardController extends Controller
         $userModel = $this->model('UserModel');
 
         $userData = $userModel->getCurrentUser();
-        $user_id = $userData['auth_id'];
+        $user_id = $userData['id'];
 
-        $banco = $_POST['banco'];
+        $banco = $_POST['bank'];
         $balance = $_POST['balance'];
 
         $data = [
-            'banco' => $banco,
+            'bank' => $banco,
             'balance' => $balance
         ];
 

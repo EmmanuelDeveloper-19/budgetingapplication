@@ -11,10 +11,10 @@
         <?php foreach ($data['debitCards'] as $d): ?>
             <div class="lista-elementos">
 
-                <img src="<?= PATH . 'assets/' . $d['banco'] . '.png'; ?>" alt="">
+                <img src="<?= PATH . 'assets/' . $d['bank'] . '.png'; ?>" alt="">
 
                 <div class="info">
-                    <strong><?= ucfirst($d['banco']); ?></strong>
+                    <strong><?= ucfirst($d['bank']); ?></strong>
                     <strong>$<?= number_format($d['balance'], 2); ?></strong>
                 </div>
 

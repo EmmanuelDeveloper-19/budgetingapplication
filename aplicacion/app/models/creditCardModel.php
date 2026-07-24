@@ -30,11 +30,11 @@ class CreditCardModel extends Db
     {
         $query = "SELECT
                 id,
-                banco,
-                dia_corte,
-                dia_pago,
-                balance_total,
-                deuda
+                bank,
+                statement_closing_date,
+                payment_date,
+                credit_limit,
+                outstanding_balance
               FROM {$this->table}
               WHERE user_id = ?";
 

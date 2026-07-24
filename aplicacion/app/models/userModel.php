@@ -12,7 +12,7 @@ class UserModel extends Db
         parent::__construct();
     }
 
-    public function getCurrentUser()
+public function getCurrentUser()
     {
         // Leer JWT desde cookie
         if (!isset($_COOKIE['jwt_token'])) {
@@ -24,20 +24,26 @@ class UserModel extends Db
             $jwt = $_COOKIE['jwt_token'];
             $payload = JWT::decode($jwt, new Key(JWT_SECRET, 'HS256'));
 
-            // Obtener user_id del payload
-            $user_id = $payload->data->user_id;
+            // CORRECCIÓN: Acceder a user_id que es la clave definida al generar el JWT
+            $data = $payload->data;
+            $user_id = is_array($data) ? ($data['user_id'] ?? $data['id'] ?? null) : ($data->user_id ?? $data->id ?? null);
+
+            if (!$user_id) {
+                return null;
+            }
 
             // Buscar usuario en la BD
             return $this->getUserProfileInfo($user_id);
 
         } catch (Exception $e) {
+            error_log("Error obteniendo usuario actual: " . $e->getMessage());
             return null;
         }
     }
 
     public function getUserById($user_id)
     {
-        $query = "SELECT id, email, is_active, created_at FROM {$this->table} WHERE id = ?";
+        $query = "SELECT id, username FROM {$this->table} WHERE id = ?";
         $result = $this->preparedSelect($query, "i", [$user_id]);
 
         if (empty($result)) {
@@ -61,22 +67,20 @@ class UserModel extends Db
         return $result > 0;
     }
 
-    public function getUserProfileInfo($user_id)
+public function getUserProfileInfo($user_id)
     {
-        $q = "SELECT a.id AS auth_id,
-                    a.email,
-                    a.created_at AS fecha_registro,
-                    a.is_active,
-                    p.id AS profile_id,
-                    p.user_id,
-                    p.nombre,
-                    p.apellido,
-                    p.telefono,
-                    p.fecha_nacimiento,
-                    p.balance
+        // CORRECCIÓN: a.idUser o p.id según cómo guardaste la relación
+        $q = "SELECT a.id AS id_auth,
+                     a.username,
+                     a.created_at AS fecha_registro,
+                     p.id AS id,
+                     p.name,
+                     p.last_name,
+                     p.balance
                 FROM authentication a
-                LEFT JOIN user_profiles p ON a.id = p.user_id
+                INNER JOIN users p ON a.idUser = p.id
                 WHERE a.id = ?";
+
         $result = $this->preparedSelect($q, "i", [$user_id]);
 
         if (empty($result)) {

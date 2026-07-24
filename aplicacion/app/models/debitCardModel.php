@@ -13,13 +13,13 @@ class DebitCardModel extends Db
     public function create($user_id, $data = [])
     {
         $q = "INSERT INTO debit_cards
-      (user_id, banco, balance)
+      (user_id, bank, balance)
       VALUES (?, ?, ?)";
 
 
         return $this->preparedQuery($q, 'isd', [
             $user_id,
-            $data['banco'],
+            $data['bank'],
             $data['balance']
         ]);
     }
@@ -28,7 +28,7 @@ class DebitCardModel extends Db
     {
         $query = "SELECT
                 id,
-                banco,
+                bank,
                 balance
               FROM {$this->table}
               WHERE user_id = ?";
