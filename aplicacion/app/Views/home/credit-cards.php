@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content dr-none">
     <div class="texto-resaltado">
         <p>Tarjetas de credito</p>
     </div>
@@ -12,13 +12,13 @@
                 <img src="<?= PATH . 'assets/' . $c['bank'] . '.png'; ?>" alt="">
                 <div class="info">
                     <strong><?= $c['bank']; ?></strong>
-                    <strong>$<?= $c['balance_total']; ?></strong>
+                    <strong>$<?= $c['credit_limit']; ?></strong>
                 </div>
                 <!-- Menú de opciones -->
                 <div class="menu-opciones">
                     <button class="menu-btn">⋮</button>
                     <div class="menu-dropdown">
-                        <a href="<?= PATH . 'creditCardController/editar/' . $c['id']; ?>">Editar</a>
+                        <a href="<?= PATH . 'creditCardController/editView/' . $c['id']; ?>">Editar</a>
                         <a href="<?= PATH . 'creditCardController/eliminar/' . $c['id']; ?>" class="danger">Eliminar</a>
                     </div>
                 </div>

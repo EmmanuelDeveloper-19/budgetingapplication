@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content dr-none">
     <div class="texto-resaltado">
         <p>Cuentas o subscripciones</p>
     </div>

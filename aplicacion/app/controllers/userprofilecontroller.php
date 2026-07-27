@@ -7,10 +7,20 @@ class UserprofileController extends Controller
     public function index()
     {
         $userModel = $this->model('UserModel');
+        $debitCardModel = $this->model('DebitCardModel');
+        $creditCardModel = $this->model('CreditCardModel');
+
+
         $userData = $userModel->getCurrentUser();
+        $user_id = $userData['id'];
+        $debitData = $debitCardModel->getByUserId($user_id);
+        $creditData = $creditCardModel->getByUserId($user_id);
+
         $this->view("userProfile/index", [
-            'user' => $userData
-        ]);
+            'user' => $userData,
+            'creditCards' => $creditData,
+            'debitData' => $debitData
+        ]); 
     }
 
     public function updateUserInfo($user_id = 0)
@@ -18,31 +28,24 @@ class UserprofileController extends Controller
         $model = $this->model('UserModel');
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nombre = $_POST['nombre'] ?? '';
-            $apellido = $_POST['apellido'] ?? '';
-            $telefono = $_POST['telefono'] ?? '';
-            $fecha_nacimiento = $_POST['fecha_nacimiento'] ?? null;
+            $name = $_POST['name'] ?? '';
+            $last_name = $_POST['last_name'] ?? '';
             $balance = $_POST['balance'] ?? 0.00;
 
-            // Usar el user_id del parámetro de la ruta si está disponible
             if ($user_id == 0 && isset($_POST['id'])) {
                 $user_id = $_POST['id'];
             }
 
             $data = [
-                'nombre' => $nombre,
-                'apellido' => $apellido,
-                'telefono' => $telefono,
-                'fecha_nacimiento' => $fecha_nacimiento,
+                'name' => $name,
+                'last_name' => $last_name,
                 'balance' => $balance
             ];
 
-            // Usar el método correcto del modelo
             if ($model->updateUserProfile($user_id, $data)) {
                 header("Location: " . PATH . "userprofilecontroller/index");
                 exit();
             } else {
-                // Mostrar error
                 $error = "Error al actualizar la información";
                 $userData = $model->getCurrentUser();
                 $this->view("userProfile/index", [
@@ -51,7 +54,6 @@ class UserprofileController extends Controller
                 ]);
             }
         } else {
-            // Si no es POST, redirigir
             header("Location: " . PATH . "userprofilecontroller/index");
             exit();
         }

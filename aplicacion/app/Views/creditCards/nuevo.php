@@ -5,80 +5,57 @@
 
             <?php if (isset($data['error'])): ?>
                 <div class="alert alert-danger">
-                    <?= $data['error'] ?>
+                    <?= $data['errorK'] ?>
                 </div>
             <?php endif; ?>
 
             <form action="<?= PATH . 'creditCardController/store'; ?>" method="POST" class="login-form">
 
-                <input type="hidden" name="user_id" value="<?= $data['old']['user_id'] ?? '' ?>" required>
+                <input type="hidden" name="user_id" value="<?= $data['user']['id'] ?? $data['old']['user_id'] ?? '' ?>"
+                    required>
 
-                <!-- Banco -->
                 <div class="form-group">
-                    <label for="banco" class="form-label">Banco:</label>
-                    <select class="form-control" name="banco" id="banco" required>
-                        <option value="">Selecciona un banco</option>
-                        <option value="uala" <?= ($data['old']['banco'] ?? '') === 'uala' ? 'selected' : '' ?>>Ualá</option>
-                        <option value="nu" <?= ($data['old']['banco'] ?? '') === 'nu' ? 'selected' : '' ?>>Nu</option>
-                        <option value="banco azteca" <?= ($data['old']['banco'] ?? '') === 'banco azteca' ? 'selected' : '' ?>>Banco Azteca</option>
-                        <option value="bbva" <?= ($data['old']['banco'] ?? '') === 'bbva' ? 'selected' : '' ?>>BBVA</option>
-                        <option value="santander" <?= ($data['old']['banco'] ?? '') === 'santander' ? 'selected' : '' ?>>Santander</option>
-                        <option value="banamex" <?= ($data['old']['banco'] ?? '') === 'banamex' ? 'selected' : '' ?>>Banamex</option>
+                    <label for="bank" class="form-label">Banco:</label>
+                    <select class="form-control" name="bank" id="bank" required>
+                        <option value="<?= $data['old']['statement_closing_date'] ?? 'Seleccione un banco' ?>">Selecciona
+                            un banco</option>
+                        <option value="uala" <?= ($data['old']['bank'] ?? '') === 'uala' ? 'selected' : '' ?>>Ualá</option>
+                        <option value="nu" <?= ($data['old']['bank'] ?? '') === 'nu' ? 'selected' : '' ?>>Nu</option>
+                        <option value="banco azteca" <?= ($data['old']['bank'] ?? '') === 'banco azteca' ? 'selected' : '' ?>>Banco Azteca</option>
+                        <option value="bbva" <?= ($data['old']['bank'] ?? '') === 'bbva' ? 'selected' : '' ?>>BBVA</option>
+                        <option value="santander" <?= ($data['old']['bank'] ?? '') === 'santander' ? 'selected' : '' ?>>
+                            Santander</option>
+                        <option value="banamex" <?= ($data['old']['bank'] ?? '') === 'banamex' ? 'selected' : '' ?>>Banamex
+                        </option>
+                        <option value="banamex" <?= ($data['old']['bank'] ?? '') === 'mercado libre' ? 'selected' : '' ?>>Mercado Libre
+                        </option>
+
                     </select>
                 </div>
 
-                <!-- Día de corte -->
                 <div class="form-group">
-                    <label for="dia_corte">Día de corte</label>
-                    <input 
-                        type="number"
-                        min="1"
-                        max="31"
-                        class="form-control"
-                        name="dia_corte"
-                        id="dia_corte"
-                        required
-                        value="<?= $data['old']['dia_corte'] ?? '' ?>">
+                    <label for="statement_closing_date">Fecha de corte</label>
+                    <input type="date" min="<?= date('Y-m-d') ?>" class="form-control" name="statement_closing_date"
+                        id="statement_closing_date" required
+                        value="<?= $data['old']['statement_closing_date'] ?? '' ?>">
                 </div>
 
-                <!-- Día de pago -->
                 <div class="form-group">
-                    <label for="dia_pago">Día de pago</label>
-                    <input 
-                        type="number"
-                        min="1"
-                        max="31"
-                        class="form-control"
-                        name="dia_pago"
-                        id="dia_pago"
-                        required
-                        value="<?= $data['old']['dia_pago'] ?? '' ?>">
+                    <label for="payment_date">Fecha de pago</label>
+                    <input type="date" min="<?= date('Y-m-d') ?>" class="form-control" name="payment_date"
+                        id="payment_date" required value="<?= $data['old']['payment_date'] ?? '' ?>">
                 </div>
 
-                <!-- Saldo disponible -->
                 <div class="form-group">
-                    <label for="balance_total">Saldo disponible</label>
-                    <input 
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        class="form-control"
-                        name="balance_total"
-                        id="balance_total"
-                        value="<?= $data['old']['balance_total'] ?? '0.00' ?>">
+                    <label for="credit_limit">Límite de crédito</label>
+                    <input type="number" step="0.01" min="0" class="form-control" name="credit_limit" id="credit_limit"
+                        required value="<?= $data['old']['credit_limit'] ?? '0.00' ?>">
                 </div>
 
-                <!-- Saldo pendiente -->
                 <div class="form-group">
-                    <label for="deuda">Saldo pendiente</label>
-                    <input 
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        class="form-control"
-                        name="deuda"
-                        id="deuda"
-                        value="<?= $data['old']['deuda'] ?? '0.00' ?>">
+                    <label for="outstanding_balance">Saldo pendiente (Deuda)</label>
+                    <input type="number" step="0.01" min="0" class="form-control" name="outstanding_balance"
+                        id="outstanding_balance" required value="<?= $data['old']['outstanding_balance'] ?? '0.00' ?>">
                 </div>
 
                 <button type="submit" class="btn btn-primary">

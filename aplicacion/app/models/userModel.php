@@ -12,7 +12,7 @@ class UserModel extends Db
         parent::__construct();
     }
 
-public function getCurrentUser()
+    public function getCurrentUser()
     {
         // Leer JWT desde cookie
         if (!isset($_COOKIE['jwt_token'])) {
@@ -61,15 +61,14 @@ public function getCurrentUser()
     }
     public function updateProfile($user_id, $data)
     {
-        $query = "UPDATE {$this->table} SET email = ? WHERE id = ?";
+        $query = "UPDATE {$this->table} SET username = ? WHERE id = ?";
         $result = $this->preparedQuery($query, "si", [$data['email'], $user_id]);
 
         return $result > 0;
     }
 
-public function getUserProfileInfo($user_id)
+    public function getUserProfileInfo($user_id)
     {
-        // CORRECCIÓN: a.idUser o p.id según cómo guardaste la relación
         $q = "SELECT a.id AS id_auth,
                      a.username,
                      a.created_at AS fecha_registro,
@@ -92,42 +91,17 @@ public function getUserProfileInfo($user_id)
 
     public function updateUserProfile($user_id, array $data)
     {
-        // Verificar si ya existe un perfil para este usuario
-        $checkQuery = "SELECT id FROM user_profiles WHERE user_id = ?";
-        $existing = $this->preparedSelect($checkQuery, "i", [$user_id]);
-
-        if (empty($existing)) {
-            // INSERT si no existe perfil
-            $query = "INSERT INTO user_profiles 
-                  (user_id, nombre, apellido, telefono, fecha_nacimiento, balance)
-                  VALUES (?, ?, ?, ?, ?, ?)";
-
-            return $this->preparedQuery($query, "issssd", [
-                $user_id,
-                $data['nombre'] ?? null,
-                $data['apellido'] ?? null,
-                $data['telefono'] ?? null,
-                $data['fecha_nacimiento'] ?? null,
-                $data['balance'] ?? 0.00
-            ]);
-        } else {
-            // UPDATE si ya existe
-            $query = "UPDATE user_profiles SET 
-                  nombre = ?,
-                  apellido = ?,
-                  telefono = ?,
-                  fecha_nacimiento = ?,
+        $query = "UPDATE users SET 
+                  name = ?,
+                  last_name = ?,
                   balance = ?
-                  WHERE user_id = ?";
+                  WHERE id = ?";
 
-            return $this->preparedQuery($query, "ssssdi", [
-                $data['nombre'] ?? null,
-                $data['apellido'] ?? null,
-                $data['telefono'] ?? null,
-                $data['fecha_nacimiento'] ?? null,
-                $data['balance'] ?? 0.00,
-                $user_id
-            ]);
-        }
+        return $this->preparedQuery($query, "ssdi", [
+            $data['name'] ?? null,
+            $data['last_name'] ?? null,
+            $data['balance'] ?? 0.00,
+            $user_id
+        ]);
     }
 }
