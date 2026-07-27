@@ -107,15 +107,15 @@ The system reads credentials dynamically via `parse_ini_file()`:
 ```ini
 [production]
 hosting = "127.0.0.1"
-username = "u529637583_wmaster20"
-password = "YOUR_PRODUCTION_PASSWORD"
-dbname = "u529637583_sigodb23"
+username = ""
+password = ""
+dbname = ""
 
 [development]
-dev_hosting = "127.0.0.1"
-dev_username = "root"
+dev_hosting = ""
+dev_username = ""
 dev_password = ""
-dev_dbname = "finsus_db"
+dev_dbname = ""
 ```
 
 > **Note on Security:** MySQL database connections remain bound to local loopback (`127.0.0.1`) while Apache serves incoming traffic across local network interfaces (`192.168.x.x`).
@@ -135,7 +135,7 @@ dev_dbname = "finsus_db"
 2. **Configure Database:**
    Import your database schema into MySQL:
    ```sql
-   CREATE DATABASE finsus_db CHARACTER SET utf8 COLLATE utf8_general_ci;
+   CREATE DATABASE your_db CHARACTER SET utf8 COLLATE utf8_general_ci;
    ```
 
 3. **Set Configuration:**
@@ -199,7 +199,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: finsus_db
+      MYSQL_DATABASE: db
     ports:
       - "3306:3306"
     volumes:
