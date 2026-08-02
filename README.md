@@ -1,4 +1,4 @@
-# BudgetingApp (SIGO DB)
+# BudgetingApp
 
 A custom PHP MVC web application designed for personal budget tracking, financial control, and account management. The system features dynamic multi-environment configuration (Development / Production), flexible routing, dynamic host detection for mobile testing, and JWT-based security.
 
