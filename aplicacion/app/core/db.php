@@ -5,37 +5,35 @@ class Db
     private static $connection;
     private $response;
 
-    public function __construct() {
+    public function __construct()
+    {
         self::$connection = null;
         $this->response = null;
     }
 
-    public function get_connection() {
+    public function get_connection()
+    {
         return self::$connection;
     }
 
-    public function set_response($response) {
+    public function set_response($response)
+    {
         $this->response = $response;
     }
 
-    public function get_response() {
+    public function get_response()
+    {
         return $this->response;
     }
 
-    public function connect() {
+    public function connect()
+    {
         if (!isset(self::$connection)) {
-            $prefix = "";
-            $config = parse_ini_file(MAIN_ROOT . '/configuration.ini');
-
-            if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] == 'localhost') {
-                $prefix = "dev_";
-            }
-
             self::$connection = new mysqli(
-                $config[$prefix . 'hosting'],
-                $config[$prefix . 'username'],
-                $config[$prefix . 'password'],
-                $config[$prefix . 'dbname']
+                $_ENV['DB_HOST'],
+                $_ENV['DB_USER'],
+                $_ENV['DB_PASSWORD'],
+                $_ENV['DB_NAME']
             );
 
             if (self::$connection->connect_error) {
@@ -48,11 +46,13 @@ class Db
         return self::$connection;
     }
 
-    public function query($query) {
+    public function query($query)
+    {
         return $this->connect()->query($query);
     }
 
-    public function select($query) {
+    public function select($query)
+    {
         $rows = [];
         $result = $this->query($query);
 
@@ -67,7 +67,8 @@ class Db
         return $rows;
     }
 
-    public function preparedQuery($query, $types, $data, $get_last_id = false) {
+    public function preparedQuery($query, $types, $data, $get_last_id = false)
+    {
         $stmt = $this->get_prepared_statement($query, $types, $data);
 
         if ($stmt->execute()) {
@@ -86,19 +87,20 @@ class Db
         return false;
     }
 
-    public function preparedSelect($query, $types = "", $data = []) {
+    public function preparedSelect($query, $types = "", $data = [])
+    {
         $stmt = $this->get_prepared_statement($query, $types, $data);
 
         if ($stmt->execute()) {
             $result = $stmt->get_result();
-            
+
             // Si el driver nativo retorna un resultado MySQLi directo
             if ($result !== false) {
                 $rows = $result->fetch_all(MYSQLI_ASSOC);
                 $stmt->close();
                 return $rows;
             }
-            
+
             // Fallback en caso de no contar con mysqlnd habilitado
             $meta = $stmt->result_metadata();
             if (!$meta) {
@@ -131,7 +133,8 @@ class Db
         return false;
     }
 
-    private function get_prepared_statement($query, $types, $data) {
+    private function get_prepared_statement($query, $types, $data)
+    {
         $stmt = $this->connect()->prepare($query);
 
         if ($stmt === false) {
@@ -142,7 +145,7 @@ class Db
         if (!empty($types) && !empty($data)) {
             $params = [];
             $params[] = $types;
-            
+
             foreach ($data as $index => $value) {
                 $params[] = &$data[$index];
             }
@@ -153,25 +156,30 @@ class Db
         return $stmt;
     }
 
-    public function error() {
+    public function error()
+    {
         return $this->connect()->error;
     }
 
-    public function quote($value) {
+    public function quote($value)
+    {
         $connection = $this->connect();
         return $connection->real_escape_string($value);
     }
 
     /* === MÉTODOS PARA TRANSACCIONES === */
-    public function beginTransaction() {
+    public function beginTransaction()
+    {
         $this->connect()->begin_transaction();
     }
 
-    public function commit() {
+    public function commit()
+    {
         $this->connect()->commit();
     }
 
-    public function rollback() {
+    public function rollback()
+    {
         $this->connect()->rollback();
     }
 }

@@ -98,29 +98,25 @@ User Request (HTTP GET/POST)
    Views/ (Render Response / Return JSON)
 ```
 
----
+## ⚙️ Environment Configuration (`.env`)
 
-## ⚙️ Configuration File (`configuration.ini`)
+The application uses **`vlucas/phpdotenv`** to manage environment variables. Create a `.env` file in the project root with the following configuration:
 
-The system reads credentials dynamically via `parse_ini_file()`:
+```env
+APP_ENV=development
 
-```ini
-[production]
-hosting = "127.0.0.1"
-username = ""
-password = ""
-dbname = ""
-
-[development]
-dev_hosting = ""
-dev_username = ""
-dev_password = ""
-dev_dbname = ""
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_NAME=your_database
+DB_USER=your_username
+DB_PASSWORD=
 ```
 
-> **Note on Security:** MySQL database connections remain bound to local loopback (`127.0.0.1`) while Apache serves incoming traffic across local network interfaces (`192.168.x.x`).
+The environment variables are loaded during application startup and are used to configure the database connection.
 
----
+> **Security Note:** Never commit your `.env` file to version control. Instead, include a `.env.example` file with placeholder values and add `.env` to your `.gitignore`.
+
+> **Network Note:** MySQL database connections remain bound to the local loopback interface (`127.0.0.1`), while Apache can serve requests from other devices on the local network (e.g., `192.168.x.x`).
 
 ## 🚀 How to Run the Project
 
@@ -138,8 +134,8 @@ dev_dbname = ""
    CREATE DATABASE your_db CHARACTER SET utf8 COLLATE utf8_general_ci;
    ```
 
-3. **Set Configuration:**
-   Ensure `configuration.ini` contains your local database credentials under `[development]`.
+3. **Configure Environment Variables:**
+   Copy `.env.example` to `.env` and update the database credentials and other required environment variables for your local development environment.
 
 4. **Access the application:**
    Open your browser and navigate to:

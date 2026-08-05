@@ -1,30 +1,41 @@
 :root {
-    --bg: #f1fafe;
+    --bg: #f5f7fb;
+
     --radius: 12px;
-    --radius-full: 99em;
-    --shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
-    --shadow-hover: 0 4px 12px rgba(127, 145, 216, 0.25);
-    --text-dark: #333;
-    --text-medium: #555;
-    --text-light: #777;
-    --primary: #0096c7;
-    --primary-light: #0095c7a1;
+    --radius-full: 999px;
+
+    --shadow: 0 8px 24px rgba(15, 23, 42, .08);
+    --shadow-hover: 0 10px 24px rgba(30, 64, 175, .15);
+
+    --text-dark: #1e293b;
+    --text-medium: #475569;
+    --text-light: #64748b;
+
+    /* Principal */
+    --primary: #1E3A8A;
+    --primary-hover: #1D4ED8;
     --text-secondary: #ffffff;
 
-    --primary-hover: #335ead;
-    --border: #e1e1e1;
-    --error: #dc3545;
-    --success: #28a745;
-    --danger-hover: #c0392b;
+    /* Headers */
+    --primary-soft: #DBEAFE;
+    --primary-soft-hover: #BFDBFE;
+    --primary-soft-border: #93C5FD;
 
-    --card-bg: white;
+    --border: #E2E8F0;
+
+    --success: #16A34A;
+    --error: #DC2626;
+    --danger-hover: #B91C1C;
+
+    --card-bg: #ffffff;
+
     --padding: 1.5rem;
+
     --h1-size: 1.5rem;
     --h2-size: 1.5rem;
     --h3-size: 1.25rem;
     --h4-size: 1.125rem;
 }
-
 * {
     margin: 0;
     padding: 0;
@@ -144,16 +155,23 @@ body {
 
 /* ===== SISTEMA DE BOTONES ===== */
 .texto-resaltado {
-    background: var(--primary);
-    padding: 0.5rem 1rem;
+    position: relative;
+    padding: .7rem 1rem .7rem 1.2rem;
+    background: var(--primary-soft);
     border-radius: var(--radius);
-    width: fit-content;
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--text-secondary);
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.texto-resaltado::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 5px;
+    background: var(--primary);
+    border-radius: 999px;
 }
 
 .title {
@@ -320,12 +338,24 @@ strong {
 
 .form-control {
     width: 100%;
-    padding: 0.875rem 1rem;
+    min-height: 46px;
+
+    padding: 0.75rem 1rem;
+
     border: 1px solid var(--border);
     border-radius: var(--radius);
+
+    background: var(--card-bg);
+    color: var(--text-dark);
+
     font-size: 1rem;
     font-family: inherit;
-    transition: border 0.2s;
+    line-height: 1.5;
+
+    transition: border-color .2s ease,
+                box-shadow .2s ease;
+
+    box-sizing: border-box;
 }
 
 .form-control:focus {
@@ -337,6 +367,10 @@ strong {
     background: var(--bg);
     color: var(--text-light);
     cursor: not-allowed;
+}
+
+select.form-control {
+    cursor: pointer;
 }
 
 /* ===== ESTILOS PARA EL NAVBAR ===== */

@@ -32,7 +32,7 @@
                 <div class="texto-resaltado">
                     <p>Transacciones</p>
                 </div>
-                <a href="" class="btn btn-secondary">
+                <a href="<?= PATH . 'transactionController/create';?>" class="btn btn-primary">
                     Agregar transacción
                 </a>
             </div>
