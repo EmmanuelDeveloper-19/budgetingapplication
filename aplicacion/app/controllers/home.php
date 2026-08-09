@@ -7,10 +7,10 @@ class Home extends Controller
         $userModel = $this->model('UserModel');
         $creditCardModel = $this->model('CreditCardModel');
         $debitCardModel = $this->model('debitCardModel');
+        $transactionModel = $this->model('transactionModel');
 
         $userData = $userModel->getCurrentUser();
 
-        // VALIDACIÓN: Si no hay usuario o expiro la sesión, redirigir al login
         if (!$userData) {
             header('Location: ' . PATH . 'login');
             exit();
@@ -20,11 +20,13 @@ class Home extends Controller
 
         $creditCards = $creditCardModel->getByUserId($user_id);
         $debitCards = $debitCardModel->getByUserId($user_id);
+        $transactions = $transactionModel->getTransactions($user_id);
 
         $this->view("home/index", [
             'user' => $userData,
             'creditCards' => $creditCards,
-            'debitCards' => $debitCards
+            'debitCards' => $debitCards,
+            'transactions' => $transactions
         ]);
     }
 }

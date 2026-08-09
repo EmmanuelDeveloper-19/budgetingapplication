@@ -104,7 +104,7 @@ class AuthModel extends Db
             'exp' => time() + (3600 * 24), // 1 día
             'data' => [
                 'user_id' => $user['id'],
-                'username' => $user['email']
+                'username' => $user['username']
             ]
         ];
 

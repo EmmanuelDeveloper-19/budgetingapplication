@@ -72,18 +72,22 @@ class Db
         $stmt = $this->get_prepared_statement($query, $types, $data);
 
         if ($stmt->execute()) {
+
             if ($get_last_id) {
                 $last_id = $stmt->insert_id;
                 $stmt->close();
+
                 return $last_id;
-            } else {
-                $affected = $stmt->affected_rows;
-                $stmt->close();
-                return $affected;
             }
+
+            $affected = $stmt->affected_rows;
+            $stmt->close();
+
+            return $affected;
         }
 
         $stmt->close();
+
         return false;
     }
 

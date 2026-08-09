@@ -1,11 +1,24 @@
-<div class="card">
-    <div class="row">
-        <div class="col-md-9">
-            <h1 class="title">Titulo</h1>
-            <p>Descripcion de la transaccion</p>
-        </div>
-        <div class="col-md-3">
-            <h1 class="subtitle">$10,000</h1>
-        </div>
+<?php if (empty($data['transactions'])): ?>
+    <div class="empty-state">
+        <p>No hay transacciones realizadas</p>
     </div>
-</div>
+<?php else: ?>
+    <div class="transaction-list">
+        <?php foreach ($data['transactions'] as $t): ?>
+            <?php
+                $isExpense = $t['amount'] < 0;
+                $amountClass = $isExpense ? 'expense' : 'income';
+                $sign = $isExpense ? '-' : '+';
+            ?>
+            <div class="transaction-card">
+                <div class="transaction-info">
+                    <p class="transaction-name"><?= htmlspecialchars($t['name']); ?></p>
+                    <p class="transaction-description"><?= htmlspecialchars($t['description']); ?></p>
+                </div>
+                <span class="transaction-amount <?= $amountClass; ?>">
+                    <?= $sign; ?>$<?= number_format(abs($t['amount']), 2); ?>
+                </span>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>

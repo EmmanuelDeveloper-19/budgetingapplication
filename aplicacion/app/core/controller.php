@@ -3,6 +3,7 @@
 	class Controller{
 
 		private $model_response;
+		public $user = null;
 
 		public function __construct(){
 			$this->model_response = null;
