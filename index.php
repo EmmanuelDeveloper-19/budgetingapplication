@@ -1,5 +1,5 @@
 <?php
 
-header("location: /budgetingapp/aplicacion/public");
+header("location: /budgetingapplication/aplicacion/public");
 
 ?>

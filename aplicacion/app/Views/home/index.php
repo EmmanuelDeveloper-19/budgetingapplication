@@ -14,7 +14,7 @@
 
             $saldoTotal = $data['user']['balance'] + $saldoTarjetas;
             ?>
-            <h1>$
+            <h1 class="display-flex space-between">$
                 <?=
                     $saldoTotal
                     ?>
@@ -32,7 +32,7 @@
                 <div class="texto-resaltado">
                     <p>Transacciones</p>
                 </div>
-                <a href="<?= PATH . 'transactionController/create';?>" class="btn btn-primary">
+                <a href="<?= PATH . 'transactionController/create'; ?>" class="btn btn-primary">
                     Agregar transacción
                 </a>
             </div>
