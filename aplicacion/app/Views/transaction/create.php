@@ -30,13 +30,87 @@
 
                     <div class="form-group">
                         <label class="form-label">Método de pago</label>
-                        <select class="form-control" name="payment_method">
-                            <option value="">Seleccione el método de pago</option>
-                            <option value="cash">Efectivo</option>
-                            <option value="credit_card">Tarjeta de Crédito</option>
-                            <option value="debit_card">Débito</option>
+                        <div class="payment-methods">
+
+                            <!-- Efectivo -->
+                            <label class="payment-option">
+                                <input type="radio" name="payment_method" value="cash" checked
+                                    onchange="changePaymentMethod(this.value)">
+                                <span>Efectivo</span>
+                            </label>
+
+                            <!-- Tarjeta de crédito -->
+                            <label class="payment-option">
+                                <input type="radio" name="payment_method" value="credit_card"
+                                    onchange="changePaymentMethod(this.value)">
+                                <span>Tarjeta de Crédito</span>
+                            </label>
+
+                            <!-- Tarjeta de débito -->
+                            <label class="payment-option">
+                                <input type="radio" name="payment_method" value="debit_card"
+                                    onchange="changePaymentMethod(this.value)">
+                                <span>Débito</span>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <!-- Tarjetas de crédito -->
+                    <div id="credit-card-container" class="form-group" style="display: none;">
+                        <label class="form-label">Tarjeta de crédito</label>
+
+                        <select class="form-control" name="credit_card_id">
+                            <option value="">Seleccione una tarjeta</option>
+
+                            <?php if (empty($data['creditCards'])): ?>
+
+                                <option value="" disabled>
+                                    No hay tarjetas de crédito agregadas
+                                </option>
+
+                            <?php else: ?>
+
+                                <?php foreach ($data['creditCards'] as $d): ?>
+
+                                    <option value="<?= $d['id']; ?>">
+                                        <?= $d['bank']; ?>
+                                    </option>
+
+                                <?php endforeach; ?>
+
+                            <?php endif; ?>
                         </select>
                     </div>
+
+
+                    <!-- Tarjetas de débito -->
+                    <div id="debit-card-container" class="form-group" style="display: none;">
+                        <label class="form-label">Tarjeta de débito</label>
+
+                        <select class="form-control" name="debit_card_id">
+                            <option value="">Seleccione una tarjeta</option>
+
+                            <?php if (empty($data['debitCards'])): ?>
+
+                                <option value="" disabled>
+                                    No hay tarjetas de débito agregadas
+                                </option>
+
+                            <?php else: ?>
+
+                                <?php foreach ($data['debitCards'] as $d): ?>
+
+                                    <option value="<?= $d['id']; ?>">
+                                        <?= $d['bank']; ?>
+                                    </option>
+
+                                <?php endforeach; ?>
+
+                            <?php endif; ?>
+                        </select>
+                    </div>
+
 
                     <div class="form-group">
                         <label class="form-label">Monto</label>
@@ -60,3 +134,24 @@
         </div>
     </div>
 </div>
+
+<script>
+    function changePaymentMethod(method) {
+
+        const creditCardContainer = document.getElementById('credit-card-container');
+        const debitCardContainer = document.getElementById('debit-card-container');
+
+        // Ocultar ambos inicialmente
+        creditCardContainer.style.display = 'none';
+        debitCardContainer.style.display = 'none';
+
+        // Mostrar según el método seleccionado
+        if (method === 'credit_card') {
+            creditCardContainer.style.display = 'block';
+        }
+
+        if (method === 'debit_card') {
+            debitCardContainer.style.display = 'block';
+        }
+    }
+</script>
