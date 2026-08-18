@@ -181,8 +181,115 @@ class TransactionModel extends Db
             die($e->getMessage());
         }
     }
-    public function processCreditTransaction()
+    public function processCreditTransaction($data)
     {
+        try {
+            $this->beginTransaction();
 
+            $userId = $data['user_id'];
+            $amount = $data['amount'];
+            $debitCardId = $data['id_debit_card'];
+
+            /*
+             * 1. Registrar la transacción
+             */
+            $qTransaction = "
+            INSERT INTO transactions
+            (
+                name,
+                type,
+                amount,
+                payment_method,
+                description,
+                user_id
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+        ";
+
+            $transactionId = $this->preparedQuery(
+                $qTransaction,
+                "ssdssi",
+                [
+                    $data['name'],
+                    $data['type'],
+                    $data['amount'],
+                    $data['payment_method'],
+                    $data['description'],
+                    $data['user_id']
+                ],
+                true
+            );
+
+            if ($transactionId <= 0) {
+                throw new Exception(
+                    "No se pudo registrar la transacción"
+                );
+            }
+
+
+            /*
+             * 2. Relacionar la transacción con la tarjeta de débito
+             */
+            $qTransactionDebit = "
+            INSERT INTO transaction_credit_card
+            (
+                transaction_id,
+                credit_card_id,
+                installments,
+                status,
+                transaction_date
+            )
+            VALUES (?, ?,?,?, NOW())";
+
+            $this->preparedQuery(
+                $qTransactionDebit,
+                "iiiss",
+                [
+                    $transactionId,
+                    $debitCardId
+                ]
+            );
+
+
+            /*
+             * 3. Restar el monto del saldo de la tarjeta
+             */
+            $qDebitCard = "
+            UPDATE credit_cards
+            SET balance = balance - ?
+            WHERE id = ?
+            AND user_id = ?
+        ";
+
+            $result = $this->preparedQuery(
+                $qDebitCard,
+                "dii",
+                [
+                    $amount,
+                    $debitCardId,
+                    $userId
+                ]
+            );
+
+            if ($result <= 0) {
+                throw new Exception(
+                    "No se pudo actualizar el balance de la tarjeta"
+                );
+            }
+
+
+            /*
+             * 4. Confirmar todas las operaciones
+             */
+            $this->commit();
+
+            return true;
+
+        } catch (Exception $e) {
+
+            $this->rollback();
+
+            die($e->getMessage());
+        }
     }
 }
