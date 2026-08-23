@@ -36,6 +36,7 @@
     --h3-size: 1.25rem;
     --h4-size: 1.125rem;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -345,7 +346,8 @@ strong {
     flex-direction: column;
     gap: 0.25rem;
     flex: 1;
-    min-width: 0; /* permite que el texto largo trunque en vez de romper el layout */
+    min-width: 0;
+    /* permite que el texto largo trunque en vez de romper el layout */
 }
 
 .transaction-name {
@@ -422,7 +424,7 @@ strong {
     line-height: 1.5;
 
     transition: border-color .2s ease,
-                box-shadow .2s ease;
+        box-shadow .2s ease;
 
     box-sizing: border-box;
 }
@@ -440,6 +442,101 @@ strong {
 
 select.form-control {
     cursor: pointer;
+}
+
+.payment-methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.payment-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 52px;
+    padding: 0.75rem 1rem;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    background: var(--card-bg);
+    color: var(--text-medium);
+
+    font-size: 0.95rem;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        border-color .2s ease,
+        background-color .2s ease,
+        color .2s ease,
+        box-shadow .2s ease,
+        transform .15s ease;
+
+    box-sizing: border-box;
+}
+
+/* Ocultamos el radio original */
+.payment-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Hover */
+.payment-option:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-1px);
+}
+
+/* Opción seleccionada */
+.payment-option:has(input[type="radio"]:checked) {
+    border-color: var(--primary);
+    background: color-mix(in srgb,
+            var(--primary) 8%,
+            var(--card-bg));
+    color: var(--primary);
+
+    box-shadow: 0 0 0 1px var(--primary);
+}
+
+/* Pequeño indicador de selección */
+.payment-option:has(input[type="radio"]:checked)::before {
+    content: "✓";
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    margin-right: 0.5rem;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+    color: white;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .payment-methods {
+        grid-template-columns: 1fr;
+    }
+
+    .payment-option {
+        justify-content: flex-start;
+    }
 }
 
 /* ===== ESTILOS PARA EL NAVBAR ===== */

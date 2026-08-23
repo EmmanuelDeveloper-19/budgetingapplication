@@ -63,7 +63,8 @@ class DebitCardModel extends Db
         ]);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $q = "DELETE FROM {$this->table} WHERE id = ?";
         $t = 'i';
 
