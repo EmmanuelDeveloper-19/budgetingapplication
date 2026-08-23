@@ -5,7 +5,7 @@ require_once("core/db.php");
 require_once("core/controller.php");
 
 define("MAIN_ROOT", __DIR__);
-define("PATH", "/budgetingapplication/aplicacion/public/");
+define("PATH", "/");
 define("MODELS", __DIR__ . "/models/");
 define("CONTROLLERS", __DIR__ . "/Controllers/");
 define("VIEWS", __DIR__ . "/Views/");
