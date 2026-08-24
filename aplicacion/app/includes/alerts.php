@@ -1,5 +1,9 @@
-<?php if ($response): ?>
-    <div class="alert alert-<?= $response['type']; ?>">
-        <?= $response['message']; ?>
+<?php if (isset($_SESSION['alert'])): ?>
+
+    <div class="alert alert-<?= $_SESSION['alert']['type']; ?>">
+        <?= $_SESSION['alert']['message']; ?>
     </div>
+
+    <?php unset($_SESSION['alert']); ?>
+
 <?php endif; ?>

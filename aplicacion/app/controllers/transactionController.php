@@ -65,7 +65,12 @@ class TransactionController extends Controller
             case 'cash':
 
                 if ($model->processCashTransaction($data)) {
-                    header('Location: ' . PATH . 'transaction/create');
+                    $_SESSION['alert'] = [
+                        'type' => 'success',
+                        'message' => 'Transacción agregada correctamente'
+                    ];
+
+                    header("Location: " . PATH . "home/index");
                     exit();
                 }
 

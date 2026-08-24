@@ -36,7 +36,14 @@ class TransactionModel extends Db
             $transaction = $this->preparedQuery(
                 $qTransaction,
                 "ssissi",
-                $data
+                [
+                    $data['name'],
+                    $data['type'],
+                    $data['amount'],
+                    $data['payment_method'],
+                    $data['description'],
+                    $data['user_id']
+                ]
             );
 
             if ($transaction <= 0) {

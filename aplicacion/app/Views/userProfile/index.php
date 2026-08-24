@@ -2,6 +2,8 @@
     <div class="row d-flex settings-wrapper justify-center align-center">
         <div class="col-md-6">
             <div class="card mb-10">
+                <?php require_once INCLUDES . "alerts.php"; ?>
+
                 <h1 class="title">Información del usuario</h1>
                 <form method="POST"
                     action="<?= PATH . 'userprofilecontroller/updateUserInfo/' . $data['user']['id']; ?>">
@@ -39,12 +41,12 @@
             <div class="card mb-10">
                 <h1 class="title">Tarjetas de credito</h1>
                 <ul class="item-list">
-                    <?php if (empty($data['creditData'])): ?>
+                    <?php if (empty($data['creditCardData'])): ?>
                         <div class="empty-state">
                             <p>No hay tarjetas de crédito agregadas</p>
                         </div>
                     <?php else: ?>
-                        <?php foreach ($data['creditData'] as $d): ?>
+                        <?php foreach ($data['creditCardData'] as $d): ?>
                             <li>
                                 <a href="#">
                                     <span class="item-title"><?= $d['bank']; ?></span>
@@ -54,7 +56,8 @@
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </ul>
-                <button class="btn btn-primary">Nueva tarjeta de crédito</button>
+                <a class="btn btn-primary" href="<?= PATH . 'creditCardController/nuevo'; ?>">Nueva tarjeta de
+                    crédito</a>
             </div>
 
             <!-- ================= TARJETAS ================= -->
@@ -77,7 +80,7 @@
                     <?php endif; ?>
 
                 </ul>
-                <button class="btn btn-primary">Nueva tarjeta de debito</button>
+                <a class="btn btn-primary" href="<?= PATH . 'debitCardController/nuevo'; ?>">Nueva tarjeta de debito</a>
             </div>
 
 

@@ -1,4 +1,4 @@
-<div class="row dr-flex-column">
+<div class="row" style="width: 100%;">
     <div class="col-md-3">
         <div class="content">
             <div class="texto-resaltado">
@@ -27,8 +27,7 @@
         <?php require_once("debit-cards.php"); ?>
     </div>
     <div class="col-md-9">
-        <div class="content">
-            <div class="row dr-flex-column space-between gap-10">
+            <div class="">
                 <div class="texto-resaltado">
                     <p>Transacciones</p>
                 </div>
@@ -38,6 +37,5 @@
             </div>
             <?php
             include("transaction-list.php"); ?>
-        </div>
     </div>
 </div>

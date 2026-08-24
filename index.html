@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Mini Card</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <style>
+
+        :root {
+            --bg: #FFF7FA;
+
+            --radius: 12px;
+
+            --shadow: 0 6px 18px rgba(190, 24, 93, .07);
+
+            --text-dark: #3F2633;
+            --text-medium: #6B4A58;
+            --text-light: #9A7F8A;
+
+            --primary: #E88BAA;
+            --primary-soft: #FCE7F3;
+
+            --border: #F1DDE5;
+
+            --success: #4D9F72;
+            --error: #C85C6B;
+
+            --card-bg: #FFFFFF;
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+
+            padding: 40px 20px;
+
+            background: var(--bg);
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            color: var(--text-dark);
+        }
+
+
+        .demo-container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+
+        /* =========================================
+           CARD
+        ========================================= */
+
+        .credit-card-mini {
+            width: 100%;
+
+            display: grid;
+
+            /*
+                1 = Banco
+                2 = Información
+                3 = Menú
+            */
+            grid-template-columns: auto 1fr auto;
+
+            align-items: center;
+
+            gap: 1rem;
+
+            padding: 1rem;
+
+            background: var(--card-bg);
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            box-shadow: var(--shadow);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        .credit-card-mini:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 22px rgba(190, 24, 93, .10);
+        }
+
+
+        /* =========================================
+           COLUMNA 1
+           BANCO
+        ========================================= */
+
+        .credit-bank {
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            min-width: 90px;
+        }
+
+
+        .credit-bank-logo {
+            width: 36px;
+            height: 36px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: var(--primary-soft);
+
+            color: var(--primary);
+
+            font-size: .8rem;
+        }
+
+
+        .credit-bank-info {
+            display: flex;
+
+            flex-direction: column;
+
+            min-width: 0;
+        }
+
+
+        .credit-bank-info strong {
+            color: var(--text-dark);
+
+            font-size: .82rem;
+
+            font-weight: 700;
+        }
+
+
+        .credit-bank-info span {
+            margin-top: 2px;
+
+            color: var(--text-light);
+
+            font-size: .65rem;
+        }
+
+
+        /* =========================================
+           COLUMNA 2
+           INFORMACIÓN
+        ========================================= */
+
+        .credit-information {
+            min-width: 0;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+        }
+
+
+        /* Saldos */
+
+        .credit-balances {
+            display: flex;
+
+            align-items: center;
+
+            gap: 1rem;
+        }
+
+
+        .credit-value {
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        .credit-value span {
+            margin-bottom: 2px;
+
+            color: var(--text-light);
+
+            font-size: .62rem;
+        }
+
+
+        .credit-value strong {
+            font-size: .82rem;
+
+            line-height: 1;
+        }
+
+
+        .credit-value.balance strong {
+            color: var(--error);
+        }
+
+
+        .credit-value.available strong {
+            color: var(--success);
+        }
+
+
+        /* =========================================
+           FECHAS
+        ========================================= */
+
+        .credit-dates {
+            display: flex;
+
+            align-items: center;
+
+            gap: 1rem;
+        }
+
+
+        .credit-date {
+            display: flex;
+
+            align-items: center;
+
+            gap: 4px;
+        }
+
+
+        .credit-date span {
+            color: var(--text-light);
+
+            font-size: .62rem;
+        }
+
+
+        .credit-date strong {
+            color: var(--text-medium);
+
+            font-size: .65rem;
+
+            font-weight: 600;
+        }
+
+
+        .credit-date.warning strong {
+            color: #B7791F;
+        }
+
+
+        /* =========================================
+           COLUMNA 3
+           MENÚ
+        ========================================= */
+
+        .credit-menu {
+            position: relative;
+
+            align-self: stretch;
+
+            display: flex;
+
+            align-items: center;
+        }
+
+
+        .mini-menu-btn {
+            width: 28px;
+            height: 32px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: none;
+
+            background: transparent;
+
+            color: var(--text-light);
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            transition:
+                background .2s ease,
+                color .2s ease;
+        }
+
+
+        .mini-menu-btn:hover {
+            background: var(--primary-soft);
+
+            color: var(--primary);
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .credit-card-mini {
+                gap: .7rem;
+
+                padding: .85rem;
+            }
+
+
+            .credit-bank {
+                min-width: auto;
+            }
+
+
+            .credit-bank-info span {
+                display: none;
+            }
+
+
+            .credit-balances,
+            .credit-dates {
+                gap: .7rem;
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            .credit-card-mini {
+                grid-template-columns: auto 1fr auto;
+
+                gap: .6rem;
+            }
+
+
+            .credit-bank-logo {
+                width: 32px;
+                height: 32px;
+            }
+
+
+            .credit-bank-info strong {
+                font-size: .75rem;
+            }
+
+
+            .credit-value strong {
+                font-size: .76rem;
+            }
+
+
+            .credit-value span,
+            .credit-date span,
+            .credit-date strong {
+                font-size: .58rem;
+            }
+
+
+            .credit-balances,
+            .credit-dates {
+                gap: .5rem;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <main class="demo-container">
+
+
+        <div class="credit-card-mini">
+
+
+            <!-- =====================================
+                 COLUMNA 1
+                 BANCO
+            ====================================== -->
+
+            <div class="credit-bank">
+
+                <div class="credit-bank-logo">
+
+                    <i class="fas fa-building-columns"></i>
+
+                </div>
+
+
+                <div class="credit-bank-info">
+
+                    <strong>
+                        BBVA
+                    </strong>
+
+                    <span>
+                        •••• 4521
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 COLUMNA 2
+                 INFORMACIÓN
+            ====================================== -->
+
+            <div class="credit-information">
+
+
+                <!-- Saldos -->
+
+                <div class="credit-balances">
+
+                    <div class="credit-value balance">
+
+                        <span>
+                            Saldo
+                        </span>
+
+                        <strong>
+                            $4,850.00
+                        </strong>
+
+                    </div>
+
+
+                    <div class="credit-value available">
+
+                        <span>
+                            Disponible
+                        </span>
+
+                        <strong>
+                            $11,450.00
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Fechas -->
+
+                <div class="credit-dates">
+
+                    <div class="credit-date">
+
+                        <span>
+                            Corte:
+                        </span>
+
+                        <strong>
+                            28 Ago
+                        </strong>
+
+                    </div>
+
+
+                    <div class="credit-date warning">
+
+                        <span>
+                            Pago:
+                        </span>
+
+                        <strong>
+                            12 Sep
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =====================================
+                 COLUMNA 3
+                 MENÚ
+            ====================================== -->
+
+            <div class="credit-menu">
+
+                <button
+                    type="button"
+                    class="mini-menu-btn"
+                    aria-label="Opciones"
+                >
+
+                    <i class="fas fa-ellipsis-v"></i>
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

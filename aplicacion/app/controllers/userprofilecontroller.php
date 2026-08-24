@@ -18,7 +18,7 @@ class UserprofileController extends Controller
 
         $this->view("userProfile/index", [
             'user' => $userData,
-            'creditCards' => $creditData,
+            'creditCardData' => $creditData,
             'debitData' => $debitData
         ]); 
     }

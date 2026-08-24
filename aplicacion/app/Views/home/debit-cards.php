@@ -11,7 +11,7 @@
         <?php foreach ($data['debitCards'] as $d): ?>
             <div class="lista-elementos">
 
-                <img src="<?= PATH . 'assets/' . $d['bank'] . '.png'; ?>" alt="">
+                <img class="img-icon" src="<?= PATH . 'assets/' . $d['bank'] . '.png'; ?>" alt="">
 
                 <div class="info">
                     <strong><?= ucfirst($d['bank']); ?></strong>

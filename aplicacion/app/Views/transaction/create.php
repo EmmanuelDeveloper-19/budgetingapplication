@@ -114,7 +114,8 @@
 
                     <div class="form-group">
                         <label class="form-label">Monto</label>
-                        <input type="number" class="form-control" placeholder="Ej. 350.00" name="amount">
+                        <input type="number" class="form-control" placeholder="Ej. 350.00" name="amount" step="0.01"
+                            min="0">
                     </div>
 
                     <div class="form-group">

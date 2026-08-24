@@ -5,6 +5,7 @@ class DebitCardController extends Controller
 
     public function nuevo()
     {
+        $_SESSION['previous_url'] = $_SERVER['HTTP_REFERER'] ?? PATH . "home/index";
 
         $this->view("debitCards/nuevo");
     }
@@ -26,10 +27,23 @@ class DebitCardController extends Controller
         ];
 
         if ($model->create($user_id, $data)) {
-            header('Location: ' . PATH . "home/index");
+
+            $_SESSION['alert'] = [
+                'type' => 'success',
+                'message' => 'Tarjeta agregada correctamente'
+            ];
+
+            $redirect = $_SESSION['previous_url'] ?? PATH . "home/index";
+
+            unset($_SESSION['previous_url']);
+
+            header("Location: " . $redirect);
             exit();
+
         } else {
+
             $e = "Error al agregar la tarjeta de debito.";
+
             $this->view("debitCardController/nuevo", [
                 'error' => $e,
                 'old' => $_POST

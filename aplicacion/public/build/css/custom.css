@@ -1,31 +1,32 @@
 :root {
-    --bg: #f5f7fb;
+
+    --bg: #FFF7FA;
 
     --radius: 12px;
     --radius-full: 999px;
 
-    --shadow: 0 8px 24px rgba(15, 23, 42, .08);
-    --shadow-hover: 0 10px 24px rgba(30, 64, 175, .15);
+    --shadow: 0 8px 24px rgba(190, 24, 93, .08);
+    --shadow-hover: 0 10px 24px rgba(190, 24, 93, .15);
 
-    --text-dark: #1e293b;
-    --text-medium: #475569;
-    --text-light: #64748b;
+    --text-dark: #3F2633;
+    --text-medium: #6B4A58;
+    --text-light: #8B6F7B;
 
     /* Principal */
-    --primary: #1E3A8A;
-    --primary-hover: #1D4ED8;
+    --primary: #E88BAA;
+    --primary-hover: #D96F94;
     --text-secondary: #ffffff;
 
     /* Headers */
-    --primary-soft: #DBEAFE;
-    --primary-soft-hover: #BFDBFE;
-    --primary-soft-border: #93C5FD;
+    --primary-soft: #FCE7F3;
+    --primary-soft-hover: #FBCFE8;
+    --primary-soft-border: #F9A8D4;
 
-    --border: #E2E8F0;
+    --border: #F3D5E1;
 
-    --success: #16A34A;
-    --error: #DC2626;
-    --danger-hover: #B91C1C;
+    --success: #4D9F72;
+    --error: #C85C6B;
+    --danger-hover: #A94756;
 
     --card-bg: #ffffff;
 
@@ -48,9 +49,29 @@ body {
     min-height: 100vh;
 }
 
+span,
+h1,
+h2,
+h3,
+p,
+strong {
+    color: var(--text-dark);
+}
+
 /* ===== SISTEMA DE COLUMNAS Y ELEMENTOS VARIOS ===== */
+
+.container {
+    max-width: 1700px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+}
+
 .row {
     display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
 }
 
 .space-between {
@@ -93,6 +114,11 @@ body {
     display: flex;
 }
 
+
+.flex-column {
+    flex-direction: column;
+}
+
 .justify-center {
     justify-content: center;
 }
@@ -104,6 +130,7 @@ body {
 .mb-10 {
     margin-bottom: 10px;
 }
+
 
 /* ===== ALERTS ===== */
 .alert {
@@ -631,37 +658,108 @@ select.form-control {
     gap: 1rem;
 }
 
-.lista-elementos {
-    position: relative;
+.card-list {
+    background: var(--card-bg);
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 1rem;
-    gap: 15px;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: var(--shadow);
+    padding: var(--padding);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
 }
 
-.lista-elementos img {
+.section-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-medium);
+    margin: 0 0 0.75rem 0.15rem;
+}
+
+.list-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.list-body span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-bottom: 3px;
+}
+
+.list-body strong {
+    font-size: 1.05rem;
+    color: var(--text-dark);
+}
+
+.credit-dates {
+    padding-top: 0.6rem;
+    margin-top: 0.6rem;
+    border-top: 1px solid var(--border);
+}
+
+.credit-dates strong {
+    font-size: 0.9rem;
+}
+
+.credit-progress {
+    margin-top: 0.6rem;
+}
+
+.credit-progress-bar {
+    width: 100%;
+    height: 5px;
+    border-radius: var(--radius-full);
+    background: var(--primary-soft);
+    overflow: hidden;
+}
+
+.credit-progress-fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.credit-progress-fill.nivel-medio {
+    background: #E0A94D;
+}
+
+.credit-progress-fill.nivel-alto {
+    background: var(--error);
+}
+
+.credit-progress-label {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+.img-icon {
     width: 24px;
     height: 24px;
     border-radius: 8px;
     object-fit: contain;
 }
 
-.lista-elementos .info {
+.list-header {
     display: flex;
-    flex-grow: 1;
+    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    border-bottom: 2px solid var(--text-dark);
 }
 
-.lista-elementos .info strong {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--text-dark);
-}
-
-.lista-elementos .info strong:last-child {
-    color: var(--primary);
-    font-weight: 800;
+.list-body {
+    justify-content: space-between;
+    margin-top: 0.75rem;
 }
 
 .menu-opciones {
@@ -716,6 +814,81 @@ select.form-control {
     padding: 20px;
     color: var(--text-light);
     font-style: italic;
+}
+
+.img-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.list-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+.list-body {
+    justify-content: space-between;
+    margin-top: 0.75rem;
+}
+
+.list-body span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-bottom: 2px;
+}
+
+.list-body strong {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+
+.credit-dates strong {
+    font-size: 0.9rem;
+}
+
+/* Barra de progreso de uso de crédito */
+.credit-progress {
+    margin-top: 0.85rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+}
+
+.credit-progress-bar {
+    width: 100%;
+    height: 5px;
+    border-radius: var(--radius-full);
+    background: var(--primary-soft);
+    overflow: hidden;
+}
+
+.credit-progress-fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.credit-progress-fill.nivel-medio {
+    background: #E0A94D;
+    /* ámbar, coherente con tu paleta */
+}
+
+.credit-progress-fill.nivel-alto {
+    background: var(--error);
+}
+
+.credit-progress-label {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.75rem;
+    color: var(--text-light);
 }
 
 /* ===== SECCIÓN DE CONFIGURACIÓN (tarjetas, suscripciones, etc.) ===== */

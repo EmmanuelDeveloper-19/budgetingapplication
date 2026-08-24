@@ -47,7 +47,7 @@
   }
 
   /* === Página de inicio === */
-  .row.dr-flex-column {
+  .row {
     flex-direction: column;
   }
 
@@ -70,4 +70,11 @@
   .dr-display-none {
     display: none;
   }
+}
+
+
+.fila-separacion-igual{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

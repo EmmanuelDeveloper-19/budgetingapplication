@@ -6,10 +6,30 @@
     <!-- Menú que se ocultará/desplegará en móvil -->
     <div class="nav-elements" id="nav-elements">
         <ul>
-            <li> <a href="<?= PATH . 'home/index'; ?>">Inicio</a></li>
-            <li><a href="#">Transacciones</a></li>
-            <li><a href="#">Balance Mensual</a></li>
-            <li><a href="#">Lista de deseos</a></li>
+            <li>
+                <a href="<?= PATH . 'home/index'; ?>">
+                    <i class="fas fa-home"></i>
+                    Inicio
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-money-bill-transfer"></i>
+                    Transacciones
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-chart-line"></i>
+                    Balance Mensual
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-gift"></i>
+                    Lista de deseos
+                </a>
+            </li>
             <li>
                 <a href="<?= PATH . 'userprofilecontroller/index'; ?>" class="dr-display-none">Información del Perfil</a>
             </li>
@@ -17,7 +37,10 @@
     </div>
 
     <div class="nav-account">
-        <a href="<?= PATH . 'userprofilecontroller/index'; ?>" class="btn-account">Cuenta</a>
+        <a href="<?= PATH . 'userprofilecontroller/index'; ?>" class="btn-account">
+            <i class="fas fa-user"></i>
+            Cuenta
+        </a>
     </div>
 
     <!-- Botón hamburguesa -->
