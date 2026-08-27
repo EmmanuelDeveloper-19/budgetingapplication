@@ -658,6 +658,12 @@ select.form-control {
     gap: 1rem;
 }
 
+.section-container {
+    height: 100vh;
+    align-items: center;
+    justify-content: start;
+}
+
 .card-list {
     background: var(--card-bg);
     display: flex;
@@ -1008,6 +1014,22 @@ select.form-control {
     font-size: 0.9rem;
     text-align: center;
     padding: 1rem 0;
+}
+
+.modal{
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.45);
+    z-index: 9999;
+}
+
+.modal-body {
+    background: white;
+    padding: var(--padding);
+    border-radius: var(--radius);
 }
 
 /* ===== RESPONSIVE ===== */

@@ -65,15 +65,6 @@
                             <strong>$<?= number_format($disponible, 2); ?></strong>
                         </div>
                     </div>
-
-                    <div class="credit-progress">
-                        <div class="credit-progress-bar">
-                            <div class="credit-progress-fill nivel-<?= $nivelUso; ?>" style="width: <?= $porcentaje; ?>%;">
-                            </div>
-                        </div>
-                        <span class="credit-progress-label"><?= $porcentaje; ?>% del limite usado</span>
-                    </div>
-
                     <div class="list-body row credit-dates">
                         <div class="column">
                             <span>Fecha corte</span>

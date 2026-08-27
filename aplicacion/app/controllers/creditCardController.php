@@ -104,4 +104,8 @@ class CreditCardController extends Controller
             }
         }
     }
+
+    public function delete(){
+
+    }
 }

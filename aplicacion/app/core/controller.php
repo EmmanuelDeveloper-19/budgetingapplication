@@ -23,7 +23,6 @@ class Controller
 
 	public function view($view, $data = [])
 	{
-
 		require_once INCLUDES . 'header.php';
 		require_once INCLUDES . "response.php";
 		require_once INCLUDES . "alerts.php";
