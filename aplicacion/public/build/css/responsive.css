@@ -48,6 +48,7 @@
 
   /* === Página de inicio === */
   .row {
+    display: flex;
     flex-direction: column;
   }
 
@@ -58,6 +59,21 @@
 
   .content.dr-none {
     display: none;
+  }
+
+.row.column-reverse {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    align-items: stretch !important; /* Para que ocupen todo el ancho sin conflictos */
+  }
+
+  /* 2. Reseteamos los anchos de todas las columnas */
+  .col-md-3,
+  .col-md-6,
+  .col-md-9 {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 auto; /* Asegura que se adapten al flujo vertical */
   }
 
 }

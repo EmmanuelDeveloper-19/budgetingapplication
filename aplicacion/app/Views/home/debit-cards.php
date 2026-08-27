@@ -1,4 +1,4 @@
-<div class="content dr-none">
+<div class="content">
     <p class="texto-resaltado">Tarjetas de débito</p>
 
     <?php if (empty($data['debitCards'])): ?>

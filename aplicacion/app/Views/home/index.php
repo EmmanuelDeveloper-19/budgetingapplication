@@ -1,6 +1,6 @@
 <?php require_once INCLUDES . '/components/modalComponent.php'; ?>
 
-<div class="row">
+<div class="row column-reverse">
     <div class="col-md-3">
         <div class="content">
             <div class="texto-resaltado">
