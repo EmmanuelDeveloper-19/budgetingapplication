@@ -4,8 +4,8 @@ class Home extends Controller
 {
     public function index()
     {
-        $userModel = $this->model('UserModel');
-        $creditCardModel = $this->model('CreditCardModel');
+        $userModel = $this->model('userModel');
+        $creditCardModel = $this->model('creditCardModel');
         $debitCardModel = $this->model('debitCardModel');
         $transactionModel = $this->model('transactionModel');
 

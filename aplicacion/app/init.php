@@ -7,7 +7,7 @@ require_once("core/controller.php");
 define("MAIN_ROOT", __DIR__);
 define("PATH", "/");
 define("MODELS", __DIR__ . "/models/");
-define("CONTROLLERS", __DIR__ . "/Controllers/");
+define("CONTROLLERS", __DIR__ . "/controllers/");
 define("VIEWS", __DIR__ . "/Views/");
 define("INCLUDES", __DIR__ . "/includes/");
 define('API_CONTROLLERS', __DIR__ . "/Controllers/api/");

@@ -6,7 +6,7 @@ class Login extends Controller
 {
     public function index($action = "")
     {
-        $authenticacion = $this->model('AuthModel');
+        $authenticacion = $this->model('authModel');
         $redirect = PATH;
         $error = null;
 
