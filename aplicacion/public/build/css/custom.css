@@ -1057,19 +1057,54 @@ select.form-control {
 }
 
 .modal {
+    display: none;
+
     position: fixed;
     inset: 0;
+
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.45);
+
+    background: rgba(0, 0, 0, 0.5);
+
     z-index: 9999;
-    display: none;
+}
+
+.modal.active {
+    display: flex;
 }
 
 .modal-body {
+    position: relative;
+
+    width: 90%;
+    max-width: 450px;
+
+    padding: 25px;
+
     background: white;
-    padding: var(--padding);
-    border-radius: var(--radius);
+
+    border-radius: 12px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-close {
+    position: absolute;
+
+    top: 10px;
+    right: 15px;
+
+    border: none;
+    background: none;
+
+    font-size: 28px;
+
+    cursor: pointer;
+}
+
+.modal-info p {
+    margin: 12px 0;
 }
 
 .credit-cards-list {

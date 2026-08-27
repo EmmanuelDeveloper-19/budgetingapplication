@@ -26,6 +26,7 @@ class Controller
 		require_once INCLUDES . 'header.php';
 		require_once INCLUDES . "response.php";
 		require_once INCLUDES . "alerts.php";
+		require_once INCLUDES . "components/modalComponent.php";
 		require_once VIEWS . $view . ".php";
 		require_once INCLUDES . 'footer.php';
 	}
