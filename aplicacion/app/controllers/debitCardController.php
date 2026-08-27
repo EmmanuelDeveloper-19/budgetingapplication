@@ -13,7 +13,7 @@ class DebitCardController extends Controller
     public function store()
     {
         $model = $this->model('debitCardModel');
-        $userModel = $this->model('UserModel');
+        $userModel = $this->model('userModel');
 
         $userData = $userModel->getCurrentUser();
         $user_id = $userData['id'];

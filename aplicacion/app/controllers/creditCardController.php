@@ -5,7 +5,7 @@ class CreditCardController extends Controller
 
     public function nuevo()
     {
-        $userModel = $this->model('UserModel');
+        $userModel = $this->model('userModel');
         $userData = $userModel->getCurrentUser();
 
         $this->view(
@@ -18,7 +18,7 @@ class CreditCardController extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $model = $this->model('creditCardModel');
-            $userModel = $this->model('UserModel');
+            $userModel = $this->model('userModel');
 
             $userData = $userModel->getCurrentUser();
             $user_id = $userData['id'];

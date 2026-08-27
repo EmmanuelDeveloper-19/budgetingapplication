@@ -11,13 +11,13 @@ class SubscriptionController extends Controller
     // Método para mostrar el formulario
     public function create()
     {
-        $userModel = $this->model('UserModel');
+        $userModel = $this->model('userModel');
         $userData = $userModel->getCurrentUser();
 
         $user_id = $userData['auth_id'];
 
-        $creditCardModel = $this->model('CreditCardModel');
-        $debitCardModel = $this->model('DebitCardModel');
+        $creditCardModel = $this->model('creditCardModel');
+        $debitCardModel = $this->model('debitCardModel');
 
         $creditCards = $creditCardModel->getByUserId($user_id);
         $debitCards = $debitCardModel->getByUserId($user_id);
@@ -34,8 +34,8 @@ class SubscriptionController extends Controller
     public function store()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $model = $this->model('SubscriptionModel');
-            $userModel = $this->model('UserModel');
+            $model = $this->model('subscriptionModel');
+            $userModel = $this->model('userModel');
 
             // Obtener usuario actual
             $userData = $userModel->getCurrentUser();

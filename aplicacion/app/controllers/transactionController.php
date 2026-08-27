@@ -10,14 +10,14 @@ class TransactionController extends Controller
 
     public function create()
     {
-        $user = $this->model("UserModel");
+        $user = $this->model("userModel");
         $userData = $user->getCurrentUser();
         $user_id = $userData['id'];
 
-        $debitModel = $this->model("DebitCardModel");
+        $debitModel = $this->model("debitCardModel");
         $debitCard = $debitModel->getByUserId($user_id);
 
-        $creditCardModel = $this->model("CreditCardModel");
+        $creditCardModel = $this->model("creditCardModel");
         $creditCard = $creditCardModel->getByUserId($user_id);
 
 
@@ -29,9 +29,9 @@ class TransactionController extends Controller
 
     public function store()
     {
-        $model = $this->model('TransactionModel');
+        $model = $this->model('transactionModel');
 
-        $userModel = $this->model('UserModel');
+        $userModel = $this->model('userModel');
         $userData = $userModel->getCurrentUser();
 
         $user_id = $userData['id'];

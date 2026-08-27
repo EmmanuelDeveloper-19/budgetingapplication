@@ -6,9 +6,9 @@ class UserprofileController extends Controller
 
     public function index()
     {
-        $userModel = $this->model('UserModel');
-        $debitCardModel = $this->model('DebitCardModel');
-        $creditCardModel = $this->model('CreditCardModel');
+        $userModel = $this->model('userModel');
+        $debitCardModel = $this->model('debitCardModel');
+        $creditCardModel = $this->model('creditCardModel');
 
 
         $userData = $userModel->getCurrentUser();
@@ -25,7 +25,7 @@ class UserprofileController extends Controller
 
     public function updateUserInfo($user_id = 0)
     {
-        $model = $this->model('UserModel');
+        $model = $this->model('userModel');
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'] ?? '';
