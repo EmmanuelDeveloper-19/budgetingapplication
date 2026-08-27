@@ -40,7 +40,7 @@ class DebitCardModel extends Db
     {
         $q = "SELECT
             id,
-            banco,
+            bank,
             balance
           FROM {$this->table}
           WHERE id = ?";
@@ -53,7 +53,7 @@ class DebitCardModel extends Db
     public function update($id, $data)
     {
         $q = "UPDATE {$this->table}
-          SET banco = ?, balance = ?
+          SET bank = ?, bank = ?
           WHERE id = ?";
 
         return $this->preparedQuery($q, "sdi", [

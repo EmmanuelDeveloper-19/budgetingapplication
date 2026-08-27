@@ -27,7 +27,7 @@
                             Santander</option>
                         <option value="banamex" <?= ($data['old']['bank'] ?? '') === 'banamex' ? 'selected' : '' ?>>Banamex
                         </option>
-                        <option value="banamex" <?= ($data['old']['bank'] ?? '') === 'mercado libre' ? 'selected' : '' ?>>Mercado Libre
+                        <option value="mercadopago" <?= ($data['old']['bank'] ?? '') === 'mercadopago' ? 'selected' : '' ?>>Mercado pago
                         </option>
 
                     </select>

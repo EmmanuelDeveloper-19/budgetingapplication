@@ -1,7 +1,5 @@
 <div class="content dr-none">
-    <div class="texto-resaltado">
-        <p>Tarjetas de débito</p>
-    </div>
+    <p class="texto-resaltado">Tarjetas de débito</p>
 
     <?php if (empty($data['debitCards'])): ?>
         <div class="empty-state">
@@ -9,21 +7,27 @@
         </div>
     <?php else: ?>
         <?php foreach ($data['debitCards'] as $d): ?>
-            <div class="lista-elementos">
+            <div class="credit-cards-list">
 
-                <img class="img-icon" src="<?= PATH . 'assets/' . $d['bank'] . '.png'; ?>" alt="">
+                <div class="credit-card-item">
+                    <div class="card-bank">
+                        <img class="img-icon" src="<?= PATH . 'assets/' . $d['bank'] . '.png'; ?>" alt="">
+                        <strong><?= ucfirst($d['bank']); ?></strong>
 
-                <div class="info">
-                    <strong><?= ucfirst($d['bank']); ?></strong>
-                    <strong>$<?= number_format($d['balance'], 2); ?></strong>
-                </div>
+                    </div>
+                    <div class="card-amounts">
+                        <div class="amount limit">
+                            <strong>$<?= number_format($d['balance'], 2); ?></strong>
+                        </div>
+                    </div>
 
-                <!-- Menú de opciones -->
-                <div class="menu-opciones">
-                    <button class="menu-btn">⋮</button>
-                    <div class="menu-dropdown">
-                        <a href="<?= PATH . 'debitCardController/editar/' . $d['id']; ?>">Editar</a>
-                        <a href="<?= PATH . 'debitCardController/delete/' . $d['id']; ?>" class="danger">Eliminar</a>
+                    <!-- Menú de opciones -->
+                    <div class="menu-opciones">
+                        <button class="menu-btn">⋮</button>
+                        <div class="menu-dropdown">
+                            <a href="<?= PATH . 'debitCardController/editar/' . $d['id']; ?>">Editar</a>
+                            <a href="<?= PATH . 'debitCardController/delete/' . $d['id']; ?>" class="danger">Eliminar</a>
+                        </div>
                     </div>
                 </div>
 

@@ -1,37 +1,64 @@
 :root {
+    /* =========================
+       Base
+    ========================= */
+    --bg: #F6F8FC;
+    --card-bg: #FFFFFF;
 
-    --bg: #FFF7FA;
-
+    /* =========================
+       Border & Radius
+       ========================= */
     --radius: 12px;
     --radius-full: 999px;
 
-    --shadow: 0 8px 24px rgba(190, 24, 93, .08);
-    --shadow-hover: 0 10px 24px rgba(190, 24, 93, .15);
+    --border: #DCE3F2;
 
-    --text-dark: #3F2633;
-    --text-medium: #6B4A58;
-    --text-light: #8B6F7B;
+    /* =========================
+       Shadows
+       ========================= */
+    --shadow: 0 8px 24px rgba(56, 92, 181, .08);
+    --shadow-hover: 0 10px 28px rgba(56, 92, 181, .15);
 
-    /* Principal */
-    --primary: #E88BAA;
-    --primary-hover: #D96F94;
-    --text-secondary: #ffffff;
+    /* =========================
+       Text
+       ========================= */
+    --text-dark: #1F2937;
+    --text-medium: #4B5563;
+    --text-light: #6B7280;
 
-    /* Headers */
-    --primary-soft: #FCE7F3;
-    --primary-soft-hover: #FBCFE8;
-    --primary-soft-border: #F9A8D4;
+    /* =========================
+       Primary
+       ========================= */
+    --primary: #385CB5;
+    --primary-hover: #2F4E9C;
+    --text-secondary: #FFFFFF;
 
-    --border: #F3D5E1;
+    /* =========================
+       Primary Soft
+       ========================= */
+    --primary-soft: #E8EDFA;
+    --primary-soft-hover: #D8E0F5;
+    --primary-soft-border: #B8C6EA;
 
-    --success: #4D9F72;
+    /* =========================
+       Status
+       ========================= */
+    --success: #3F8F68;
     --error: #C85C6B;
     --danger-hover: #A94756;
 
-    --card-bg: #ffffff;
-
+    /* =========================
+       Spacing
+       ========================= */
     --padding: 1.5rem;
 
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+
+    /* =========================
+       Typography
+       ========================= */
     --h1-size: 1.5rem;
     --h2-size: 1.5rem;
     --h3-size: 1.25rem;
@@ -61,18 +88,21 @@ strong {
 /* ===== SISTEMA DE COLUMNAS Y ELEMENTOS VARIOS ===== */
 
 .container {
-    max-width: 1700px;
-    margin: 0 auto;
+    margin-top: 1.5rem;
+    max-width: 1500px;
+    margin: 10px auto;
     padding: 0 1.5rem;
     box-sizing: border-box;
 }
 
 .row {
     display: flex;
-    gap: 1.5rem;
     justify-content: center;
-    align-items: center;
+    align-items: start;
+    flex-direction: row;
+    gap: var(--spacing-lg);
 }
+
 
 .space-between {
     justify-content: space-between;
@@ -80,6 +110,9 @@ strong {
 
 .col-md-3 {
     width: 25%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
 }
 
 .col-md-6 {
@@ -183,12 +216,16 @@ strong {
 
 /* ===== SISTEMA DE BOTONES ===== */
 .texto-resaltado {
+    display: inline-flex;
     position: relative;
     padding: .7rem 1rem .7rem 1.2rem;
     background: var(--primary-soft);
     border-radius: var(--radius);
     color: var(--primary);
     font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+
 }
 
 .texto-resaltado::before {
@@ -314,9 +351,12 @@ strong {
 }
 
 .link_add {
-    margin: 0 1rem;
     font-weight: bold;
     color: var(--primary);
+}
+
+.link_add a {
+    margin-top: 10px;
 }
 
 .link_add:hover {
@@ -652,10 +692,10 @@ select.form-control {
 
 /* ===== HOME ===== */
 .content {
-    padding: 1.5rem 2rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--spacing-md);
+    /* antes: 10px suelto, sin efecto */
 }
 
 .section-container {
@@ -1016,12 +1056,12 @@ select.form-control {
     padding: 1rem 0;
 }
 
-.modal{
+.modal {
     position: fixed;
     inset: 0;
     align-items: center;
     justify-content: center;
-    background: rgba(0,0,0,0.45);
+    background: rgba(0, 0, 0, 0.45);
     z-index: 9999;
     display: none;
 }
@@ -1030,6 +1070,81 @@ select.form-control {
     background: white;
     padding: var(--padding);
     border-radius: var(--radius);
+}
+
+.credit-cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    width: 100%;
+    margin-bottom: var(--spacing-sm);
+}
+
+.credit-card-item {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.card-bank {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.img-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.card-amounts {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.amount {
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+}
+
+.amount span {
+    font-size: .75rem;
+    color: var(--text-light);
+}
+
+.amount strong {
+    font-size: 1rem;
+}
+
+.amount.debt strong {
+    color: var(--error);
+}
+
+.amount.limit strong {
+    color: var(--success);
+}
+
+.menu-opciones {
+    position: relative;
+}
+
+.menu-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.4rem;
+    color: var(--text-light);
+    padding: .25rem .5rem;
+}
+
+.menu-btn:hover {
+    color: var(--text-dark);
 }
 
 /* ===== RESPONSIVE ===== */

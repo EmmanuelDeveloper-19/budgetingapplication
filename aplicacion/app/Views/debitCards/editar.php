@@ -9,7 +9,8 @@
                 </div>
             <?php endif; ?>
 
-            <form action="<?= PATH . 'debitCardController/update/' . $data['debitCard']['id']; ?>" method="POST" class="login-form">
+            <form action="<?= PATH . 'debitCardController/update/' . $data['debitCard']['id']; ?>" method="POST"
+                class="login-form">
 
                 <input type="hidden" name="user_id" value="<?= $data['old']['user_id'] ?? '' ?>" required>
 
@@ -18,7 +19,7 @@
                     <option value="">Selecciona un banco</option>
 
                     <?php
-                    $banco = $data['debitCard']['banco'];
+                    $banco = $data['debitCard']['bank'];
                     ?>
 
                     <option value="uala" <?= $banco === 'uala' ? 'selected' : '' ?>>Ualá</option>
@@ -27,6 +28,8 @@
                     <option value="bbva" <?= $banco === 'bbva' ? 'selected' : '' ?>>BBVA</option>
                     <option value="santander" <?= $banco === 'santander' ? 'selected' : '' ?>>Santander</option>
                     <option value="banamex" <?= $banco === 'banamex' ? 'selected' : '' ?>>Banamex</option>
+                    <option value="mercadopago" <?= $banco === 'mercadopago' ? 'selected' : '' ?>>Mercado Pago</option>
+
                 </select>
 
                 <!-- Saldo disponible -->

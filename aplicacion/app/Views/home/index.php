@@ -1,6 +1,6 @@
 <?php require_once INCLUDES . '/components/modalComponent.php'; ?>
 
-<div class="row" style="width: 100%;">
+<div class="row">
     <div class="col-md-3">
         <div class="content">
             <div class="texto-resaltado">
@@ -16,7 +16,7 @@
 
             $saldoTotal = $data['user']['balance'] + $saldoTarjetas;
             ?>
-            <h1 class="display-flex space-between">$
+            <h1 class="patrimonio-saldo">$
                 <?=
                     $saldoTotal
                     ?>
@@ -29,7 +29,7 @@
         <?php require_once("debit-cards.php"); ?>
     </div>
     <div class="col-md-9">
-        <div class="section-container">
+        <div class="content">
             <div class="row space-between">
                 <div class="texto-resaltado">
                     <p>Transacciones</p>
