@@ -6,7 +6,7 @@ require_once("core/controller.php");
 
 define("MAIN_ROOT", __DIR__);
 define("PATH", "/");
-//gitdefine("PATH",  "/budgetingapplication/aplicacion/public/");
+//define("PATH",  "/budgetingapplication/aplicacion/public/");
 define("MODELS", __DIR__ . "/models/");
 define("CONTROLLERS", __DIR__ . "/controllers/");
 define("VIEWS", __DIR__ . "/Views/");
