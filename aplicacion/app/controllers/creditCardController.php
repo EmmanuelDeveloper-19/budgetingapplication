@@ -28,13 +28,16 @@ class CreditCardController extends Controller
             $dia_pago = $_POST['payment_date'] ?? '';
             $balance_total = $_POST['credit_limit'] ?? '';
             $deuda = $_POST['outstanding_balance'] ?? '';
+            $installments = $_POST['installments'] ??'';
+            $status = $_POST['status'] ??'';
 
             $data = [
                 'bank' => $banco,
                 'statement_closing_date' => $dia_corte,
                 'payment_date' => $dia_pago,
                 'credit_limit' => $balance_total,
-                'outstanding_balance' => $deuda
+                'outstanding_balance' => $deuda,
+
             ];
 
             if ($model->create($user_id, $data)) {

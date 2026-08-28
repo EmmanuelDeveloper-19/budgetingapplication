@@ -49,6 +49,8 @@ class TransactionController extends Controller
             ? ($_POST['debit_card_id'] ?? null)
             : null;
 
+        $installments = $_POST['installments'];
+
         $data = [
             'name' => $name,
             'type' => $type,
@@ -57,7 +59,8 @@ class TransactionController extends Controller
             'description' => $description,
             'id_credit_card' => $id_credit_card,
             'id_debit_card' => $id_debit_card,
-            'user_id' => $user_id
+            'user_id' => $user_id,
+            'installments' => $installments,
         ];
 
         switch ($_POST['payment_method']) {
@@ -94,6 +97,28 @@ class TransactionController extends Controller
                 break;
 
             case 'credit_card':
+                if ($model->processCreditTransaction($data)) {
+                    $_SESSION['alert'] = [
+                        'type' => 'success',
+                        'message' => 'Transaccion agregada correctamente'
+                    ];
+
+                    $redirect = $_SESSION['previous_url'] ?? PATH . "home/index";
+
+                    unset($_SESSION['previous_url']);
+
+                    header("Location: " . $redirect);
+                    exit();
+
+                } else {
+
+                    $e = "Error al agregar la tarjeta de debito.";
+
+                    $this->view("transaction/create", [
+                        'error' => $e,
+                        'old' => $_POST
+                    ]);
+                }
                 break;
         }
     }

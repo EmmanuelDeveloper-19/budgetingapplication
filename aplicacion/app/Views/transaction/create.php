@@ -83,6 +83,11 @@
                         </select>
                     </div>
 
+                    <div id="installments-container" class="form-group" style="display: none;">
+                        <label for="" class="form-label">Meses</label>
+                        <input type="number" class="form-control" name="installments" value="1" min="1" step="1">
+                    </div>
+
 
                     <!-- Tarjetas de débito -->
                     <div id="debit-card-container" class="form-group" style="display: none;">
@@ -141,14 +146,17 @@
 
         const creditCardContainer = document.getElementById('credit-card-container');
         const debitCardContainer = document.getElementById('debit-card-container');
+        const installmentsContainer = document.getElementById('installments-container');
 
         // Ocultar ambos inicialmente
         creditCardContainer.style.display = 'none';
         debitCardContainer.style.display = 'none';
+        installmentsContainer.style.display = 'none';
 
         // Mostrar según el método seleccionado
         if (method === 'credit_card') {
             creditCardContainer.style.display = 'block';
+            installmentsContainer.style.display = 'block';
         }
 
         if (method === 'debit_card') {

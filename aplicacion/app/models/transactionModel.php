@@ -195,7 +195,7 @@ class TransactionModel extends Db
 
             $userId = $data['user_id'];
             $amount = $data['amount'];
-            $debitCardId = $data['id_debit_card'];
+            $creditCard = $data['id_credit_card'];
 
             /*
              * 1. Registrar la transacción
@@ -242,18 +242,18 @@ class TransactionModel extends Db
             (
                 transaction_id,
                 credit_card_id,
-                installments,
-                status,
-                transaction_date
+                installments
             )
-            VALUES (?, ?,?,?, NOW())";
+            VALUES (?, ?,?)";
 
             $this->preparedQuery(
                 $qTransactionDebit,
-                "iiiss",
+                "iii",
                 [
                     $transactionId,
-                    $debitCardId
+                    $creditCard,
+                    $data['installments']
+
                 ]
             );
 
@@ -261,23 +261,24 @@ class TransactionModel extends Db
             /*
              * 3. Restar el monto del saldo de la tarjeta
              */
-            $qDebitCard = "
-            UPDATE credit_cards
-            SET balance = balance - ?
-            WHERE id = ?
-            AND user_id = ?
-        ";
+            $qCreditCard = "
+    UPDATE credit_cards
+    SET credit_limit = credit_limit - ?,
+        outstanding_balance = outstanding_balance + ?
+    WHERE id = ?
+    AND user_id = ?
+";
 
             $result = $this->preparedQuery(
-                $qDebitCard,
-                "dii",
+                $qCreditCard,
+                "ddii",
                 [
                     $amount,
-                    $debitCardId,
+                    $amount,
+                    $creditCard,
                     $userId
                 ]
             );
-
             if ($result <= 0) {
                 throw new Exception(
                     "No se pudo actualizar el balance de la tarjeta"

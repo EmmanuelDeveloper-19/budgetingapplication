@@ -1058,16 +1058,13 @@ select.form-control {
 
 .modal {
     display: none;
-
     position: fixed;
     inset: 0;
-
     align-items: center;
     justify-content: center;
-
-    background: rgba(0, 0, 0, 0.5);
-
+    background: rgba(31, 41, 55, 0.5);
     z-index: 9999;
+    padding: var(--spacing-md);
 }
 
 .modal.active {
@@ -1076,35 +1073,134 @@ select.form-control {
 
 .modal-body {
     position: relative;
-
-    width: 90%;
-    max-width: 450px;
-
-    padding: 25px;
-
-    background: white;
-
-    border-radius: 12px;
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 380px;
+    padding: var(--padding);
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-hover);
 }
 
 .modal-close {
     position: absolute;
-
-    top: 10px;
-    right: 15px;
-
+    top: 12px;
+    right: 14px;
     border: none;
     background: none;
-
-    font-size: 28px;
-
+    font-size: 22px;
+    line-height: 1;
+    color: var(--text-light);
     cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
 }
 
-.modal-info p {
-    margin: 12px 0;
+.modal-close:hover {
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-bank-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.modal-header h2 {
+    font-size: var(--h4-size);
+    margin: 0;
+}
+
+.modal-amounts {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    margin-bottom: 0.75rem;
+}
+
+.modal-amounts .amount {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.modal-amounts .amount:last-child {
+    text-align: right;
+}
+
+.modal-amounts span {
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+.modal-amounts strong {
+    font-size: 1.15rem;
+}
+
+.modal-amounts .debt strong {
+    color: var(--error);
+}
+
+.modal-amounts .limit strong {
+    color: var(--success);
+}
+
+.modal-dates {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    padding-top: 0.75rem;
+    margin-top: 0.75rem;
+    border-top: 1px solid var(--border);
+}
+
+.modal-dates div:last-child {
+    text-align: right;
+}
+
+.modal-dates span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-bottom: 2px;
+}
+
+.modal-dates strong {
+    font-size: 0.9rem;
+}
+
+.modal-limit-total {
+    margin-top: 0.85rem;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.modal-limit-total strong {
+    color: var(--text-medium);
+}
+
+/* Reusa el mismo patrón de color que las tarjetas de la lista */
+.credit-progress-fill.nivel-bajo {
+    background: var(--primary);
+}
+
+.credit-progress-fill.nivel-medio {
+    background: #E0A94D;
+}
+
+.credit-progress-fill.nivel-alto {
+    background: var(--error);
 }
 
 .credit-cards-list {
@@ -1122,6 +1218,12 @@ select.form-control {
     gap: 2rem;
     width: 100%;
     box-sizing: border-box;
+    cursor: pointer;
+}
+
+.credit-card-item:hover{
+    background: var(--primary-soft);
+    border-radius: var(--radius);
 }
 
 .card-bank {
