@@ -20,11 +20,56 @@
 
                     <div class="form-group">
                         <label class="form-label">Categoría</label>
+
                         <select class="form-control" name="type">
+
                             <option value="">Selecciona una categoría</option>
+
+                            <!-- 🏠 Hogar -->
+                            <option value="Vivienda">Vivienda</option>
                             <option value="Servicios">Servicios</option>
-                            <option value="Subscripciones">Suscripciones</option>
+                            <option value="Mantenimiento">Mantenimiento</option>
+
+                            <!-- 🍔 Día a día -->
+                            <option value="Alimentación">Alimentación</option>
+                            <option value="Supermercado">Supermercado</option>
+                            <option value="Comida fuera">Comida fuera</option>
+                            <option value="Snacks y antojos">Snacks y antojos</option>
+
+                            <!-- 🚌 Transporte -->
+                            <option value="Transporte">Transporte</option>
+                            <option value="Transporte público">Transporte público</option>
+                            <option value="Gasolina">Gasolina</option>
+                            <option value="Estacionamiento">Estacionamiento</option>
+
+                            <!-- 📱 Entretenimiento -->
+                            <option value="Entretenimiento">Entretenimiento</option>
+                            <option value="Suscripciones">Suscripciones</option>
+                            <option value="Videojuegos">Videojuegos</option>
+                            <option value="Salidas">Salidas</option>
+
+                            <!-- 🛍️ Compras -->
+                            <option value="Compras">Compras</option>
+                            <option value="Ropa">Ropa</option>
+                            <option value="Tecnología">Tecnología</option>
+                            <option value="Regalos">Regalos</option>
+
+                            <!-- 💳 Finanzas -->
                             <option value="Deudas">Deudas</option>
+                            <option value="Comisiones">Comisiones</option>
+                            <option value="Intereses">Intereses</option>
+
+                            <!-- ❤️ Personal -->
+                            <option value="Salud">Salud</option>
+                            <option value="Cuidado personal">Cuidado personal</option>
+                            <option value="Educación">Educación</option>
+
+                            <!-- 📦 Otros -->
+                            <option value="Mascotas">Mascotas</option>
+                            <option value="Donaciones">Donaciones</option>
+                            <option value="Imprevistos">Imprevistos</option>
+                            <option value="Otros">Otros</option>
+
                         </select>
                     </div>
 

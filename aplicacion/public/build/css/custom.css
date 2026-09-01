@@ -447,8 +447,23 @@ strong {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+
+    height: 70dvh;
+    overflow-y: auto;
 }
 
+.transaction-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.transaction-list::-webkit-scrollbar-thumb {
+    background: var(--primary-soft-border);
+    border-radius: var(--radius-full);
+}
+
+.transaction-list::-webkit-scrollbar-track {
+    background: transparent;
+}
 .transaction-card {
     display: flex;
     justify-content: space-between;
@@ -887,7 +902,7 @@ select.form-control {
     position: absolute;
     right: 0;
     top: 28px;
-    background: #fff;
+    background: var(--bg);
     border-radius: 6px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
     min-width: 120px;
@@ -1452,17 +1467,17 @@ select.form-control {
     white-space: nowrap;
 }
 
-.table-transacciones .amount {
+.table-transacciones .amount-col {
     font-weight: 700;
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
 }
 
-.table-transacciones .amount.income {
+.table-transacciones .amount-col.income {
     color: var(--success);
 }
 
-.table-transacciones .amount.expense {
+.table-transacciones .amount-col.expense {
     color: var(--error);
 }
 

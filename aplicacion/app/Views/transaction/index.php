@@ -20,7 +20,7 @@
                 <tr>
                     <td class="col-index"><?= $i + 1; ?></td>
                     <td><?= htmlspecialchars($t['name']); ?></td>
-                    <td class="amount <?= $t['type'] === 'income' ? 'income' : 'expense'; ?>">
+                    <td class="amount-col <?= $t['type'] === 'income' ? 'income' : 'expense'; ?>">
                         <?= $t['type'] === 'income' ? '+' : '-'; ?>$<?= number_format($t['amount'], 2); ?>
                     </td>
                     <td>
