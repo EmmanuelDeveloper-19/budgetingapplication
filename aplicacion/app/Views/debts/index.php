@@ -1,0 +1,1 @@
+<h1>Vista para la gestion de deudas (proximamente)</h1>

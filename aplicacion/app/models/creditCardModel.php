@@ -90,4 +90,33 @@ class CreditCardModel extends Db
         return $this->preparedQuery($q, $t, [$id]);
     }
 
+    public function pagarTarjeta($data)
+    {
+        try {
+            $this->beginTransaction();
+
+            $updateCreditLimit = "UPDATE {$this->table} SET credit_limit = credit_limit + ? WHERE id = ? AND user_id = ?";
+
+            $queryLimitResponse = $this->preparedQuery($updateCreditLimit, "dii", [
+                $data["amount"],
+                $data["id"],
+                $data["user_id"],
+            ], false);
+
+            $updateBalance = "UPDATE {$this->table} SET outstanding_balance = outstanding_balance - ? WHERE id = ? AND user_id = ?";
+
+            $qBalance = $this->preparedQuery($updateBalance, "dii", [
+                $data["amount"],
+                $data["id"],
+                $data["user_id"],
+            ], false);
+
+
+            $this->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->rollBack();
+            die($e->getMessage());
+        }
+    }
 }

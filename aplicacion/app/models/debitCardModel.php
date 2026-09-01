@@ -71,5 +71,24 @@ class DebitCardModel extends Db
         return $this->preparedQuery($q, $t, [$id]);
     }
 
+    public function abonarTarjeta($data){
+        try{
+            $this->beginTransaction();
+
+            $query = "UPDATE {$this->table} SET balance = balance + ? WHERE id = ? AND user_id = ?";
+            $result = $this->preparedQuery($query, "dii",[
+                $data["amount"],
+                $data["id"],
+                $data["user_id"],
+            ], false);
+
+            $this->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
+        }
+    }
+
 }
 

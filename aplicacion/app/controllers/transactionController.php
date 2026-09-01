@@ -8,6 +8,23 @@ class TransactionController extends Controller
 
     }
 
+    function index()
+    {
+        $userModel = $this->model('userModel');
+
+        $userData = $userModel->getCurrentUser();
+
+        $user_id = $userData['id'];
+
+        $model = $this->model("transactionModel");
+
+        $transactions = $model->getTransactions($user_id);
+
+        return $this->view("transaction/index",[
+            "transactions" => $transactions
+        ]);
+    }
+
     public function create()
     {
         $user = $this->model("userModel");

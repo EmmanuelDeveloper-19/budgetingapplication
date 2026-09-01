@@ -1,6 +1,6 @@
 <nav class="navbar">
     <div class="logo">
-        <a href="#">BudgetingApp</a>
+        <a href="<?= PATH . 'home/index';?>">Mirry's Money</a>
     </div>
 
     <!-- Menú que se ocultará/desplegará en móvil -->
@@ -13,19 +13,19 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="<?= PATH . 'transactionController/index';?>">
                     <i class="fas fa-money-bill-transfer"></i>
                     Transacciones
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <i class="fas fa-chart-line"></i>
-                    Balance Mensual
+                <a href="<?= PATH . 'debtController/index';?>">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    Deudas
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="<?= PATH . 'wishlistController/index';?>">
                     <i class="fas fa-gift"></i>
                     Lista de deseos
                 </a>

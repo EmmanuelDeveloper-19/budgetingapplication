@@ -19,13 +19,10 @@
                 $limite = $c['credit_limit'];
                 ?>
 
-                <div class="credit-card-item"
-                     data-id="<?= $c['id']; ?>"
-                     data-bank="<?= htmlspecialchars($c['bank']); ?>"
-                     data-closing="<?= htmlspecialchars($c['statement_closing_date']); ?>"
-                     data-payment="<?= htmlspecialchars($c['payment_date']); ?>"
-                     data-limit="<?= $limite; ?>"
-                     data-balance="<?= $saldo; ?>">
+                <div class="credit-card-item" data-id="<?= $c['id']; ?>" data-bank="<?= htmlspecialchars($c['bank']); ?>"
+                    data-closing="<?= htmlspecialchars($c['statement_closing_date']); ?>"
+                    data-payment="<?= htmlspecialchars($c['payment_date']); ?>" data-limit="<?= $limite; ?>"
+                    data-balance="<?= $saldo; ?>">
 
                     <div class="card-bank">
                         <img class="img-icon" src="<?= PATH . 'assets/' . $c['bank'] . '.png'; ?>" alt="">
@@ -44,8 +41,16 @@
                     <div class="menu-opciones">
                         <button type="button" class="menu-btn" data-no-modal>⋮</button>
                         <div class="menu-dropdown">
-                            <a href="<?= PATH . 'creditCardController/editView/' . $c['id']; ?>" data-no-modal>
-                                Actualizar
+                            <a 
+                            href="#" 
+                            class="update-card-btn"
+                            data-id="<?= $c['id']; ?>" 
+                            data-balance="<?= $saldo; ?>"
+                            data-no-modal>
+                                Agregar pago
+                            </a>
+                            <a href="<?= PATH . 'creditCardController/editView/' . $c['id'];?>" data-no-modal>
+                                Actualizar datos
                             </a>
                             <a href="<?= PATH . 'creditCardController/eliminar/' . $c['id']; ?>" class="danger" data-no-modal>
                                 Eliminar
@@ -65,6 +70,11 @@
         Agregar tarjeta de crédito
     </a>
 
+
+</div>
+
+<div class="modal" id="updateModal">
+    <?php include(VIEWS . "components/modal/pagarTarjeta.php"); ?>
 </div>
 
 <div class="modal" id="cardModal">
@@ -114,65 +124,90 @@
 </div>
 
 <script>
-const ASSETS_PATH = "<?= PATH . 'assets/'; ?>";
+    const ASSETS_PATH = "<?= PATH . 'assets/'; ?>";
+    const PATH_URL = "<?= PATH; ?>";
 
-(function () {
-    const modal = document.getElementById('cardModal');
-    const list = document.getElementById('creditCardsList');
+    (function () {
+        const list = document.getElementById('creditCardsList');
+        const cardModal = document.getElementById('cardModal');
+        const updateModal = document.getElementById('updateModal');
 
-    function formatoMoneda(valor) {
-        return '$' + valor.toLocaleString('es-MX', { minimumFractionDigits: 2 });
-    }
+        function formatoMoneda(valor) {
+            return '$' + valor.toLocaleString('es-MX', { minimumFractionDigits: 2 });
+        }
 
-    function abrirModal(card) {
-        const bank = card.dataset.bank;
-        const closing = card.dataset.closing;
-        const payment = card.dataset.payment;
-        const limit = parseFloat(card.dataset.limit) || 0;
-        const balance = parseFloat(card.dataset.balance) || 0;
-        const available = limit - balance;
-        const porcentaje = limit > 0 ? Math.min(100, Math.max(0, Math.round((balance / limit) * 100))) : 0;
+        function abrirModalInfo(card) {
+            const bank = card.dataset.bank;
+            const closing = card.dataset.closing;
+            const payment = card.dataset.payment;
+            const limit = parseFloat(card.dataset.limit) || 0;
+            const balance = parseFloat(card.dataset.balance) || 0;
+            const available = limit - balance;
+            const porcentaje = limit > 0 ? Math.min(100, Math.max(0, Math.round((balance / limit) * 100))) : 0;
 
-        document.getElementById('modalBank').textContent = bank;
-        document.getElementById('modalBankIcon').src = ASSETS_PATH + bank + '.png';
-        document.getElementById('modalClosing').textContent = closing;
-        document.getElementById('modalPayment').textContent = payment;
-        document.getElementById('modalLimit').textContent = formatoMoneda(limit);
-        document.getElementById('modalBalance').textContent = formatoMoneda(balance);
-        document.getElementById('modalAvailable').textContent = formatoMoneda(available);
+            document.getElementById('modalBank').textContent = bank;
+            document.getElementById('modalBankIcon').src = ASSETS_PATH + bank + '.png';
+            document.getElementById('modalClosing').textContent = closing;
+            document.getElementById('modalPayment').textContent = payment;
+            document.getElementById('modalLimit').textContent = formatoMoneda(limit);
+            document.getElementById('modalBalance').textContent = formatoMoneda(balance);
+            document.getElementById('modalAvailable').textContent = formatoMoneda(available);
 
-        const fill = document.getElementById('modalProgressFill');
-        fill.style.width = porcentaje + '%';
-        fill.classList.remove('nivel-bajo', 'nivel-medio', 'nivel-alto');
-        fill.classList.add(porcentaje >= 80 ? 'nivel-alto' : porcentaje >= 50 ? 'nivel-medio' : 'nivel-bajo');
-        document.getElementById('modalProgressLabel').textContent = porcentaje + '% del límite usado';
+            const fill = document.getElementById('modalProgressFill');
+            fill.style.width = porcentaje + '%';
+            fill.classList.remove('nivel-bajo', 'nivel-medio', 'nivel-alto');
+            fill.classList.add(porcentaje >= 80 ? 'nivel-alto' : porcentaje >= 50 ? 'nivel-medio' : 'nivel-bajo');
+            document.getElementById('modalProgressLabel').textContent = porcentaje + '% del límite usado';
 
-        modal.classList.add('active');
-    }
+            cardModal.classList.add('active');
+        }
 
-    function cerrarModal() {
-        modal.classList.remove('active');
-    }
+        function abrirModalPago(btn) {
 
-    // Delegación de eventos: un solo listener para toda la lista,
-    // funciona aunque agregues tarjetas nuevas después (AJAX, etc).
-    list.addEventListener('click', (e) => {
-        if (e.target.closest('[data-no-modal]')) return;
+            const cardId = btn.dataset.id;
 
-        const item = e.target.closest('.credit-card-item');
-        if (!item) return;
+            const form = document.getElementById('pagarTarjetaForm');
 
-        abrirModal(item);
-    });
+            form.action = PATH_URL
+                + 'creditCardController/abonarTarjeta/'
+                + cardId;
 
-    document.getElementById('modalClose').addEventListener('click', cerrarModal);
+            updateModal.classList.add('active');
+        }
 
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) cerrarModal();
-    });
+        function cerrarModales() {
+            document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
+        }
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) cerrarModal();
-    });
-})();
+        list.addEventListener('click', (e) => {
+            const updateBtn = e.target.closest('.update-card-btn');
+            if (updateBtn) {
+                e.preventDefault();       // evita el salto de página del href="#"
+                abrirModalPago(updateBtn);
+                return;
+            }
+
+            if (e.target.closest('[data-no-modal]')) return;
+
+            const item = e.target.closest('.credit-card-item');
+            if (!item) return;
+
+            abrirModalInfo(item);
+        });
+
+        // Cierre genérico: sirve para AMBOS modales, no solo cardModal
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) cerrarModales();
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.modal-close')) cerrarModales();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') cerrarModales();
+        });
+    })();
 </script>

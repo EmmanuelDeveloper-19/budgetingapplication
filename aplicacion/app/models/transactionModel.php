@@ -12,9 +12,12 @@ class TransactionModel extends Db
                         type,
                         amount,
                         payment_method,
-                        description
+                        description,
+                        transaction_date
                 FROM transactions
-                WHERE user_id = ?";
+                WHERE user_id = ?
+                AND deleted_at IS NULL
+                ORDER BY transaction_date DESC";
 
         return $this->preparedSelect($q, "i", [$user_id]);
     }
@@ -262,12 +265,11 @@ class TransactionModel extends Db
              * 3. Restar el monto del saldo de la tarjeta
              */
             $qCreditCard = "
-    UPDATE credit_cards
-    SET credit_limit = credit_limit - ?,
-        outstanding_balance = outstanding_balance + ?
-    WHERE id = ?
-    AND user_id = ?
-";
+                UPDATE credit_cards
+                SET credit_limit = credit_limit - ?,
+                outstanding_balance = outstanding_balance + ?
+                WHERE id = ?
+                AND user_id = ?";
 
             $result = $this->preparedQuery(
                 $qCreditCard,

@@ -16,7 +16,7 @@
 
             $saldoTotal = $data['user']['balance'] + $saldoTarjetas;
             ?>
-            <h1 class="patrimonio-saldo">$
+            <h1 class="title">$
                 <?=
                     $saldoTotal
                     ?>
@@ -35,7 +35,7 @@
                     <p>Transacciones</p>
                 </div>
                 <a href="<?= PATH . 'transactionController/create'; ?>" class="btn btn-primary">
-                    Agregar transacción
+                    Agregar movimiento
                 </a>
             </div>
             <?php include("transaction-list.php"); ?>

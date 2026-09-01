@@ -28,8 +28,8 @@ class CreditCardController extends Controller
             $dia_pago = $_POST['payment_date'] ?? '';
             $balance_total = $_POST['credit_limit'] ?? '';
             $deuda = $_POST['outstanding_balance'] ?? '';
-            $installments = $_POST['installments'] ??'';
-            $status = $_POST['status'] ??'';
+            $installments = $_POST['installments'] ?? '';
+            $status = $_POST['status'] ?? '';
 
             $data = [
                 'bank' => $banco,
@@ -62,6 +62,55 @@ class CreditCardController extends Controller
         return $this->view("creditCards/editar", [
             'creditCard' => $creditCard
         ]);
+    }
+
+    public function abonarTarjeta($cardId)
+    {
+        $userModel = $this->model('userModel');
+        $model = $this->model('creditCardModel');
+
+        // Usuario autenticado
+        $userData = $userModel->getCurrentUser();
+        $userId = $userData['id'];
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $amount = $_POST['amount'] ?? '';
+
+            if (!$cardId) {
+                die("No hay ID de la tarjeta");
+            }
+
+            if (!$amount) {
+                die("No hay cantidad para abonar");
+            }
+
+            $data = [
+                'amount' => $amount,
+                'user_id' => $userId,
+                'id' => $cardId
+            ];
+
+            if ($model->pagarTarjeta($data)) {
+
+                $_SESSION['alert'] = [
+                    'type' => 'success',
+                    'message' => 'Abono agregado correctamente.'
+                ];
+
+                header("Location: " . PATH . "home/index");
+                exit();
+
+            } else {
+
+                $e = "Error al pagar la tarjeta.";
+
+                $this->view("home/index", [
+                    'error' => $e,
+                    'old' => $_POST
+                ]);
+            }
+        }
     }
 
     public function update()
@@ -108,7 +157,8 @@ class CreditCardController extends Controller
         }
     }
 
-    public function delete(){
+    public function delete()
+    {
 
     }
 }
