@@ -1,16 +1,108 @@
 :root {
-    --bg: #f0f0f0;
+
+    /* =========================
+       Base
+    ========================= */
+    --bg: #F0FFFF;
+    --card-bg: #FFFFFF;
+
+    /* =========================
+       Border & Radius
+    ========================= */
     --radius: 12px;
     --radius-full: 99em;
-    --shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
-    --text-dark: #333;
-    --text-medium: #555;
-    --text-light: #777;
-    --primary: #1861e9;
-    --primary-hover: #335ead;
-    --border: #e1e1e1;
-    --error: #dc3545;
-    --success: #28a745;
+    --border: #D6E2EE;
+
+    /* =========================
+       Shadows
+    ========================= */
+    --shadow: 0 8px 25px rgba(38, 83, 141, 0.10);
+    --shadow-hover: 0 10px 30px rgba(38, 83, 141, 0.18);
+
+    /* =========================
+       Text
+    ========================= */
+    --text-dark: #172A3A;
+    --text-medium: #40566D;
+    --text-light: #71859A;
+
+    /* =========================
+       Primary
+    ========================= */
+    --primary: #26538D;
+    --primary-hover: #1D426F;
+    --text-secondary: #F0FFFF;
+
+    /* =========================
+       Primary Soft
+    ========================= */
+    --primary-soft: #E3EEF8;
+    --primary-soft-hover: #D1E2F2;
+    --primary-soft-border: #AFC8E0;
+
+    /* =========================
+       Status
+    ========================= */
+    --success: #218739;
+    --error: #D9363E;
+    --danger-hover: #B52B32;
+}
+
+
+/* =====================================================
+   MODO OSCURO
+   Se activa según el tema del sistema operativo
+   ===================================================== */
+
+@media (prefers-color-scheme: dark) {
+
+    :root {
+
+        /* =========================
+           Base
+        ========================= */
+        --bg: #0F1722;
+        --card-bg: #172536;
+
+        /* =========================
+           Border
+        ========================= */
+        --border: #2B4057;
+
+        /* =========================
+           Shadows
+        ========================= */
+        --shadow: 0 8px 25px rgba(0, 0, 0, 0.30);
+        --shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.45);
+
+        /* =========================
+           Text
+        ========================= */
+        --text-dark: #F0FFFF;
+        --text-medium: #C4D2DF;
+        --text-light: #8FA3B7;
+
+        /* =========================
+           Primary
+        ========================= */
+        --primary: #3E70B0;
+        --primary-hover: #5385C4;
+        --text-secondary: #F0FFFF;
+
+        /* =========================
+           Primary Soft
+        ========================= */
+        --primary-soft: #1E3550;
+        --primary-soft-hover: #294766;
+        --primary-soft-border: #3A5C7F;
+
+        /* =========================
+           Status
+        ========================= */
+        --success: #35B956;
+        --error: #F05252;
+        --danger-hover: #FF6B6B;
+    }
 }
 
 * {
@@ -32,7 +124,7 @@ body {
 .login-container {
     width: 100%;
     max-width: 400px;
-    background: white;
+    background: var(--card-bg);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     padding: 2.5rem 2rem;
@@ -93,6 +185,8 @@ body {
     border-radius: var(--radius);
     font-size: 1rem;
     font-family: inherit;
+    background-color: var(--bg);
+    color: var(--text-dark);
     transition: border 0.2s;
 }
 

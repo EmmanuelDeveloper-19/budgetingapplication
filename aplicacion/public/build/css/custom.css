@@ -472,7 +472,6 @@ strong {
     background: var(--card-bg);
     padding: var(--padding);
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
     transition: box-shadow 0.2s ease, transform 0.1s ease;
 }
 
