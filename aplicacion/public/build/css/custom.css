@@ -1,123 +1,4 @@
-:root {
-    /* =========================
-       Base
-    ========================= */
-    --bg: #F3F5FF;
-    --card-bg: #FFFFFF;
-
-    /* =========================
-       Border & Radius
-    ========================= */
-    --radius: 12px;
-    --radius-full: 999px;
-    --border: #C7D2FE;
-
-    /* =========================
-       Shadows
-    ========================= */
-    --shadow: 0 8px 24px rgba(37, 58, 217, .14);
-    --shadow-hover: 0 10px 30px rgba(37, 58, 217, .24);
-
-    /* =========================
-       Text
-    ========================= */
-    --text-dark: #111827;
-    --text-medium: #374151;
-    --text-light: #5B6472;
-
-    /* =========================
-       Primary
-    ========================= */
-    --primary: #426bc2;
-    --primary-hover: #1B31C4;
-    --text-secondary: #FFFFFF;
-
-    /* =========================
-       Primary Soft
-    ========================= */
-    --primary-soft: #DCE3FF;
-    --primary-soft-hover: #C2CDFF;
-    --primary-soft-border: #93A5FF;
-
-    /* =========================
-       Status
-    ========================= */
-    --success: #16A34A;
-    --error: #DC2626;
-    --danger-hover: #B91C1C;
-
-    /* =========================
-       Spacing
-    ========================= */
-    --padding: 1.5rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-
-    /* =========================
-       Typography
-    ========================= */
-    --h1-size: 1.5rem;
-    --h2-size: 1.5rem;
-    --h3-size: 1.25rem;
-    --h4-size: 1.125rem;
-}
-
-
-/* =====================================================
-   MODO OSCURO
-   Se activa automáticamente según el sistema operativo
-   ===================================================== */
-
-@media (prefers-color-scheme: dark) {
-
-    :root {
-        /* =========================
-           Base
-        ========================= */
-        --bg: #0F172A;
-        --card-bg: #1E293B;
-
-        /* =========================
-           Border
-        ========================= */
-        --border: #334155;
-
-        /* =========================
-           Shadows
-        ========================= */
-        --shadow: 0 8px 24px rgba(0, 0, 0, .35);
-        --shadow-hover: 0 10px 30px rgba(0, 0, 0, .50);
-
-        /* =========================
-           Text
-        ========================= */
-        --text-dark: #F8FAFC;
-        --text-medium: #CBD5E1;
-        --text-light: #94A3B8;
-
-        /* =========================
-           Primary
-        ========================= */
-        --primary: #5B7FE2;
-        --primary-hover: #7695F0;
-        --text-secondary: #FFFFFF;
-
-        /* =========================
-           Primary Soft
-        ========================= */
-        --primary-soft: #1E2A4A;
-        --primary-soft-hover: #26365D;
-        --primary-soft-border: #4A5FA8;
-
-        /* =========================
-           Status
-        ========================= */
-        --success: #22C55E;
-        --error: #EF4444;
-        --danger-hover: #F87171;
-    }
-}
+@import url(root.css);
 
 * {
     margin: 0;
@@ -128,28 +9,27 @@
 body {
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
-    background-color: var(--bg);
-
+    background: var(--bg);
 }
 
-span,
-h1,
-h2,
-h3,
-p,
-strong {
-    color: var(--text-dark);
+a,
+p {
+    font-size: var(--text-body);
 }
 
+h1 {
+    font-size: var(--text-subtitle);
+}
 
-
-/* ===== SISTEMA DE COLUMNAS Y ELEMENTOS VARIOS ===== */
 
 .container {
-    margin-top: 1.5rem;
+    width: 100%;
     max-width: 1500px;
-    margin: 10px auto;
-    padding: 0 1.5rem;
+    margin: 2rem auto;
+    padding-inline: clamp(1rem, 3vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     box-sizing: border-box;
 }
 
@@ -158,7 +38,7 @@ strong {
     justify-content: center;
     align-items: start;
     flex-direction: row;
-    gap: var(--spacing-lg);
+    gap: clamp(1rem, 2vw, 2rem);
 }
 
 
@@ -168,17 +48,36 @@ strong {
 
 .col-md-3 {
     width: 25%;
+
     display: flex;
     flex-direction: column;
+
     gap: var(--spacing-lg);
+    padding: var(--spacing-md);
+
+    box-sizing: border-box;
 }
 
 .col-md-6 {
     width: 50%;
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md);
+
+    box-sizing: border-box;
 }
 
 .col-md-9 {
     width: 75%;
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md);
+
+    box-sizing: border-box;
 }
 
 .col-md-12 {
@@ -227,7 +126,7 @@ strong {
 .alert {
     padding: 14px 18px;
     margin-bottom: 10px;
-    border-radius: 10px;
+    border-radius: var(--radius-element);
     font-size: 15px;
     font-weight: 500;
     display: flex;
@@ -237,27 +136,34 @@ strong {
 }
 
 .alert-success {
-    background-color: #e6f7ee;
+    background-color: var(--success-light);
     color: var(--success);
+    font-size: var(--text-body);
+    font-weight: bold;
     border-left: 5px solid var(--success);
+
 }
 
 .alert-danger {
-    background-color: #fdecea;
-    color: var(--error);
-    border-left: 5px solid var(--error);
+    font-weight: bold;
+    background-color: var(--danger-light);
+    color: var(--danger);
+    border-left: 5px solid var(--danger);
+
 }
 
 .alert-warning {
-    background-color: #fff4e5;
-    color: #9a6400;
-    border-left: 5px solid #9a6400;
+    font-weight: bold;
+    background-color: var(--warning-light);
+    color: var(--warning);
+    border-left: 5px solid var(--warning);
 }
 
 .alert-info {
-    background-color: #e8f2ff;
-    color: #1c4fa1;
-    border-left: 5px solid #1c4fa1;
+    font-weight: bold;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    border-left: 5px solid var(--primary);
 }
 
 @keyframes fadeIn {
@@ -276,14 +182,11 @@ strong {
 .texto-resaltado {
     display: inline-flex;
     position: relative;
-    padding: .7rem 1rem .7rem 1.2rem;
-    background: var(--primary-soft);
-    border-radius: var(--radius);
+    padding: 0.875rem 1.5rem;
+    background: var(--primary-light);
+    border-radius: var(--radius-element);
     color: var(--primary);
     font-weight: 600;
-    margin-bottom: var(--spacing-sm);
-    margin-top: var(--spacing-sm);
-
 }
 
 .texto-resaltado::before {
@@ -298,11 +201,11 @@ strong {
 }
 
 .title {
-    font-size: 28px;
+    font-size: var(--text-title);
 }
 
 .subtitle {
-    font-size: var(--h2-size);
+    font-size: var(--text-subtitle);
 }
 
 .action-buttons {
@@ -322,7 +225,7 @@ strong {
     padding: 0.875rem 1.5rem;
     min-height: 48px;
     border: none;
-    border-radius: var(--radius);
+    border-radius: var(--radius-element);
     font-size: 1rem;
     font-weight: bold;
     font-family: inherit;
@@ -371,16 +274,17 @@ strong {
 
 .btn-primary {
     background: var(--primary);
-    color: var(--text-secondary);
+    color: var(--white);
 }
 
 .btn-primary:hover {
     background: var(--primary-hover);
+    color: var(--white);
 }
 
 .btn-secondary {
-    color: var(--text-dark);
-    border: 1px solid var(--text-dark);
+    color: var(--secondary);
+    border: 1px solid var(--secondary-light);
     background: transparent;
 }
 
@@ -426,20 +330,18 @@ strong {
     border-radius: 4px;
 }
 
-/* ===== ESTILOS PARA LOS TEXTOS ===== */
 strong {
     text-transform: capitalize;
 }
 
-/* ===== ESTILOS PARA FORMULARIOS ===== */
 .card {
-    background: var(--card-bg);
+    background: var(--white);
     display: flex;
     justify-content: center;
     flex-direction: column;
     box-shadow: var(--shadow);
-    padding: var(--padding);
-    border-radius: var(--radius);
+    padding: var(--padding-element);
+    border-radius: var(--radius-content);
 }
 
 /* ===== TRANSACTION CARD ===== */
@@ -464,14 +366,15 @@ strong {
 .transaction-list::-webkit-scrollbar-track {
     background: transparent;
 }
+
 .transaction-card {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    background: var(--card-bg);
-    padding: var(--padding);
-    border-radius: var(--radius);
+    background: var(--white);
+    padding: var(--padding-element);
+    border-radius: var(--radius-content);
     transition: box-shadow 0.2s ease, transform 0.1s ease;
 }
 
@@ -485,31 +388,16 @@ strong {
     gap: 0.25rem;
     flex: 1;
     min-width: 0;
-    /* permite que el texto largo trunque en vez de romper el layout */
 }
 
-.transaction-name {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-dark);
-}
+.transaction-name {}
 
-.transaction-description {
-    font-size: 0.85rem;
-    color: var(--text-light);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
+.transaction-description {}
 
-.transaction-amount {
-    font-size: 1.1rem;
-    font-weight: 800;
-    white-space: nowrap;
-}
+.transaction-amount {}
 
 .transaction-amount.expense {
-    color: var(--error);
+    color: var(--danger);
 }
 
 .transaction-amount.income {
@@ -517,7 +405,7 @@ strong {
 }
 
 .transaction-date {
-    color: var(--text-dark);
+    color: var(--text-primary);
     text-align: center;
     font-weight: bold;
 }
@@ -532,50 +420,43 @@ strong {
     }
 }
 
-.login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 1rem;
+    gap: 0.625rem;
+    margin-top: 1.5rem;
 }
 
-.form-label {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--text-medium);
+.form-group .form-label {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    line-height: 1.4;
 }
 
-.form-control {
+.form-group .form-control {
     width: 100%;
-    min-height: 46px;
-
+    min-height: 48px;
     padding: 0.75rem 1rem;
-
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-
+    border: 1px solid var(--text-primary);
+    border-radius: var(--radius-element);
     background: var(--card-bg);
     color: var(--text-dark);
-
     font-size: 1rem;
     font-family: inherit;
     line-height: 1.5;
-
-    transition: border-color .2s ease,
-        box-shadow .2s ease;
-
     box-sizing: border-box;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .form-control:focus {
     outline: none;
     border-color: var(--primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb,
+            var(--primary) 12%,
+            transparent);
 }
 
 .form-control:read-only {
@@ -600,57 +481,44 @@ select.form-control {
     display: flex;
     align-items: center;
     justify-content: center;
-
     min-height: 52px;
     padding: 0.75rem 1rem;
-
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-
-    background: var(--card-bg);
-    color: var(--text-medium);
-
+    border: 1px solid var(--text-primary);
+    border-radius: var(--radius-element);
     font-size: 0.95rem;
     font-weight: 500;
-
     cursor: pointer;
-
     transition:
         border-color .2s ease,
         background-color .2s ease,
         color .2s ease,
         box-shadow .2s ease,
         transform .15s ease;
-
     box-sizing: border-box;
 }
 
-/* Ocultamos el radio original */
 .payment-option input[type="radio"] {
     position: absolute;
     opacity: 0;
     pointer-events: none;
 }
 
-/* Hover */
 .payment-option:hover {
     border-color: var(--primary);
     color: var(--primary);
     transform: translateY(-1px);
 }
 
-/* Opción seleccionada */
 .payment-option:has(input[type="radio"]:checked) {
     border-color: var(--primary);
     background: color-mix(in srgb,
             var(--primary) 8%,
-            var(--card-bg));
+            var(--white));
     color: var(--primary);
 
     box-shadow: 0 0 0 1px var(--primary);
 }
 
-/* Pequeño indicador de selección */
 .payment-option:has(input[type="radio"]:checked)::before {
     content: "✓";
 
@@ -686,8 +554,8 @@ select.form-control {
 /* ===== ESTILOS PARA EL NAVBAR ===== */
 .navbar {
     width: 100%;
-    height: 75px;
-    background-color: var(--card-bg);
+    height: 64px;
+    background-color: var(--white);
     box-shadow: var(--shadow);
     padding: 0 3rem;
     display: flex;
@@ -700,10 +568,13 @@ select.form-control {
 
 .navbar .logo a {
     color: var(--primary);
-    font-weight: 800;
+    font-weight: lighter;
     text-decoration: none;
-    font-size: 1.4rem;
+    font-size: var(--text-title);
     letter-spacing: -0.5px;
+    font-style: italic;
+    font-weight: bold;
+
 }
 
 .navbar .nav-elements ul {
@@ -718,8 +589,7 @@ select.form-control {
 
 .navbar .nav-elements ul li a {
     text-decoration: none;
-    font-size: 0.95rem;
-    color: var(--text-medium);
+    color: var(--text-primary);
     font-weight: 600;
     position: relative;
     padding: 0.5rem 0;
@@ -734,13 +604,13 @@ select.form-control {
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: var(--primary);
+    background-color: var(--primary-hover);
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
 }
 
 .navbar .nav-elements ul li a:hover {
-    color: var(--primary);
+    color: var(--primary-hover);
 }
 
 .navbar .nav-elements ul li a:hover::after {
@@ -749,13 +619,13 @@ select.form-control {
 }
 
 .navbar .nav-account .btn-account {
-    color: var(--text-secondary);
+    color: var(--white);
     font-weight: bold;
     text-decoration: none;
     font-size: 0.95rem;
     background: var(--primary);
     padding: 0.6rem 1.4rem;
-    border-radius: var(--radius);
+    border-radius: var(--radius-element);
     transition: all 0.2s ease;
     display: inline-block;
 }
@@ -771,8 +641,7 @@ select.form-control {
 .content {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
-    /* antes: 10px suelto, sin efecto */
+    gap: 1rem;
 }
 
 .section-container {
@@ -782,13 +651,13 @@ select.form-control {
 }
 
 .card-list {
-    background: var(--card-bg);
+    background-color: var(--white);
     display: flex;
     justify-content: center;
     flex-direction: column;
     box-shadow: var(--shadow);
     padding: var(--padding);
-    border-radius: var(--radius);
+    border-radius: var(--radius-element);
     margin-bottom: 10px;
     border: 1px solid var(--border);
 }
@@ -796,7 +665,7 @@ select.form-control {
 .section-label {
     font-size: 0.8rem;
     font-weight: 500;
-    color: var(--text-medium);
+    color: var(--text-primary);
     margin: 0 0 0.75rem 0.15rem;
 }
 
@@ -807,7 +676,7 @@ select.form-control {
     align-items: center;
     padding-bottom: 0.6rem;
     margin-bottom: 0.75rem;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--primary);
 }
 
 .list-body span {
@@ -819,7 +688,7 @@ select.form-control {
 
 .list-body strong {
     font-size: 1.05rem;
-    color: var(--text-dark);
+    color: var(--text-primary);
 }
 
 .credit-dates {
@@ -839,8 +708,8 @@ select.form-control {
 .credit-progress-bar {
     width: 100%;
     height: 5px;
-    border-radius: var(--radius-full);
-    background: var(--primary-soft);
+    border-radius: var(--radius-element);
+    background: var(--primary);
     overflow: hidden;
 }
 
@@ -877,7 +746,7 @@ select.form-control {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border-bottom: 2px solid var(--text-dark);
+    border-bottom: 2px solid var(--text-primary);
 }
 
 .list-body {
@@ -902,7 +771,7 @@ select.form-control {
     right: 0;
     top: 28px;
     background: var(--bg);
-    border-radius: 6px;
+    border-radius: var(--radius-element);
     box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
     min-width: 120px;
     z-index: 10;
@@ -912,7 +781,7 @@ select.form-control {
     display: block;
     padding: 8px 12px;
     text-decoration: none;
-    color: var(--text-dark);
+    color: var(--text-primary);
 }
 
 .menu-dropdown a:hover {
@@ -925,7 +794,7 @@ select.form-control {
 }
 
 .menu-dropdown .danger {
-    color: var(--danger-hover);
+    color: var(--danger);
 }
 
 .menu-opciones.active .menu-dropdown {
@@ -951,7 +820,7 @@ select.form-control {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--text-primary);
     padding-bottom: 0.5rem;
 }
 
@@ -969,42 +838,40 @@ select.form-control {
 
 .list-body strong {
     font-size: 1.1rem;
-    color: var(--text-dark);
+    color: var(--text-primary);
 }
 
 .credit-dates strong {
     font-size: 0.9rem;
 }
 
-/* Barra de progreso de uso de crédito */
 .credit-progress {
     margin-top: 0.85rem;
     padding-top: 0.75rem;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--primary);
 }
 
 .credit-progress-bar {
     width: 100%;
     height: 5px;
-    border-radius: var(--radius-full);
-    background: var(--primary-soft);
+    border-radius: var(--radius-element);
+    background: var(--primary-light);
     overflow: hidden;
 }
 
 .credit-progress-fill {
     height: 100%;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-element);
     background: var(--primary);
     transition: width 0.3s ease;
 }
 
 .credit-progress-fill.nivel-medio {
     background: #E0A94D;
-    /* ámbar, coherente con tu paleta */
 }
 
 .credit-progress-fill.nivel-alto {
-    background: var(--error);
+    background: var(--danger);
 }
 
 .credit-progress-label {
@@ -1014,7 +881,6 @@ select.form-control {
     color: var(--text-light);
 }
 
-/* ===== SECCIÓN DE CONFIGURACIÓN (tarjetas, suscripciones, etc.) ===== */
 .settings-wrapper {
     display: flex;
     flex-direction: column;
@@ -1036,7 +902,7 @@ select.form-control {
     list-style: none;
     padding: 0;
     margin: 0;
-    border-radius: var(--radius, 12px);
+    border-radius: var(--radius-element, 12px);
     overflow: hidden;
 }
 
@@ -1067,18 +933,12 @@ select.form-control {
     transition: transform 0.2s ease, color 0.2s ease;
 }
 
-/* ==========================================
-   ESTADOS DE INTERACCIÓN (Hover / Active)
-   ========================================== */
 
-/* Efecto al pasar el cursor (Desktop y toque móvil) */
 .item-list a:hover {
     background-color: rgba(127, 145, 216, 0.08);
-    /* Un tinte suave basado en var(--primary) */
     color: var(--primary, #7f91d8);
 }
 
-/* La flecha se mueve ligeramente a la derecha al hacer hover */
 .item-list a:hover .icon-arrow {
     color: var(--primary, #7f91d8);
     transform: translateX(4px);
@@ -1152,9 +1012,9 @@ select.form-control {
     position: relative;
     width: 100%;
     max-width: 380px;
-    padding: var(--padding);
-    background: var(--card-bg);
-    border-radius: var(--radius);
+    padding: var(--padding-element);
+    background: var(--bg);
+    border-radius: var(--radius-element);
     box-shadow: var(--shadow-hover);
 }
 
@@ -1173,7 +1033,7 @@ select.form-control {
 }
 
 .modal-close:hover {
-    background: var(--primary-soft);
+    background: var(--primary-hover);
     color: var(--primary);
 }
 
@@ -1183,7 +1043,7 @@ select.form-control {
     gap: 0.6rem;
     padding-bottom: 0.75rem;
     margin-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--primary);
 }
 
 .modal-bank-icon {
@@ -1194,7 +1054,8 @@ select.form-control {
 }
 
 .modal-header h2 {
-    font-size: var(--h4-size);
+    font-size: var(--text-title);
+    text-transform: capitalize;
     margin: 0;
 }
 
@@ -1267,7 +1128,6 @@ select.form-control {
     color: var(--text-medium);
 }
 
-/* Reusa el mismo patrón de color que las tarjetas de la lista */
 .credit-progress-fill.nivel-bajo {
     background: var(--primary);
 }
@@ -1411,20 +1271,19 @@ select.form-control {
 .table-transacciones {
     width: 100%;
     border-collapse: collapse;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    background-color: var(--white);
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-element);
     overflow: hidden;
-    box-shadow: var(--shadow);
 }
 
 .table-transacciones caption {
     text-align: left;
     padding: var(--spacing-md) var(--spacing-lg);
-    font-size: var(--h4-size);
+    font-size: var(--text-subtitle);
     font-weight: 600;
-    color: var(--text-dark);
-    background: var(--card-bg);
+    color: var(--text-primary);
+    background: var(--white);
     border-bottom: 1px solid var(--border);
 }
 

@@ -119,4 +119,15 @@ class CreditCardModel extends Db
             die($e->getMessage());
         }
     }
+
+    public function eliminarTarjeta($idTarjeta, $idUsuario){
+
+        $q = "DELETE FROM {$this->table} WHERE id = ? AND user_id = ?";
+
+        $result = $this->preparedQuery($q, "ii",[
+            $idTarjeta,
+            $idUsuario
+        ], false);
+        return true;
+    }
 }

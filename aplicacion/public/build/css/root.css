@@ -1,0 +1,137 @@
+:root {
+    --primary: #0e2f76;
+    --primary-hover: #235dda;
+    --primary-light: #e8eefb;
+
+    --secondary: #475569;
+    --secondary-light: #f1f5f9;
+
+    --success: #15803d;
+    --success-light: #dcfce7;
+
+    --danger: #b91c1c;
+    --danger-light: #fee2e2;
+
+    --warning: #b45309;
+    --warning-light: #fef3c7;
+
+    --info-700: #0369a1;
+    --info-100: #e0f2fe;
+
+    --text-primary: #172033;
+    --text-secondary: #64748b;
+    --text-white: #ffffff;
+
+    --bg: #f5f7fb;
+
+    --white: #ffffff;
+
+    --text-body: 15px;
+    --text-subtitle: 20px;
+    --text-title: 26px;
+    --text-big: 32px;
+
+    --radius-element: 12px;
+    --radius-content: 12px;
+    --padding-element: 1rem 1.25rem;
+
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+}
+
+@media (prefers-color-scheme: dark) {
+
+    :root {
+
+        /* =========================
+           Base
+        ========================= */
+
+        --bg: linear-gradient(135deg,
+                #0D1830 0%,
+                #122B5C 35%,
+                #182B55 65%,
+                #101A32 100%);
+
+        --card-bg: rgba(255, 255, 255, 0.08);
+        --card-bg-hover: rgba(255, 255, 255, 0.13);
+
+        /* =========================
+           Border
+        ========================= */
+
+        --border: rgba(255, 255, 255, 0.16);
+        --border-strong: rgba(255, 255, 255, 0.26);
+
+        /* =========================
+           Glass
+        ========================= */
+
+        --glass-blur: blur(24px);
+        --glass-saturate: saturate(170%);
+
+        --glass-highlight: rgba(255, 255, 255, 0.14);
+        --glass-shadow: rgba(0, 0, 0, 0.35);
+
+        /* =========================
+           Shadows
+        ========================= */
+
+        --shadow:
+            0 12px 40px rgba(0, 0, 0, 0.30),
+            inset 0 1px 1px rgba(255, 255, 255, 0.10);
+
+        --shadow-hover:
+            0 18px 50px rgba(0, 0, 0, 0.40),
+            inset 0 1px 1px rgba(255, 255, 255, 0.16);
+
+        /* =========================
+           Text
+        ========================= */
+
+        --text-dark: #F5F8FF;
+        --text-medium: #D5DDF0;
+        --text-light: #9CAAC5;
+
+        /* =========================
+           Primary
+        ========================= */
+
+        --primary: #4D7FE8;
+        --primary-hover: #6693F2;
+
+        --text-secondary: #FFFFFF;
+
+        /* =========================
+           Primary Glass
+        ========================= */
+
+        --primary-soft: rgba(30, 86, 205, 0.18);
+        --primary-soft-hover: rgba(30, 86, 205, 0.28);
+        --primary-soft-border: rgba(77, 127, 232, 0.38);
+
+        /* =========================
+           Accent
+        ========================= */
+
+        --accent: #E7A1C6;
+        --accent-hover: #F0B3D2;
+
+        --accent-soft: rgba(231, 161, 198, 0.14);
+
+        /* =========================
+           Status
+        ========================= */
+
+        --success: #65D19C;
+        --success-soft: rgba(101, 209, 156, 0.14);
+
+        --error: #EF8298;
+        --error-soft: rgba(239, 130, 152, 0.14);
+
+        --danger-hover: #F39BAE;
+    }
+}

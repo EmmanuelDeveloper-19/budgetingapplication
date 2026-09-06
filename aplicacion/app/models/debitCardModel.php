@@ -53,7 +53,7 @@ class DebitCardModel extends Db
     public function update($id, $data)
     {
         $q = "UPDATE {$this->table}
-          SET bank = ?, bank = ?
+          SET bank = ?
           WHERE id = ?";
 
         return $this->preparedQuery($q, "sdi", [

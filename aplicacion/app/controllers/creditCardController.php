@@ -157,8 +157,28 @@ class CreditCardController extends Controller
         }
     }
 
-    public function delete()
+    public function delete($idTarjeta)
     {
+        $uModel = $this->model("userModel");
+        $uResult = $uModel->getCurrentUser();
+        $userId = $uResult['id'];
+
+        $cardModel = $this->model("creditCardModel");
+
+        if ($cardModel->eliminarTarjeta($idTarjeta, $userId)) {
+            $_SESSION['alert'] = [
+                'type' => 'success',
+                'message' => 'Tarjeta eliminada correctamente'
+            ];
+
+            header("Location: " . PATH . "home/index");
+            exit();
+        }
+
+        $this->view('transaction/create', [
+            'error' => 'Error al eliminar tarjeta.',
+            'old' => $_POST
+        ]);
 
     }
 }

@@ -52,7 +52,7 @@
                             <a href="<?= PATH . 'creditCardController/editView/' . $c['id'];?>" data-no-modal>
                                 Actualizar datos
                             </a>
-                            <a href="<?= PATH . 'creditCardController/eliminar/' . $c['id']; ?>" class="danger" data-no-modal>
+                            <a href="<?= PATH . 'creditCardController/delete/' . $c['id']; ?>" class="danger" data-no-modal>
                                 Eliminar
                             </a>
                         </div>
