@@ -1,4 +1,4 @@
-<table class="table-transacciones">
+<table class="table">
     <caption>Reporte de transacciones</caption>
     <thead>
         <tr>

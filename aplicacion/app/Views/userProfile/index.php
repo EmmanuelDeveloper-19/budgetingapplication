@@ -1,119 +1,205 @@
 <div class="content">
-    <div class="row d-flex settings-wrapper justify-center align-center">
+
+    <div class="row justify-center align-center">
+
         <div class="col-md-6">
-            <div class="card mb-10">
+
+            <!-- ================= INFORMACIÓN DEL USUARIO ================= -->
+
+            <div class="card glass-panel mb-sm">
+
                 <?php require_once INCLUDES . "alerts.php"; ?>
 
-                <h1 class="title">Información del usuario</h1>
+                <h1 class="text-heading">Información del usuario</h1>
+                <p class="glass-subtext">
+                    Actualiza la información de tu perfil.
+                </p>
+
                 <form method="POST"
-                    action="<?= PATH . 'userprofilecontroller/updateUserInfo/' . $data['user']['id']; ?>">
+                action="<?= PATH . 'userprofilecontroller/updateUserInfo/' . $data['user']['id']; ?>">
 
                     <input type="hidden" name="id" value="<?= $data['user']['id'] ?>">
 
-                    <div class="form-group">
-                        <label for="username" class="form-label">Correo: </label>
-                        <input type="text" class="form-control" name="username" id="username"
+                    <!-- CORREO -->
+                    <div class="field-group">
+
+                        <label for="username" class="field-label">
+                            Correo
+                        </label>
+
+                        <input type="text" class="field-control" name="username" id="username"
                             value="<?= $data['user']['username'] ?>" readonly>
+
                     </div>
-                    <div class="form-group">
-                        <label for="name" class="form-label">Nombre: </label>
-                        <input type="text" class="form-control" name="name" id="name"
+
+                    <!-- NOMBRE -->
+                    <div class="field-group">
+
+                        <label for="name" class="field-label">
+                            Nombre
+                        </label>
+
+                        <input type="text" class="field-control" name="name" id="name"
                             value="<?= $data['user']['name'] ?>">
+
                     </div>
-                    <div class="form-group">
-                        <label for="last_name" class="form-label">Apellidos: </label>
-                        <input type="text" class="form-control" name="last_name" id="last_name"
+
+                    <!-- APELLIDOS -->
+                    <div class="field-group">
+
+                        <label for="last_name" class="field-label">
+                            Apellidos
+                        </label>
+
+                        <input type="text" class="field-control" name="last_name" id="last_name"
                             value="<?= $data['user']['last_name'] ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="balance" class="form-label">Balance: </label>
-                        <input type="number" step="0.01" class="form-control" name="balance" id="balance"
-                            value="<?= $data['user']['balance'] ?? 0.00 ?>">
+
                     </div>
 
-                    <div class="action-buttons mt-3">
-                        <button type="submit" class="btn btn-primary w-100 mb-2">Actualizar campos</button>
+                    <!-- BALANCE -->
+                    <div class="field-group">
+
+                        <label for="balance" class="field-label">
+                            Balance
+                        </label>
+
+                        <div class="field-control-wrap field-control-wrap--amount">
+
+                            <span class="field-prefix">$</span>
+
+                            <input type="number" step="0.01" class="field-control field-control--amount" name="balance"
+                                id="balance" value="<?= $data['user']['balance'] ?? 0.00 ?>">
+
+                        </div>
+
                     </div>
+
+                    <!-- ACCIÓN -->
+                    <div class="link-row">
+
+                        <button type="submit" class="btn btn-primary btn-glass w100">
+                            Actualizar campos
+                        </button>
+
+                    </div>
+
                 </form>
+
             </div>
 
-            <!-- ================= TARJETAS ================= -->
-            <div class="card mb-10">
-                <h1 class="title">Tarjetas de credito</h1>
-                <ul class="item-list">
+
+            <!-- ================= TARJETAS DE CRÉDITO ================= -->
+
+            <div class="card glass-panel mb-sm">
+
+                <h1 class="text-heading">
+                    Tarjetas de crédito
+                </h1>
+
+                <p class="glass-subtext">
+                    Administra tus tarjetas de crédito.
+                </p>
+
+                <ul class="list-items">
+
                     <?php if (empty($data['creditCardData'])): ?>
-                        <div class="empty-state">
-                            <p>No hay tarjetas de crédito agregadas</p>
+
+                        <div class="glass-alert">
+                            No hay tarjetas de crédito agregadas
                         </div>
+
                     <?php else: ?>
+
                         <?php foreach ($data['creditCardData'] as $d): ?>
-                            <li>
-                                <a href="#">
-                                    <span class="item-title"><?= $d['bank']; ?></span>
-                                    <i class="fa-solid fa-chevron-right icon-arrow"></i>
+
+                            <li class="card-item">
+
+                                <a href="#" class="card-bank">
+
+                                    <span class="text-primary">
+                                        <?= $d['bank']; ?>
+                                    </span>
+
+                                    <i class="fa-solid fa-chevron-right"></i>
+
                                 </a>
+
                             </li>
+
                         <?php endforeach; ?>
+
                     <?php endif; ?>
+
                 </ul>
-                <a class="btn btn-primary" href="<?= PATH . 'creditCardController/nuevo'; ?>">Nueva tarjeta de
-                    crédito</a>
+
+                <a class="btn btn-primary btn-glass" href="<?= PATH . 'creditCardController/nuevo'; ?>">
+                    Nueva tarjeta de crédito
+                </a>
+
             </div>
 
-            <!-- ================= TARJETAS ================= -->
-            <div class="card mb-10">
-                <h1 class="title">Tarjetas de débito</h1>
-                <ul class="item-list">
+
+            <!-- ================= TARJETAS DE DÉBITO ================= -->
+
+            <div class="card glass-panel mb-sm">
+
+                <h1 class="text-heading">
+                    Tarjetas de débito
+                </h1>
+
+                <p class="glass-subtext">
+                    Administra tus tarjetas de débito.
+                </p>
+
+                <ul class="list-items">
+
                     <?php if (empty($data['debitData'])): ?>
-                        <div class="empty-state">
-                            <p>No hay tarjetas de débito agregadas</p>
+
+                        <div class="glass-alert">
+                            No hay tarjetas de débito agregadas
                         </div>
+
                     <?php else: ?>
+
                         <?php foreach ($data['debitData'] as $d): ?>
-                            <li>
-                                <a href="#">
-                                    <span class="item-title"><?= $d['bank']; ?></span>
-                                    <i class="fa-solid fa-chevron-right icon-arrow"></i>
+
+                            <li class="card-item">
+
+                                <a href="#" class="card-bank">
+
+                                    <span class="text-primary">
+                                        <?= $d['bank']; ?>
+                                    </span>
+
+                                    <i class="fa-solid fa-chevron-right"></i>
+
                                 </a>
+
                             </li>
+
                         <?php endforeach; ?>
+
                     <?php endif; ?>
 
                 </ul>
-                <a class="btn btn-primary" href="<?= PATH . 'debitCardController/nuevo'; ?>">Nueva tarjeta de debito</a>
+
+                <a class="btn btn-primary btn-glass" href="<?= PATH . 'debitCardController/nuevo'; ?>">
+                    Nueva tarjeta de débito
+                </a>
+
             </div>
 
 
-            <!-- ================= SUSCRIPCIONES (Futuro) ================= -->
-            <!--
-                        <div class="card mb-10">
-                <h1 class="title">Subscripciones</h1>
-                <ul class="item-list">
-                    <li>
-                        <a href="#">
-                            <span class="item-title">Nu</span>
-                            <i class="fa-solid fa-chevron-right icon-arrow"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="item-title">BBVA</span>
-                            <i class="fa-solid fa-chevron-right icon-arrow"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="item-title">Mercado Pago</span>
-                            <i class="fa-solid fa-chevron-right icon-arrow"></i>
-                        </a>
-                    </li>
-                </ul>
-                <button class="btn btn-primary">Nueva subscripcion</button>
-            </div>-->
+            <!-- ================= CERRAR SESIÓN ================= -->
 
-            <div class="card">
-                <a href="<?= PATH ?>login/logout" class="btn btn-light text-danger w-100">Cerrar Sesión</a>
-            </div>
+
+                <a href="<?= PATH ?>login/logout" class="btn btn-primary w100">
+                    Cerrar sesión
+                </a>
+
+
         </div>
+
     </div>
+
 </div>

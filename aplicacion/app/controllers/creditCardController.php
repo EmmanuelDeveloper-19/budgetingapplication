@@ -2,6 +2,18 @@
 
 class CreditCardController extends Controller
 {
+    public function index()
+    {
+        $userModel = $this->model('userModel');
+        $userData = $userModel->getCurrentUser();
+        $user_id = $userData['id'];
+
+        $model = $this->model("creditCardModel");
+        $data = $model->getByUserId($user_id);
+        $this->view("creditCards/index",[
+            'creditCards'=>$data
+        ]);
+    }
 
     public function nuevo()
     {

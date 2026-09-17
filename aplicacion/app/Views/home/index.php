@@ -2,8 +2,8 @@
 
 <div class="row column-reverse">
     <div class="col-md-3">
-        <div class="content">
-            <div class="texto-resaltado">
+        <div class="content flex-start">
+            <div class="capsule">
                 <p>Patrimonio neto</p>
             </div>
             <?php
@@ -16,7 +16,7 @@
 
             $saldoTotal = $data['user']['balance'] + $saldoTarjetas;
             ?>
-            <h1 class="title">$
+            <h1 class="text-primary">$
                 <?=
                     $saldoTotal
                     ?>
@@ -30,8 +30,8 @@
     </div>
     <div class="col-md-9">
         <div class="content">
-            <div class="row space-between">
-                <div class="texto-resaltado">
+            <div class="row space-between align-center">
+                <div class="capsule">
                     <p>Transacciones</p>
                 </div>
                 <a href="<?= PATH . 'transactionController/create'; ?>" class="btn btn-primary">

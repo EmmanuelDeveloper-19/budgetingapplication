@@ -1,180 +1,147 @@
 <div class="content">
-    <div class="row d-flex settings-wrapper justify-center align-center">
+    <div class="row">
         <div class="col-md-6">
-            <div class="card mb-10">
+            <div class="card glass-panel">
+
                 <?php if (isset($data['error'])): ?>
-                    <div class="alert alert-danger">
+                    <div class="glass-alert">
                         <?= $data['error'] ?>
                     </div>
                 <?php endif; ?>
-                <h1 class="title">Registrar nueva transacción</h1>
+
+                <h1 class="text-heading">Registrar nueva transacción</h1>
+                <p class="glass-subtext">Captura el movimiento y elige cómo lo pagaste o de dónde vino.</p>
 
                 <form action="<?= PATH . 'transactionController/store'; ?>" method="POST">
-                    <input type="hidden" name="id" value="<?= $data['old']['id'] ?? '' ?>" required>
+                    <input type="hidden" name="id" value="<?= $data['old']['id'] ?? '' ?>">
 
-                    <div class="form-group">
-                        <label for="" class="form-label">Tipo de movimiento</label>
-                        <div class="payment-methods">
-                            <label class="payment-option">
+                    <div class="field-group">
+                        <label class="field-label">Tipo de movimiento</label>
+                        <div class="type-toggle">
+                            <label class="field-checkbox type-toggle-option">
                                 <input type="radio" name="type-transaction" value="expense" checked
                                     onchange="changeTransactionType(this.value)">
-                                <span>Gasto</span>
+                                <span class="field-checkbox-box"></span>
+                                <span class="field-checkbox-label">💸 Gasto</span>
                             </label>
-                            <label class="payment-option">
+                            <label class="field-checkbox type-toggle-option">
                                 <input type="radio" name="type-transaction" value="income"
                                     onchange="changeTransactionType(this.value)">
-                                <span>Ingreso</span>
+                                <span class="field-checkbox-box"></span>
+                                <span class="field-checkbox-label">💰 Ingreso</span>
                             </label>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Nombre de la transacción</label>
-                        <input type="text" class="form-control" placeholder="Ej. Pago de internet, Netflix, Gasolina"
-                            name="name">
+                    <div class="field-group">
+                        <label class="field-label">Nombre de la transacción</label>
+                        <input type="text" class="field-control" placeholder="Ej. Pago de internet, Netflix, Gasolina"
+                            name="name" required>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label">Monto</label>
+                        <div class="field-control-wrap field-control-wrap--amount">
+                            <span class="field-prefix">$</span>
+                            <input type="number" class="field-control field-control--amount" placeholder="0.00"
+                                name="amount" step="0.01" min="0" required>
+                        </div>
                     </div>
 
                     <!-- ==================== SECCIÓN: GASTO ==================== -->
                     <div id="expense-section">
 
-                        <div class="form-group">
-                            <label class="form-label">Categoría del gasto</label>
+                        <p class="section-divider">Detalles del gasto</p>
 
-                            <select class="form-control" name="type" id="expense-category">
-
+                        <div class="field-group field-select">
+                            <label class="field-label">Categoría del gasto</label>
+                            <select class="field-control" name="type" id="expense-category">
                                 <option value="">Selecciona una categoría</option>
-
-                                <!-- 🏠 Hogar -->
                                 <option value="Vivienda">Vivienda</option>
                                 <option value="Servicios">Servicios</option>
                                 <option value="Mantenimiento">Mantenimiento</option>
-
-                                <!-- 🍔 Día a día -->
                                 <option value="Alimentación">Alimentación</option>
                                 <option value="Supermercado">Supermercado</option>
                                 <option value="Comida fuera">Comida fuera</option>
                                 <option value="Snacks y antojos">Snacks y antojos</option>
-
-                                <!-- 🚌 Transporte -->
                                 <option value="Transporte">Transporte</option>
                                 <option value="Transporte público">Transporte público</option>
                                 <option value="Gasolina">Gasolina</option>
                                 <option value="Estacionamiento">Estacionamiento</option>
-
-                                <!-- 📱 Entretenimiento -->
                                 <option value="Entretenimiento">Entretenimiento</option>
                                 <option value="Suscripciones">Suscripciones</option>
                                 <option value="Videojuegos">Videojuegos</option>
                                 <option value="Salidas">Salidas</option>
-
-                                <!-- 🛍️ Compras -->
                                 <option value="Compras">Compras</option>
                                 <option value="Ropa">Ropa</option>
                                 <option value="Tecnología">Tecnología</option>
                                 <option value="Regalos">Regalos</option>
-
-                                <!-- 💳 Finanzas -->
                                 <option value="Deudas">Deudas</option>
                                 <option value="Comisiones">Comisiones</option>
                                 <option value="Intereses">Intereses</option>
-
-                                <!-- ❤️ Personal -->
                                 <option value="Salud">Salud</option>
                                 <option value="Cuidado personal">Cuidado personal</option>
                                 <option value="Educación">Educación</option>
-
-                                <!-- 📦 Otros -->
                                 <option value="Mascotas">Mascotas</option>
                                 <option value="Donaciones">Donaciones</option>
                                 <option value="Imprevistos">Imprevistos</option>
                                 <option value="Otros">Otros</option>
-
                             </select>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Método de pago</label>
-                            <div class="payment-methods">
-
-                                <!-- Efectivo -->
-                                <label class="payment-option">
+                        <div class="field-group">
+                            <label class="field-label">Método de pago</label>
+                            <div class="type-toggle type-toggle--triple">
+                                <label class="field-checkbox type-toggle-option">
                                     <input type="radio" name="payment_method" value="cash" checked
                                         onchange="changePaymentMethod(this.value)">
-                                    <span>Efectivo</span>
+                                    <span class="field-checkbox-box"></span>
+                                    <span class="field-checkbox-label">💵 Efectivo</span>
                                 </label>
-
-                                <!-- Tarjeta de crédito -->
-                                <label class="payment-option">
+                                <label class="field-checkbox type-toggle-option">
                                     <input type="radio" name="payment_method" value="credit_card"
                                         onchange="changePaymentMethod(this.value)">
-                                    <span>Tarjeta de Crédito</span>
+                                    <span class="field-checkbox-box"></span>
+                                    <span class="field-checkbox-label">💳 Crédito</span>
                                 </label>
-
-                                <!-- Tarjeta de débito -->
-                                <label class="payment-option">
+                                <label class="field-checkbox type-toggle-option">
                                     <input type="radio" name="payment_method" value="debit_card"
                                         onchange="changePaymentMethod(this.value)">
-                                    <span>Débito</span>
+                                    <span class="field-checkbox-box"></span>
+                                    <span class="field-checkbox-label">🏧 Débito</span>
                                 </label>
-
                             </div>
                         </div>
 
-                        <!-- Tarjetas de crédito -->
-                        <div id="credit-card-container" class="form-group" style="display: none;">
-                            <label class="form-label">Tarjeta de crédito</label>
-
-                            <select class="form-control" name="credit_card_id">
+                        <div id="credit-card-container" class="field-group field-select" style="display: none;">
+                            <label class="field-label">Tarjeta de crédito</label>
+                            <select class="field-control" name="credit_card_id">
                                 <option value="">Seleccione una tarjeta</option>
-
                                 <?php if (empty($data['creditCards'])): ?>
-
-                                    <option value="" disabled>
-                                        No hay tarjetas de crédito agregadas
-                                    </option>
-
+                                    <option value="" disabled>No hay tarjetas de crédito agregadas</option>
                                 <?php else: ?>
-
                                     <?php foreach ($data['creditCards'] as $d): ?>
-
-                                        <option value="<?= $d['id']; ?>">
-                                            <?= $d['bank']; ?>
-                                        </option>
-
+                                        <option value="<?= $d['id']; ?>"><?= $d['bank']; ?></option>
                                     <?php endforeach; ?>
-
                                 <?php endif; ?>
                             </select>
                         </div>
 
-                        <div id="installments-container" class="form-group" style="display: none;">
-                            <label for="" class="form-label">Meses</label>
-                            <input type="number" class="form-control" name="installments" value="1" min="1" step="1">
+                        <div id="installments-container" class="field-group" style="display: none;">
+                            <label class="field-label">Meses</label>
+                            <input type="number" class="field-control" name="installments" value="1" min="1" step="1">
                         </div>
 
-                        <!-- Tarjetas de débito (gasto) -->
-                        <div id="debit-card-container" class="form-group" style="display: none;">
-                            <label class="form-label">Tarjeta de débito</label>
-
-                            <select class="form-control" name="debit_card_id">
+                        <div id="debit-card-container" class="field-group field-select" style="display: none;">
+                            <label class="field-label">Tarjeta de débito</label>
+                            <select class="field-control" name="debit_card_id">
                                 <option value="">Seleccione una tarjeta</option>
-
                                 <?php if (empty($data['debitCards'])): ?>
-
-                                    <option value="" disabled>
-                                        No hay tarjetas de débito agregadas
-                                    </option>
-
+                                    <option value="" disabled>No hay tarjetas de débito agregadas</option>
                                 <?php else: ?>
-
                                     <?php foreach ($data['debitCards'] as $d): ?>
-
-                                        <option value="<?= $d['id']; ?>">
-                                            <?= $d['bank']; ?>
-                                        </option>
-
+                                        <option value="<?= $d['id']; ?>"><?= $d['bank']; ?></option>
                                     <?php endforeach; ?>
-
                                 <?php endif; ?>
                             </select>
                         </div>
@@ -186,11 +153,11 @@
                     <!-- ==================== SECCIÓN: INGRESO ==================== -->
                     <div id="income-section" style="display: none;">
 
-                        <div class="form-group">
-                            <label class="form-label">Origen del ingreso</label>
+                        <p class="section-divider">Detalles del ingreso</p>
 
-                            <select class="form-control" name="type" id="income-category">
-
+                        <div class="field-group field-select">
+                            <label class="field-label">Origen del ingreso</label>
+                            <select class="field-control" name="type" id="income-category">
                                 <option value="">Selecciona el origen</option>
                                 <option value="Nómina">Pago de nómina</option>
                                 <option value="Venta">Venta</option>
@@ -201,54 +168,37 @@
                                 <option value="Préstamo recibido">Préstamo recibido</option>
                                 <option value="Devolución de impuestos">Devolución de impuestos</option>
                                 <option value="Otros ingresos">Otros ingresos</option>
-
                             </select>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Destino del ingreso</label>
-                            <div class="payment-methods">
-
-                                <!-- Efectivo -->
-                                <label class="payment-option">
+                        <div class="field-group">
+                            <label class="field-label">Destino del ingreso</label>
+                            <div class="type-toggle">
+                                <label class="field-checkbox type-toggle-option">
                                     <input type="radio" name="income_destination" value="cash" checked
                                         onchange="changeIncomeDestination(this.value)">
-                                    <span>Efectivo</span>
+                                    <span class="field-checkbox-box"></span>
+                                    <span class="field-checkbox-label">💵 Efectivo</span>
                                 </label>
-
-                                <!-- Tarjeta de débito -->
-                                <label class="payment-option">
+                                <label class="field-checkbox type-toggle-option">
                                     <input type="radio" name="income_destination" value="debit_card"
                                         onchange="changeIncomeDestination(this.value)">
-                                    <span>Tarjeta de débito</span>
+                                    <span class="field-checkbox-box"></span>
+                                    <span class="field-checkbox-label">🏧 Débito</span>
                                 </label>
-
                             </div>
                         </div>
 
-                        <!-- Tarjetas de débito (ingreso) -->
-                        <div id="debit-card-container-income" class="form-group" style="display: none;">
-                            <label class="form-label">Tarjeta de débito</label>
-
-                            <select class="form-control" name="debit_card_id_income">
+                        <div id="debit-card-container-income" class="field-group field-select" style="display: none;">
+                            <label class="field-label">Tarjeta de débito</label>
+                            <select class="field-control" name="debit_card_id_income">
                                 <option value="">Seleccione una tarjeta</option>
-
                                 <?php if (empty($data['debitCards'])): ?>
-
-                                    <option value="" disabled>
-                                        No hay tarjetas de débito agregadas
-                                    </option>
-
+                                    <option value="" disabled>No hay tarjetas de débito agregadas</option>
                                 <?php else: ?>
-
                                     <?php foreach ($data['debitCards'] as $d): ?>
-
-                                        <option value="<?= $d['id']; ?>">
-                                            <?= $d['bank']; ?>
-                                        </option>
-
+                                        <option value="<?= $d['id']; ?>"><?= $d['bank']; ?></option>
                                     <?php endforeach; ?>
-
                                 <?php endif; ?>
                             </select>
                         </div>
@@ -256,22 +206,15 @@
                     </div>
                     <!-- ==================== FIN SECCIÓN: INGRESO ==================== -->
 
-
-                    <div class="form-group">
-                        <label class="form-label">Monto</label>
-                        <input type="number" class="form-control" placeholder="Ej. 350.00" name="amount" step="0.01"
-                            min="0">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Descripción (opcional)</label>
-                        <textarea class="form-control" rows="4"
+                    <div class="field-group">
+                        <label class="field-label">Descripción (opcional)</label>
+                        <textarea class="field-control" rows="4"
                             placeholder="Agrega un comentario o detalle de la transacción"
                             name="description"></textarea>
                     </div>
 
                     <div class="action-buttons mt-3">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary w100">
                             Guardar transacción
                         </button>
                     </div>
@@ -280,7 +223,6 @@
         </div>
     </div>
 </div>
-
 <script>
     // Alterna entre la sección de Gasto y la sección de Ingreso
     function changeTransactionType(type) {

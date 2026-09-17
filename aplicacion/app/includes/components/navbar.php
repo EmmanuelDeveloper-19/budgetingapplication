@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav class="navbar glass-panel">
     <div class="logo">
         <a href="<?= PATH . 'home/index';?>">Mirry's Money</a>
     </div>
@@ -31,7 +31,10 @@
                 </a>
             </li>
             <li>
-                <a href="<?= PATH . 'userprofilecontroller/index'; ?>" class="dr-display-none">Información del Perfil</a>
+                <a href="<?= PATH . 'userprofilecontroller/index'; ?>" class="dr-display-none">
+                    <i class="fas fa-user"></i>
+                    Información del Perfil
+                </a>
             </li>
         </ul>
     </div>
@@ -39,7 +42,7 @@
     <div class="nav-account">
         <a href="<?= PATH . 'userprofilecontroller/index'; ?>" class="btn-account">
             <i class="fas fa-user"></i>
-            Cuenta
+            Perfil
         </a>
     </div>
 
