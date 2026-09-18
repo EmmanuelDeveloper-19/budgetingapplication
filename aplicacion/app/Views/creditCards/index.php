@@ -34,11 +34,7 @@
 
                                 <div class="credit-card-bank">
 
-                                    <img
-                                        class="img-icon-md"
-                                        src="<?= PATH . 'assets/' . $c['bank'] . '.png'; ?>"
-                                        alt=""
-                                    >
+                                    <img class="img-icon-md" src="<?= PATH . 'assets/' . $c['bank'] . '.png'; ?>" alt="">
 
                                     <div>
                                         <span class="card-label">
@@ -52,13 +48,33 @@
 
                                 </div>
 
-                                <button
-                                    class="btn-icon"
-                                    type="button"
-                                    aria-label="Opciones"
-                                >
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                </button>
+                                <div class="card-options-wrapper">
+                                    <button class="btn-icon card-options-btn" type="button" aria-label="Opciones">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </button>
+
+                                    <div class="card-options-menu">
+                                        <button type="button" class="card-option">
+                                            <i class="fa-solid fa-money-bill-wave"></i>
+                                            <span>Pagar tarjeta</span>
+                                        </button>
+
+                                        <button type="button" class="card-option">
+                                            <i class="fa-solid fa-pen"></i>
+                                            <span>Editar tarjeta</span>
+                                        </button>
+
+                                        <button type="button" class="card-option card-option-warning">
+                                            <i class="fa-solid fa-ban"></i>
+                                            <span>Cancelar tarjeta</span>
+                                        </button>
+
+                                        <button type="button" class="card-option card-option-danger">
+                                            <i class="fa-solid fa-trash"></i>
+                                            <span>Eliminar tarjeta</span>
+                                        </button>
+                                    </div>
+                                </div>
 
                             </div>
 
@@ -122,31 +138,40 @@
                         </div>
 
                     <?php endforeach; ?>
-
-                <?php endif; ?>
+                <?php endif;?>
 
             </div>
 
         </div>
 
+<div class="col-md-6">
 
-        <!-- COMPRAS -->
-        <div class="col-md-6">
+    <div class="section-header">
+        <div>
+            <h1 class="text-heading">
+                Compras con tarjeta
+            </h1>
 
-            <div class="section-header">
-                <div>
-                    <h1 class="text-heading">
-                        Compras con tarjeta
-                    </h1>
+            <p class="text-muted">
+                Movimientos recientes
+            </p>
+        </div>
+    </div>
 
-                    <p class="text-muted">
-                        Movimientos recientes
-                    </p>
-                </div>
+
+    <div class="transaction-list">
+
+        <?php if (empty($data['transactions'])): ?>
+
+            <div class="transaction-card glass-panel">
+                <p>
+                    No hay transacciones hechas con tarjeta de crédito
+                </p>
             </div>
 
+        <?php else: ?>
 
-            <div class="transaction-list">
+            <?php foreach ($data['transactions'] as $t): ?>
 
                 <div class="transaction-card glass-panel">
 
@@ -157,7 +182,7 @@
                     <div class="transaction-info">
 
                         <p class="transaction-name">
-                            Netflix
+                            <?=$t['name'];?>
                         </p>
 
                         <span class="transaction-date">
@@ -172,35 +197,71 @@
 
                 </div>
 
+            <?php endforeach; ?>
 
-                <div class="transaction-card glass-panel">
-
-                    <div class="transaction-icon">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </div>
-
-                    <div class="transaction-info">
-
-                        <p class="transaction-name">
-                            Amazon
-                        </p>
-
-                        <span class="transaction-date">
-                            Hace 2 días
-                        </span>
-
-                    </div>
-
-                    <strong class="transaction-amount">
-                        -$850.00
-                    </strong>
-
-                </div>
-
-            </div>
-
-        </div>
+        <?php endif; ?>
 
     </div>
 
 </div>
+
+    </div>
+
+</div>
+
+<script>
+    document.querySelectorAll('.card-options-btn').forEach(button => {
+
+        button.addEventListener('click', function (event) {
+
+            event.stopPropagation();
+
+            const wrapper = this.closest('.card-options-wrapper');
+
+            const isOpen = wrapper.classList.contains('is-open');
+
+            // Cerrar todos los demás menús
+            document
+                .querySelectorAll('.card-options-wrapper')
+                .forEach(item => {
+                    item.classList.remove('is-open');
+
+                    const btn = item.querySelector('.card-options-btn');
+
+                    if (btn) {
+                        btn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+            // Abrir este si estaba cerrado
+            if (!isOpen) {
+                wrapper.classList.add('is-open');
+
+                this.setAttribute('aria-expanded', 'true');
+            }
+
+        });
+
+    });
+
+
+    /* Cerrar al hacer clic fuera */
+
+    document.addEventListener('click', function () {
+
+        document
+            .querySelectorAll('.card-options-wrapper')
+            .forEach(wrapper => {
+
+                wrapper.classList.remove('is-open');
+
+                const button = wrapper.querySelector('.card-options-btn');
+
+                if (button) {
+                    button.setAttribute('aria-expanded', 'false');
+                }
+
+            });
+
+    });
+</script>

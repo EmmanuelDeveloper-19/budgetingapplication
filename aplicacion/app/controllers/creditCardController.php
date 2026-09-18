@@ -10,8 +10,12 @@ class CreditCardController extends Controller
 
         $model = $this->model("creditCardModel");
         $data = $model->getByUserId($user_id);
+
+        $transactionModel = $this->model("transactionModel");
+        $transactions = $transactionModel->getTransactionByCreditCard($user_id);
         $this->view("creditCards/index",[
-            'creditCards'=>$data
+            'creditCards'=>$data,
+            'transactions' =>$transactions
         ]);
     }
 

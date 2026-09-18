@@ -4,7 +4,7 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 class TransactionModel extends Db
 {
-
+    private $table = "transactions";
 
     public function getTransactions($user_id)
     {
@@ -301,5 +301,12 @@ class TransactionModel extends Db
 
             die($e->getMessage());
         }
+    }
+
+    public function getTransactionByCreditCard($user_id){
+        $q = "SELECT * FROM {$this->table} WHERE user_id = ? AND payment_method = ?";
+        $t = "is";
+
+        return $this->preparedSelect($q,$t,[$user_id, 'credit_card']);
     }
 }

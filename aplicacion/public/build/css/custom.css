@@ -172,134 +172,302 @@ body {
   -webkit-backdrop-filter: blur(20px) saturate(160%);
 }
 
+.card-options-wrapper {
+  position: relative;
+}
+
+
+/* ========================================
+   BOTÓN DE OPCIONES
+   ======================================== */
+
+.card-options-btn {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid transparent;
+  border-radius: var(--radius-xs);
+
+  background: transparent;
+  color: var(--glass-ink-soft);
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.card-options-btn:hover,
+.card-options-btn[aria-expanded="true"] {
+  background: var(--glass-bg-start);
+  border-color: var(--glass-blue-crystal);
+  color: var(--glass-blue-dark);
+}
+
+
+/* ========================================
+   MENÚ LATERAL
+   ======================================== */
+
+.card-options-menu {
+  position: absolute;
+
+  top: 0;
+  right: calc(100% + 10px);
+
+  width: 190px;
+
+  padding: 0.45rem;
+
+  background: var(--glass-surface-strong);
+
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+
+  box-shadow: var(--glass-shadow);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateX(8px);
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    transform 0.2s ease;
+
+  z-index: 100;
+}
+
+
+/* MENÚ ABIERTO */
+
+.card-options-wrapper.is-open .card-options-menu {
+  opacity: 1;
+  visibility: visible;
+
+  transform: translateX(0);
+}
+
+
+/* ========================================
+   OPCIONES
+   ======================================== */
+
+.card-option {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 0.7rem;
+
+  padding: 0.7rem 0.75rem;
+
+  border: none;
+  border-radius: var(--radius-xs);
+
+  background: transparent;
+
+  color: var(--glass-ink);
+
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.card-option i {
+  width: 18px;
+
+  text-align: center;
+
+  color: var(--glass-ink-soft);
+
+  transition: color 0.2s ease;
+}
+
+.card-option:hover {
+  background: var(--glass-bg-start);
+  color: var(--glass-blue-dark);
+}
+
+.card-option:hover i {
+  color: var(--glass-blue-dark);
+}
+
+
+/* ========================================
+   CANCELAR
+   ======================================== */
+
+.card-option-warning:hover {
+  background: var(--glass-warning-bg);
+  color: var(--glass-warning-hover);
+}
+
+.card-option-warning:hover i {
+  color: var(--glass-warning-hover);
+}
+
+
+/* ========================================
+   ELIMINAR
+   ======================================== */
+
+.card-option-danger:hover {
+  background: var(--glass-danger-bg);
+  color: var(--glass-danger-hover);
+}
+
+.card-option-danger:hover i {
+  color: var(--glass-danger-hover);
+}
+
 /* =========================================
    CREDIT CARDS
 ========================================= */
 
 .credit-card-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 
 /* TARJETA */
 
 .credit-card {
-    padding: 1.25rem;
-    border-radius: var(--radius-md);
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
 
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 .credit-card:hover {
-    transform: translateY(-2px);
+  transform: translateY(-2px);
 
-    box-shadow:
-        0 16px 35px rgba(74, 127, 224, 0.15);
+  box-shadow:
+    0 16px 35px rgba(74, 127, 224, 0.15);
 }
 
 
 /* HEADER */
 
 .credit-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .credit-card-bank {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .credit-card-bank-name {
-    margin-top: 2px;
+  margin-top: 2px;
 
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
 
-    color: var(--glass-ink);
+  color: var(--glass-ink);
 }
 
 
 /* SALDO */
 
 .credit-card-balance {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .credit-card-balance strong {
-    font-family: var(--font-display);
-    font-size: 1.7rem;
-    font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 700;
 
-    color: var(--glass-danger);
+  color: var(--glass-danger);
 }
 
 
 /* INFORMACIÓN */
 
 .credit-card-info {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 
-    gap: 1rem;
+  gap: 1rem;
 
-    padding-top: 0.25rem;
+  padding-top: 0.25rem;
 }
 
 .credit-card-stat {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .credit-card-stat strong {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    color: var(--glass-ink);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--glass-ink);
 }
 
 
 /* FECHAS */
 
 .credit-card-dates {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    padding-top: 0.9rem;
+  padding-top: 0.9rem;
 
-    border-top: 1px solid rgba(91, 107, 140, 0.12);
+  border-top: 1px solid rgba(91, 107, 140, 0.12);
 }
 
 .credit-card-dates div {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .credit-card-dates span {
-    font-size: 0.72rem;
-    color: var(--glass-ink-soft);
+  font-size: 0.72rem;
+  color: var(--glass-ink-soft);
 }
 
 .credit-card-dates strong {
-    font-family: var(--font-display);
-    font-size: 0.78rem;
-    color: var(--glass-ink);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--glass-ink);
 }
 
 
@@ -308,12 +476,12 @@ body {
 ========================================= */
 
 .card-label {
-    display: block;
+  display: block;
 
-    font-size: 0.72rem;
-    font-weight: 600;
+  font-size: 0.72rem;
+  font-weight: 600;
 
-    color: var(--glass-ink-soft);
+  color: var(--glass-ink-soft);
 }
 
 
@@ -322,14 +490,14 @@ body {
 ========================================= */
 
 .section-header {
-    margin-bottom: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .text-muted {
-    margin-top: 0.3rem;
+  margin-top: 0.3rem;
 
-    font-size: 0.8rem;
-    color: var(--glass-ink-soft);
+  font-size: 0.8rem;
+  color: var(--glass-ink-soft);
 }
 
 
@@ -338,62 +506,62 @@ body {
 ========================================= */
 
 .transaction-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .transaction-card {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
 
-    padding: 0.9rem 1rem;
+  padding: 0.9rem 1rem;
 
-    border-radius: var(--radius-sm);
+  border-radius: var(--radius-sm);
 }
 
 .transaction-icon {
-    width: 38px;
-    height: 38px;
+  width: 38px;
+  height: 38px;
 
-    flex-shrink: 0;
+  flex-shrink: 0;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    border-radius: var(--radius-xs);
+  border-radius: var(--radius-xs);
 
-    background: rgba(106, 169, 255, 0.12);
-    color: var(--glass-blue-dark);
+  background: rgba(106, 169, 255, 0.12);
+  color: var(--glass-blue-dark);
 }
 
 .transaction-info {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .transaction-name {
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--glass-ink);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--glass-ink);
 }
 
 .transaction-date {
-    display: block;
+  display: block;
 
-    margin-top: 2px;
+  margin-top: 2px;
 
-    font-size: 0.72rem;
-    color: var(--glass-ink-soft);
+  font-size: 0.72rem;
+  color: var(--glass-ink-soft);
 }
 
 .transaction-amount {
-    font-family: var(--font-display);
-    font-size: 0.9rem;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
 
-    color: var(--glass-danger);
+  color: var(--glass-danger);
 }
 
 
@@ -402,27 +570,27 @@ body {
 ========================================= */
 
 .empty-state {
-    min-height: 150px;
+  min-height: 150px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    gap: 0.6rem;
+  gap: 0.6rem;
 
-    border-radius: var(--radius-md);
+  border-radius: var(--radius-md);
 
-    color: var(--glass-ink-soft);
+  color: var(--glass-ink-soft);
 }
 
 .empty-state i {
-    font-size: 1.5rem;
-    color: var(--glass-blue);
+  font-size: 1.5rem;
+  color: var(--glass-blue);
 }
 
 .empty-state p {
-    font-size: 0.85rem;
+  font-size: 0.85rem;
 }
 
 
@@ -432,23 +600,23 @@ body {
 
 @media (max-width: 700px) {
 
-    .credit-card {
-        padding: 1rem;
-    }
+  .credit-card {
+    padding: 1rem;
+  }
 
-    .credit-card-balance strong {
-        font-size: 1.5rem;
-    }
+  .credit-card-balance strong {
+    font-size: 1.5rem;
+  }
 
-    .credit-card-dates {
-        gap: 1rem;
-    }
+  .credit-card-dates {
+    gap: 1rem;
+  }
 
-    .credit-card-dates div {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.15rem;
-    }
+  .credit-card-dates div {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+  }
 
 }
 
