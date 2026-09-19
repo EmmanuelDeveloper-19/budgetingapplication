@@ -493,11 +493,24 @@ body {
   margin-bottom: 0.25rem;
 }
 
+.text-body{
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 500;
+}
 .text-muted {
   margin-top: 0.3rem;
 
   font-size: 0.8rem;
   color: var(--glass-ink-soft);
+}
+
+.text-center p {
+  text-align: center;
 }
 
 
@@ -559,7 +572,8 @@ body {
 
 .transaction-amount {
   font-family: var(--font-display);
-  font-size: 0.9rem;
+  font-size: 18px;
+  font-weight: 600;
 
   color: var(--glass-danger);
 }

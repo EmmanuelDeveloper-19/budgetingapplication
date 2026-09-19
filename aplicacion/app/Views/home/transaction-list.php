@@ -42,10 +42,12 @@ $meses = [
                 $dia = date('d', $fechaTimestamp);
                 $mes = $meses[(int) date('m', $fechaTimestamp)];
                 $anio = date('Y', $fechaTimestamp);
-            ?>
+                ?>
 
-                <div class="transaction-date">
-                    <?= $dia . ' de ' . $mes . ' de ' . $anio; ?>
+                <div class="text-center">
+                    <p class="text-body">
+                        <?= $dia . ' de ' . $mes . ' de ' . $anio; ?>
+                    </p>
                 </div>
 
             <?php endif; ?>
@@ -56,21 +58,28 @@ $meses = [
             $sign = $isExpense ? '-' : '+';
             ?>
 
-            <div class="transaction-card">
+            <div class="card glass-panel row space-between">
 
-                <div class="transaction-info">
+                <div class="row">
 
-                    <p class="transaction-name">
-                        <?= htmlspecialchars($t['name']); ?>
-                    </p>
+                    <div class="column">
+                        <div class="transaction-icon">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <p class="section-header title">
+                            <?= htmlspecialchars($t['name']); ?>
+                        </p>
 
-                    <p class="transaction-description">
-                        <?= htmlspecialchars($t['description']); ?>
-                    </p>
+                        <p class="transaction-description">
+                            <?= htmlspecialchars($t['description']); ?>
+                        </p>
+                    </div>
 
                 </div>
 
-                <span class="transaction-amount <?= $amountClass; ?>">
+                <span class="title transaction-amount <?= $amountClass; ?>">
                     <?= $sign; ?>$<?= number_format(abs($t['amount']), 2); ?>
                 </span>
 
