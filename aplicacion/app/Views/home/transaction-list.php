@@ -72,7 +72,7 @@ $meses = [
                             <?= htmlspecialchars($t['name']); ?>
                         </p>
 
-                        <p class="transaction-description">
+                        <p class="text-body">
                             <?= htmlspecialchars($t['description']); ?>
                         </p>
                     </div>

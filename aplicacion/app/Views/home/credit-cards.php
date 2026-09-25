@@ -21,19 +21,19 @@
                 $limite = $c['credit_limit'];
                 ?>
 
-                <div class="card-item" data-id="<?= $c['id']; ?>" data-bank="<?= htmlspecialchars($c['bank']); ?>"
+                <div class="card-item row space-between" data-id="<?= $c['id']; ?>" data-bank="<?= htmlspecialchars($c['bank']); ?>"
                     data-closing="<?= htmlspecialchars($c['statement_closing_date']); ?>"
                     data-payment="<?= htmlspecialchars($c['payment_date']); ?>" data-limit="<?= $limite; ?>"
                     data-balance="<?= $saldo; ?>">
 
                     <div class="card-bank">
                         <img class="img-icon" src="<?= PATH . 'assets/' . $c['bank'] . '.png'; ?>" alt="">
-                        <p><?= $c['bank']; ?></p>
+                        <p class="text-body"><?= $c['bank']; ?></p>
                     </div>
 
                     <div class="card-amounts">
                         <div class="amount debt">
-                            <p>-$<?= number_format($saldo, 2); ?></p>
+                            <p class="text-body">-$<?= number_format($c['outstanding_balance'], 2); ?></p>
                         </div>
                     </div>
                 </div>

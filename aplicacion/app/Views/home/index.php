@@ -15,12 +15,23 @@
             }
 
             $saldoTotal = $data['user']['balance'] + $saldoTarjetas;
+
+
+            function diasHastaSabado()
+            {
+                $diaActual = (int) date('N'); // Lunes=1 ... Sábado=6, Domingo=7
+            
+                return (6 - $diaActual + 7) % 7;
+            }
+
             ?>
             <h1 class="text-primary">$
                 <?=
                     $saldoTotal
                     ?>
             </h1>
+            <p>Próximo pago en <?= diasHastaSabado(); ?> días</p>
+            <a class="link-muted" href="<?= PATH . 'transactionController/newIncome';?>">Añadir nuevo ingreso</a>
         </div>
         <!-- A futuro-->
         <?php //require_once("accounts.php"); ?>

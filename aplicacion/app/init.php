@@ -1,5 +1,7 @@
 <?php
 session_start();
+date_default_timezone_set('America/Mexico_City');
+
 require_once("core/app.php");
 require_once("core/db.php");
 require_once("core/controller.php");

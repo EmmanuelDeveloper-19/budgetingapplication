@@ -16,7 +16,7 @@
 
             <?php foreach ($data['debitCards'] as $d): ?>
 
-                <div class="card-item" data-id="<?= htmlspecialchars($d['id']); ?>"
+                <div class="card-item row space-between" data-id="<?= htmlspecialchars($d['id']); ?>"
                     data-balance="<?= htmlspecialchars($d['balance']); ?>">
 
                     <!-- Banco -->

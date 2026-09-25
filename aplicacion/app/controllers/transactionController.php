@@ -20,7 +20,7 @@ class TransactionController extends Controller
 
         $transactions = $model->getTransactions($user_id);
 
-        return $this->view("transaction/index",[
+        return $this->view("transaction/index", [
             "transactions" => $transactions
         ]);
     }
@@ -136,6 +136,73 @@ class TransactionController extends Controller
                         'old' => $_POST
                     ]);
                 }
+                break;
+        }
+    }
+
+    public function newIncome()
+    {
+
+        return $this->view('transaction/newIncome');
+    }
+
+    public function storeIncome()
+    {
+        $model = $this->model('transactionModel');
+        $userModel = $this->model('userModel');
+        $userData = $userModel->getCurrentUser();
+
+        $user_id = $userData['id'];
+
+        $name = $_POST['name'];
+        $category = $_POST['category'];
+        $payment_method = $_POST['payment_method'];
+        $amount = $_POST['amount'];
+        $id_debit_card = $payment_method === 'debit_card' ? ($_POST['debit_card_id'] ?? null) : null;
+
+        $data = [
+            'name' => $name,
+            'category' => $category,
+            'payment_method' => $payment_method,
+            'amount' => $amount,
+            'id_debit_card' => $id_debit_card,
+            'user_id' => $user_id
+        ];
+
+        switch ($_POST['payment_method']) {
+
+            case 'cash':
+                if ($model->processCashIncome($data)) {
+                    $_SESSION['alert'] = [
+                        'type' => 'success',
+                        'message' => 'Ingreso agregado correctamente'
+                    ];
+                    header("Location: " . PATH . "home/index");
+                    exit();
+                }
+
+                $this->view('transaction/newIncome', [
+                    'error' => 'Error al agregar la transacción',
+                    'old' => $_POST
+                ]);
+                break;
+
+            case 'debit_card':
+
+                if ($model->processDebitCardIncome($data)) {
+
+                    $_SESSION['alert'] = [
+                        'type' => 'success',
+                        'message' => 'Ingreso agregado correctamente a la tarjeta de débito'
+                    ];
+                    header("Location: " . PATH . "home/index");
+                    exit();
+                }
+
+                $this->view('transaction/newIncome', [
+                    'error' => 'Error al agregar la transacción',
+                    'old' => $_POST
+                ]);
                 break;
         }
     }
