@@ -9,19 +9,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="container-login">
-        <div class="card glass-panel card-sm">
-            <h1 class="heading-text">Iniciar Sesión</h1>
-            <p class="glass-subtext">Bienvenido de vuelta</p>
-
+        <div class="card bg-white card-sm">
+            <h1 class="text-heading-lg text-primary">Iniciar Sesión</h1>
             <?php if (isset($data['error']) && $data['error']): ?>
                 <div class="glass-alert">
                     <?= htmlspecialchars($data['error']) ?>
                 </div>
             <?php endif; ?>
 
-            <form method="POST" action="<?= PATH ?>login">
+            <form method="POST" action="<?= PATH ?>login" class="mt-10">
                 <input type="hidden" name="type" value="login">
 
                 <div class="field-group">
@@ -34,12 +33,16 @@
                     <label for="password" class="field-label">Contraseña</label>
                     <div class="field-control-wrap">
                         <input type="password" id="password" name="password" class="field-control"
-                            placeholder="••••••••" required autocomplete="current-password">
+                            placeholder="Introduce tu contraseña" required autocomplete="current-password">
                         <button type="button" class="field-icon-btn" onclick="togglePassword()">
                             <i class="fas fa-eye"></i>
                         </button>
                     </div>
+                    <div class="row flex-end" style="margin-top: 10px;">
+                        <a href="" class="link-muted">¿Ólvidaste tu contraseña?</a>
+                    </div>
                 </div>
+
 
                 <div class="field-group">
                     <button type="submit" class="btn btn-primary w100">

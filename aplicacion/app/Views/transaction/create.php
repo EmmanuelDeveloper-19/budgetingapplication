@@ -1,7 +1,7 @@
 <div class="content">
     <div class="row">
         <div class="col-md-6">
-            <div class="card glass-panel">
+            <div class="card bg-white">
 
                 <?php if (isset($data['error'])): ?>
                     <div class="glass-alert">
@@ -10,52 +10,55 @@
                 <?php endif; ?>
 
                 <h1 class="text-heading">Registrar nueva transacción</h1>
-                <p class="glass-subtext">Captura el movimiento y elige cómo lo pagaste o de dónde vino.</p>
+                <p class="text-secondary">Captura el movimiento y elige cómo lo pagaste o de dónde vino.</p>
 
-                <form action="<?= PATH . 'transactionController/store'; ?>" method="POST">
-                    <input type="hidden" name="id" value="<?= $data['old']['id'] ?? '' ?>">
+                <form class="form" action="<?= PATH . 'transactionController/store'; ?>" method="POST">
+                    <input type="hidden" name="id" value="<?= htmlspecialchars($data['old']['id'] ?? '') ?>">
 
-                    <div class="field-group">
-                        <label class="field-label">Tipo de movimiento</label>
-                        <div class="type-toggle">
-                            <label class="field-checkbox type-toggle-option">
-                                <input type="radio" name="type-transaction" value="expense" checked
-                                    onchange="changeTransactionType(this.value)">
-                                <span class="field-checkbox-box"></span>
-                                <span class="field-checkbox-label">💸 Gasto</span>
+                    <!-- Tipo de movimiento -->
+                    <div class="form-field">
+                        <span class="form-label" id="label-type-transaction">Tipo de movimiento</span>
+                        <div class="form-choice-group" role="radiogroup" aria-labelledby="label-type-transaction">
+                            <label class="form-choice">
+                                <input class="form-choice__input" type="radio" name="type-transaction" value="expense"
+                                    checked onchange="changeTransactionType(this.value)">
+                                <span class="form-choice__text">Gasto</span>
                             </label>
-                            <label class="field-checkbox type-toggle-option">
-                                <input type="radio" name="type-transaction" value="income"
+                            <label class="form-choice">
+                                <input class="form-choice__input" type="radio" name="type-transaction" value="income"
                                     onchange="changeTransactionType(this.value)">
-                                <span class="field-checkbox-box"></span>
-                                <span class="field-checkbox-label">💰 Ingreso</span>
+                                <span class="form-choice__text">Ingreso</span>
                             </label>
                         </div>
                     </div>
 
-                    <div class="field-group">
-                        <label class="field-label">Nombre de la transacción</label>
-                        <input type="text" class="field-control" placeholder="Ej. Pago de internet, Netflix, Gasolina"
-                            name="name" required>
+                    <!-- Nombre -->
+                    <div class="form-field">
+                        <label class="form-label" for="transaction-name">Nombre de la transacción</label>
+                        <input type="text" id="transaction-name" class="form-input" name="name" required
+                            placeholder="Ej. Pago de internet, Netflix, Gasolina">
                     </div>
 
-                    <div class="field-group">
-                        <label class="field-label">Monto</label>
-                        <div class="field-control-wrap field-control-wrap--amount">
-                            <span class="field-prefix">$</span>
-                            <input type="number" class="field-control field-control--amount" placeholder="0.00"
-                                name="amount" step="0.01" min="0" required>
+                    <!-- Monto -->
+                    <div class="form-field">
+                        <label class="form-label" for="amount">Monto</label>
+                        <div class="form-input-group">
+                            <span class="form-input-group__addon" aria-hidden="true">$</span>
+                            <input type="number" name="amount" id="amount" class="form-input form-input-group__control"
+                                inputmode="decimal" min="0.01" step="0.01" placeholder="0.00" required>
                         </div>
                     </div>
 
                     <!-- ==================== SECCIÓN: GASTO ==================== -->
-                    <div id="expense-section">
+                    <div id="expense-section" class="form-section">
+                        <div class="form-section__header">
+                            <h2 class="form-section__title">Detalles del gasto</h2>
+                            <p class="form-section__description">Elige la categoría y cómo lo pagaste.</p>
+                        </div>
 
-                        <p class="section-divider">Detalles del gasto</p>
-
-                        <div class="field-group field-select">
-                            <label class="field-label">Categoría del gasto</label>
-                            <select class="field-control" name="type" id="expense-category">
+                        <div class="form-field">
+                            <label class="form-label" for="expense-category">Categoría del gasto</label>
+                            <select class="form-select" name="type" id="expense-category" required>
                                 <option value="">Selecciona una categoría</option>
                                 <option value="Vivienda">Vivienda</option>
                                 <option value="Servicios">Servicios</option>
@@ -89,75 +92,83 @@
                             </select>
                         </div>
 
-                        <div class="field-group">
-                            <label class="field-label">Método de pago</label>
-                            <div class="type-toggle type-toggle--triple">
-                                <label class="field-checkbox type-toggle-option">
-                                    <input type="radio" name="payment_method" value="cash" checked
-                                        onchange="changePaymentMethod(this.value)">
-                                    <span class="field-checkbox-box"></span>
-                                    <span class="field-checkbox-label">💵 Efectivo</span>
+                        <div class="form-field">
+                            <span class="form-label" id="label-payment-method">Método de pago</span>
+                            <div class="form-choice-group" role="radiogroup" aria-labelledby="label-payment-method">
+                                <label class="form-choice">
+                                    <input class="form-choice__input" type="radio" name="payment_method" value="cash"
+                                        checked onchange="changePaymentMethod(this.value)">
+                                    <span class="form-choice__text">💵 Efectivo</span>
                                 </label>
-                                <label class="field-checkbox type-toggle-option">
-                                    <input type="radio" name="payment_method" value="credit_card"
-                                        onchange="changePaymentMethod(this.value)">
-                                    <span class="field-checkbox-box"></span>
-                                    <span class="field-checkbox-label">💳 Crédito</span>
+                                <label class="form-choice">
+                                    <input class="form-choice__input" type="radio" name="payment_method"
+                                        value="credit_card" onchange="changePaymentMethod(this.value)">
+                                    <span class="form-choice__text">💳 Crédito</span>
                                 </label>
-                                <label class="field-checkbox type-toggle-option">
-                                    <input type="radio" name="payment_method" value="debit_card"
-                                        onchange="changePaymentMethod(this.value)">
-                                    <span class="field-checkbox-box"></span>
-                                    <span class="field-checkbox-label">🏧 Débito</span>
+                                <label class="form-choice">
+                                    <input class="form-choice__input" type="radio" name="payment_method"
+                                        value="debit_card" onchange="changePaymentMethod(this.value)">
+                                    <span class="form-choice__text">🏧 Débito</span>
                                 </label>
                             </div>
                         </div>
 
-                        <div id="credit-card-container" class="field-group field-select" style="display: none;">
-                            <label class="field-label">Tarjeta de crédito</label>
-                            <select class="field-control" name="credit_card_id">
-                                <option value="">Seleccione una tarjeta</option>
-                                <?php if (empty($data['creditCards'])): ?>
-                                    <option value="" disabled>No hay tarjetas de crédito agregadas</option>
-                                <?php else: ?>
-                                    <?php foreach ($data['creditCards'] as $d): ?>
-                                        <option value="<?= $d['id']; ?>"><?= $d['bank']; ?></option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </select>
+                        <!-- Crédito -->
+                        <div id="credit-card-container" class="form-conditional" style="display: none;">
+                            <div class="form-field">
+                                <label class="form-label" for="credit-card-id">Tarjeta de crédito</label>
+                                <select class="form-select" name="credit_card_id" id="credit-card-id">
+                                    <option value="">Selecciona una tarjeta</option>
+                                    <?php if (empty($data['creditCards'])): ?>
+                                        <option value="" disabled>No hay tarjetas de crédito agregadas</option>
+                                    <?php else: ?>
+                                        <?php foreach ($data['creditCards'] as $d): ?>
+                                            <option value="<?= $d['id']; ?>"><?= htmlspecialchars($d['bank']); ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
                         </div>
 
-                        <div id="installments-container" class="field-group" style="display: none;">
-                            <label class="field-label">Meses</label>
-                            <input type="number" class="field-control" name="installments" value="1" min="1" step="1">
+                        <div id="installments-container" class="form-conditional" style="display: none;">
+                            <div class="form-field">
+                                <label class="form-label" for="installments">Número de meses</label>
+                                <input type="number" id="installments" class="form-input" name="installments" value="1"
+                                    min="1" step="1">
+                                <p class="form-hint">Usa 1 si pagas en una sola exhibición.</p>
+                            </div>
                         </div>
 
-                        <div id="debit-card-container" class="field-group field-select" style="display: none;">
-                            <label class="field-label">Tarjeta de débito</label>
-                            <select class="field-control" name="debit_card_id">
-                                <option value="">Seleccione una tarjeta</option>
-                                <?php if (empty($data['debitCards'])): ?>
-                                    <option value="" disabled>No hay tarjetas de débito agregadas</option>
-                                <?php else: ?>
-                                    <?php foreach ($data['debitCards'] as $d): ?>
-                                        <option value="<?= $d['id']; ?>"><?= $d['bank']; ?></option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </select>
+                        <!-- Débito -->
+                        <div id="debit-card-container" class="form-conditional" style="display: none;">
+                            <div class="form-field">
+                                <label class="form-label" for="debit-card-id">Tarjeta de débito</label>
+                                <select class="form-select" name="debit_card_id" id="debit-card-id">
+                                    <option value="">Selecciona una tarjeta</option>
+                                    <?php if (empty($data['debitCards'])): ?>
+                                        <option value="" disabled>No hay tarjetas de débito agregadas</option>
+                                    <?php else: ?>
+                                        <?php foreach ($data['debitCards'] as $d): ?>
+                                            <option value="<?= $d['id']; ?>"><?= htmlspecialchars($d['bank']); ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
                         </div>
-
                     </div>
                     <!-- ==================== FIN SECCIÓN: GASTO ==================== -->
 
 
                     <!-- ==================== SECCIÓN: INGRESO ==================== -->
-                    <div id="income-section" style="display: none;">
+                    <div id="income-section" class="form-section" style="display: none;">
+                        <div class="form-section__header">
+                            <h2 class="form-section__title">Detalles del ingreso</h2>
+                            <p class="form-section__description">Indica de dónde viene y a dónde llegó el dinero.</p>
+                        </div>
 
-                        <p class="section-divider">Detalles del ingreso</p>
-
-                        <div class="field-group field-select">
-                            <label class="field-label">Origen del ingreso</label>
-                            <select class="field-control" name="type" id="income-category">
+                        <div class="form-field">
+                            <label class="form-label" for="income-category">Origen del ingreso</label>
+                            <select class="form-select" name="type" id="income-category" required>
                                 <option value="">Selecciona el origen</option>
                                 <option value="Nómina">Pago de nómina</option>
                                 <option value="Venta">Venta</option>
@@ -171,50 +182,52 @@
                             </select>
                         </div>
 
-                        <div class="field-group">
-                            <label class="field-label">Destino del ingreso</label>
-                            <div class="type-toggle">
-                                <label class="field-checkbox type-toggle-option">
-                                    <input type="radio" name="income_destination" value="cash" checked
-                                        onchange="changeIncomeDestination(this.value)">
-                                    <span class="field-checkbox-box"></span>
-                                    <span class="field-checkbox-label">💵 Efectivo</span>
+                        <div class="form-field">
+                            <span class="form-label" id="label-income-destination">Destino del ingreso</span>
+                            <div class="form-choice-group" role="radiogroup" aria-labelledby="label-income-destination">
+                                <label class="form-choice">
+                                    <input class="form-choice__input" type="radio" name="income_destination"
+                                        value="cash" checked onchange="changeIncomeDestination(this.value)">
+                                    <span class="form-choice__text">💵 Efectivo</span>
                                 </label>
-                                <label class="field-checkbox type-toggle-option">
-                                    <input type="radio" name="income_destination" value="debit_card"
-                                        onchange="changeIncomeDestination(this.value)">
-                                    <span class="field-checkbox-box"></span>
-                                    <span class="field-checkbox-label">🏧 Débito</span>
+                                <label class="form-choice">
+                                    <input class="form-choice__input" type="radio" name="income_destination"
+                                        value="debit_card" onchange="changeIncomeDestination(this.value)">
+                                    <span class="form-choice__text">🏧 Débito</span>
                                 </label>
                             </div>
                         </div>
 
-                        <div id="debit-card-container-income" class="field-group field-select" style="display: none;">
-                            <label class="field-label">Tarjeta de débito</label>
-                            <select class="field-control" name="debit_card_id_income">
-                                <option value="">Seleccione una tarjeta</option>
-                                <?php if (empty($data['debitCards'])): ?>
-                                    <option value="" disabled>No hay tarjetas de débito agregadas</option>
-                                <?php else: ?>
-                                    <?php foreach ($data['debitCards'] as $d): ?>
-                                        <option value="<?= $d['id']; ?>"><?= $d['bank']; ?></option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </select>
+                        <div id="debit-card-container-income" class="form-conditional" style="display: none;">
+                            <div class="form-field">
+                                <label class="form-label" for="debit-card-id-income">Tarjeta de débito</label>
+                                <select class="form-select" name="debit_card_id_income" id="debit-card-id-income">
+                                    <option value="">Selecciona una tarjeta</option>
+                                    <?php if (empty($data['debitCards'])): ?>
+                                        <option value="" disabled>No hay tarjetas de débito agregadas</option>
+                                    <?php else: ?>
+                                        <?php foreach ($data['debitCards'] as $d): ?>
+                                            <option value="<?= $d['id']; ?>"><?= htmlspecialchars($d['bank']); ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
                         </div>
-
                     </div>
                     <!-- ==================== FIN SECCIÓN: INGRESO ==================== -->
 
-                    <div class="field-group">
-                        <label class="field-label">Descripción (opcional)</label>
-                        <textarea class="field-control" rows="4"
-                            placeholder="Agrega un comentario o detalle de la transacción"
-                            name="description"></textarea>
+                    <!-- Descripción -->
+                    <div class="form-field">
+                        <label class="form-label" for="transaction-description">
+                            Descripción <span class="form-label__optional">(opcional)</span>
+                        </label>
+                        <textarea class="form-textarea" id="transaction-description" rows="4" name="description"
+                            placeholder="Agrega un comentario o detalle de la transacción"></textarea>
                     </div>
 
-                    <div class="action-buttons mt-3">
-                        <button type="submit" class="btn btn-primary w100">
+                    <!-- Acciones -->
+                    <div class="form-actions">
+                        <button type="submit" class="form-button form-button--primary form-button--block">
                             Guardar transacción
                         </button>
                     </div>

@@ -23,9 +23,9 @@ $meses = [
 
 <?php else: ?>
 
-    <div class="transaction-list">
-
-        <?php
+    <div class="transaction-list  page-column">
+        <div class="page-column-inner">
+                    <?php
         $fechaActual = null;
         ?>
 
@@ -53,7 +53,7 @@ $meses = [
             <?php endif; ?>
 
             <?php
-            $isExpense = $t['amount'] < 0;
+            $isExpense = $t['type'] === 'EXPENSE';
             $amountClass = $isExpense ? 'expense' : 'income';
             $sign = $isExpense ? '-' : '+';
             ?>
@@ -87,6 +87,7 @@ $meses = [
 
         <?php endforeach; ?>
 
+        </div>
     </div>
 
 <?php endif; ?>

@@ -142,8 +142,16 @@ class TransactionController extends Controller
 
     public function newIncome()
     {
+        $user = $this->model("userModel");
+        $userData = $user->getCurrentUser();
+        $user_id = $userData['id'];
 
-        return $this->view('transaction/newIncome');
+        $debitModel = $this->model("debitCardModel");
+        $debitCard = $debitModel->getByUserId($user_id);
+
+        return $this->view('transaction/newIncome', [
+            'debitCards' => $debitCard
+        ]);
     }
 
     public function storeIncome()
@@ -158,6 +166,7 @@ class TransactionController extends Controller
         $category = $_POST['category'];
         $payment_method = $_POST['payment_method'];
         $amount = $_POST['amount'];
+        $description = $_POST['description'];
         $id_debit_card = $payment_method === 'debit_card' ? ($_POST['debit_card_id'] ?? null) : null;
 
         $data = [
@@ -165,6 +174,7 @@ class TransactionController extends Controller
             'category' => $category,
             'payment_method' => $payment_method,
             'amount' => $amount,
+            'description' => $description,
             'id_debit_card' => $id_debit_card,
             'user_id' => $user_id
         ];

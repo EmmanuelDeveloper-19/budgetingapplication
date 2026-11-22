@@ -27,9 +27,6 @@ class TransactionModel extends Db
         try {
             $this->beginTransaction();
 
-            $userId = $data['user_id'];
-            $amount = $data['amount'];
-
             $qTransaction = "
             INSERT INTO transactions
             (name, type, amount, payment_method, description, user_id)
@@ -62,7 +59,10 @@ class TransactionModel extends Db
             $resultUser = $this->preparedQuery(
                 $qUser,
                 "di",
-                [$amount, $userId]
+                [
+                    $data['amount'],
+                    $data['user_id']
+                ]
             );
 
             if ($resultUser <= 0) {
@@ -75,9 +75,6 @@ class TransactionModel extends Db
 
         } catch (Exception $e) {
             $this->rollback();
-
-            error_log($e->getMessage());
-
             return false;
         }
     }
@@ -308,5 +305,93 @@ class TransactionModel extends Db
         $t = "is";
 
         return $this->preparedSelect($q,$t,[$user_id, 'credit_card']);
+    }
+
+    public function processCashIncome($data){
+
+        try {
+            $this->beginTransaction();
+
+            $q = "INSERT INTO transactions
+                    (name, type, amount, payment_method, description, user_id, category)
+                    VALUES(?,?,?,?,?,?,?)";
+
+            $transaction = $this->preparedQuery(
+                $q,
+                "ssissis",
+                [
+                    $data['name'],
+                    'INCOME',
+                    $data['amount'],
+                    'CASH',
+                    $data['description'],
+                    $data['user_id'],
+                    $data['category']
+                ]
+            );
+
+            if($transaction <= 0){
+                throw new Exception("No se pudo procesar la solicitud");
+            }
+
+            $qUser = "UPDATE users SET balance = balance + ? WHERE id = ?";
+
+            $result = $this->preparedQuery(
+                $qUser,
+                "di",
+                [
+                    $data['amount'],
+                    $data['user_id']
+                ]
+            );
+
+            $this->commit();
+            return true;
+        } catch(Exception $e){
+            $this->rollback();
+            return false;
+        }
+    }
+
+    public function processDebitCardIncome($data){
+
+        try {
+            $this->beginTransaction();
+
+            $q = "INSERT INTO transactions(name, type, amount, payment_method, description, user_id, category)
+                    VALUES(?,?,?,?,?,?,?)";
+
+            $transaction = $this->preparedQuery($q, "ssissis",[
+                $data['name'],
+                'INCOME',
+                $data['amount'],
+                'DEBIT_CARD',
+                $data['description'],
+                $data['user_id'],
+                $data['category']
+            ]);
+
+            if($transaction <= 0){
+                throw new Exception("No se pudo procesar la solicitud");
+            }
+
+            $qUser = "UPDATE debit_cards SET balance = balance + ? WHERE id = ? AND user_id = ?";
+
+            $result = $this->preparedQuery($qUser, "dii", [
+                $data['amount'],
+                $data['id_debit_card'],
+                $data['user_id']
+            ]);
+            
+            if($result <= 0){
+                throw new Exception("No se pudo actualizar el balance de la tarjeta");
+            }
+
+            $this->commit();
+            return true;
+        } catch(Exception $e){
+            $this->rollback();
+            return false;
+        }
     }
 }

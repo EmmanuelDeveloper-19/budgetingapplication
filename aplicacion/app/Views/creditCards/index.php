@@ -69,10 +69,10 @@
                                             <span>Cancelar tarjeta</span>
                                         </button>
 
-                                        <button type="button" class="card-option card-option-danger">
+                                        <a href="<?= PATH . 'creditCardController/delete/' . $c['id'];?>" type="button" class="card-option card-option-danger">
                                             <i class="fa-solid fa-trash"></i>
                                             <span>Eliminar tarjeta</span>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
 
@@ -138,72 +138,72 @@
                         </div>
 
                     <?php endforeach; ?>
-                <?php endif;?>
+                <?php endif; ?>
 
             </div>
 
         </div>
 
-<div class="col-md-6">
+        <div class="col-md-6">
 
-    <div class="section-header">
-        <div>
-            <h1 class="text-heading">
-                Compras con tarjeta
-            </h1>
+            <div class="section-header">
+                <div>
+                    <h1 class="text-heading">
+                        Compras con tarjeta
+                    </h1>
 
-            <p class="text-muted">
-                Movimientos recientes
-            </p>
-        </div>
-    </div>
-
-
-    <div class="transaction-list">
-
-        <?php if (empty($data['transactions'])): ?>
-
-            <div class="transaction-card glass-panel">
-                <p>
-                    No hay transacciones hechas con tarjeta de crédito
-                </p>
-            </div>
-
-        <?php else: ?>
-
-            <?php foreach ($data['transactions'] as $t): ?>
-
-                <div class="transaction-card glass-panel">
-
-                    <div class="transaction-icon">
-                        <i class="fa-solid fa-receipt"></i>
-                    </div>
-
-                    <div class="transaction-info">
-
-                        <p class="transaction-name">
-                            <?=$t['name'];?>
-                        </p>
-
-                        <span class="transaction-date">
-                            Hoy
-                        </span>
-
-                    </div>
-
-                    <strong class="transaction-amount">
-                        -$200.00
-                    </strong>
-
+                    <p class="text-muted">
+                        Movimientos recientes
+                    </p>
                 </div>
+            </div>
 
-            <?php endforeach; ?>
 
-        <?php endif; ?>
+            <div class="transaction-list">
 
-    </div>
+                <?php if (empty($data['transactions'])): ?>
 
-</div>
+                    <div class="transaction-card glass-panel">
+                        <p>
+                            No hay transacciones hechas con tarjeta de crédito
+                        </p>
+                    </div>
+
+                <?php else: ?>
+
+                    <?php foreach ($data['transactions'] as $t): ?>
+
+                        <div class="transaction-card glass-panel">
+
+                            <div class="transaction-icon">
+                                <i class="fa-solid fa-receipt"></i>
+                            </div>
+
+                            <div class="transaction-info">
+
+                                <p class="transaction-name">
+                                    <?= $t['name']; ?>
+                                </p>
+
+                                <span class="transaction-date">
+                                    Hoy
+                                </span>
+
+                            </div>
+
+                            <strong class="transaction-amount">
+                                -$200.00
+                            </strong>
+
+                        </div>
+
+                    <?php endforeach; ?>
+
+                <?php endif; ?>
+
+            </div>
+
+        </div>
 
     </div>
 

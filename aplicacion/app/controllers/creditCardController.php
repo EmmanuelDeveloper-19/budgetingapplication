@@ -13,9 +13,9 @@ class CreditCardController extends Controller
 
         $transactionModel = $this->model("transactionModel");
         $transactions = $transactionModel->getTransactionByCreditCard($user_id);
-        $this->view("creditCards/index",[
-            'creditCards'=>$data,
-            'transactions' =>$transactions
+        $this->view("creditCards/index", [
+            'creditCards' => $data,
+            'transactions' => $transactions
         ]);
     }
 
@@ -186,15 +186,14 @@ class CreditCardController extends Controller
                 'type' => 'success',
                 'message' => 'Tarjeta eliminada correctamente'
             ];
-
-            header("Location: " . PATH . "home/index");
-            exit();
+        } else {
+            $_SESSION['alert'] = [
+                'type' => 'danger',
+                'message' => 'Error al eliminar la tarjeta'
+            ];
         }
 
-        $this->view('transaction/create', [
-            'error' => 'Error al eliminar tarjeta.',
-            'old' => $_POST
-        ]);
-
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit();
     }
 }

@@ -1,4 +1,4 @@
-<nav class="navbar glass-panel">
+<nav class="navbar">
     <div class="logo">
         <a href="<?= PATH . 'home/index';?>">Mirry's Money</a>
     </div>
