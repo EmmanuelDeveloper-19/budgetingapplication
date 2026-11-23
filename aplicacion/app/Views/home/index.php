@@ -1,13 +1,14 @@
 <?php require_once INCLUDES . '/components/modalComponent.php'; ?>
 
 <div class="row column-reverse">
-    <div class="col-md-3">
-        <div class="content flex-start">
+    <div class="col-md-3 gap-10">
+        <div class="card content flex-start">
+
             <div class="capsule">
                 <p>Patrimonio neto</p>
             </div>
-            <?php
 
+            <?php
             $saldoTarjetas = 0;
 
             foreach ($data['debitCards'] as $card) {
@@ -16,23 +17,59 @@
 
             $saldoTotal = $data['user']['balance'] + $saldoTarjetas;
 
+            $today = new DateTime();
 
-            function diasHastaSabado()
-            {
-                $diaActual = (int) date('N'); // Lunes=1 ... Sábado=6, Domingo=7
-            
-                return (6 - $diaActual + 7) % 7;
+            $actually_day = (int) $today->format('d');
+
+            if ($actually_day < 15) {
+                $nextPay = new DateTime($today->format('Y-m-15'));
+            } else if ($actually_day < 30) {
+                $nextPay = new DateTime(
+                    $today->format('Y-m-t')
+                );
+            } else {
+                $nextPay = new DateTime('first day of next month');
+                $nextPay->setDate(
+                    (int) $nextPay->format('Y'),
+                    (int) $nextPay->format('M'),
+                    15
+                );
             }
 
+            $month = [
+                1 => 'enero',
+                2 => 'febrero',
+                3 => 'marzo',
+                4 => 'abril',
+                5 => 'mayo',
+                6 => 'junio',
+                7 => 'julio',
+                8 => 'agosto',
+                9 => 'septiembre',
+                10 => 'octubre',
+                11 => 'noviembre',
+                12 => 'diciembre'
+            ];
+
+            $paymentDay = $nextPay->format('d') . ' de ' . $month[(int) $nextPay->format('m')];
             ?>
-            <h1 class="text-primary">$
-                <?=
-                    $saldoTotal
-                    ?>
+
+            <h1 class="text-primary">
+                $<?= number_format($saldoTotal, 2) ?>
             </h1>
-            <p>Próximo pago en <?= diasHastaSabado(); ?> días</p>
-            <a class="link-muted" href="<?= PATH . 'transactionController/newIncome';?>">Añadir nuevo ingreso</a>
+
+            <div class="next-payment">
+                <i class="fa-solid fa-calendar"></i>
+                <span>Próximo pago:</span>
+                <strong><?= $paymentDay ?></strong>
+            </div>
+
+            <a class="link-muted" href="<?= PATH . 'transactionController/newIncome'; ?>">
+                Añadir nuevo ingreso
+            </a>
+
         </div>
+
         <!-- A futuro-->
         <?php //require_once("accounts.php"); ?>
 

@@ -1,4 +1,4 @@
-<div class="content flex-start">
+<div class="card content flex-start">
 
     <div class="capsule">
         <p>Tarjetas de débito</p>
